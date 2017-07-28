@@ -5,8 +5,64 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.diax</groupId>
-    <artifactId>Diax2</artifactId>
-    <version>0.0.1</version>
+    <artifactId>Diax</artifactId>
+    <version>0.0.0</version>
 
+    <name>Diax2</name>
+    <description>The Diax Project, 2.0</description>
+    <url>http://diax.me</url>
+    <inceptionYear>2017-07</inceptionYear>
 
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <directory>${basedir}/build</directory>
+        <finalName>${artifactId}-${version}</finalName>
+        <resources>
+            <resource>
+                <targetPath>${basedir}/resources</targetPath>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>*</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+
+        </plugins>
+    </build>
+
+    <developers>
+        <developer>
+            <id>comportment</id>
+            <name>Ryan Arrowsmith</name>
+            <timezone>Europe/London</timezone>
+            <url>http://comp.diax.me</url>
+            <organization>Diax Software</organization>
+            <organizationUrl>http://diax.me</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <properties>
+                <discord>comportment#9489</discord>
+            </properties>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/comportment/diax/issues</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <downloadUrl>https://github.com/Comportment/Diax/releases</downloadUrl>
+        <status>none</status>
+    </distributionManagement>
 </project>
