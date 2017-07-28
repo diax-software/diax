@@ -4,22 +4,43 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!--
+    Project package,
+    name,
+    version-->
     <groupId>me.diax</groupId>
     <artifactId>Diax</artifactId>
     <version>0.0.0</version>
 
+    <!--
+    Project unofficial name,
+    description,
+    url,
+    date/month started-->
     <name>Diax2</name>
     <description>The Diax Project, 2.0</description>
     <url>http://diax.me</url>
     <inceptionYear>2017-07</inceptionYear>
 
+    <!--
+    Sets variables which can be accessed from other parts of the pom.
+    - project source: 1.8
+    - project target: ^^
+    - source encoding: UTF-8
+    - target encoding: ^^
+    -->
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
     </properties>
 
+    <!--
+    Build targets to be completed:
+    - including all resource files and output to /resources inside the packaged jar
+    - makes sure project is 1.8 [set above, but this is just incase]
+    -->
     <build>
         <defaultGoal>install</defaultGoal>
         <directory>${basedir}/build</directory>
@@ -47,6 +68,19 @@
         </plugins>
     </build>
 
+    <!--
+    A list of all developers in the format of:
+    - ident
+    - real name [first/last]
+    - timezone format
+    - developer's website
+    - organisation they represent [can be diax software or their own]
+    - url of their organisation
+    - roles of that developer
+    - properties [any other variables]: social media accounts ect
+      - discord
+      - twitter
+    -->
     <developers>
         <developer>
             <id>comportment</id>
@@ -56,19 +90,56 @@
             <organization>Diax Software</organization>
             <organizationUrl>http://diax.me</organizationUrl>
             <roles>
-                <role>developer</role>
+                <role>development</role>
+                <role>documentation</role>
             </roles>
             <properties>
                 <discord>comportment#9489</discord>
+                <twitter>@ComportmentUK</twitter>
             </properties>
         </developer>
     </developers>
 
+    <!--
+    A list of all contributors in the format of:
+    - real name [first/last]
+    - timezone format
+    - developer's website
+    - organisation they represent [can be diax software or their own]
+    - url of their organisation
+    - roles of that developer
+    - properties [any other variables]: social media accounts ect
+      - discord
+      - twitter
+    -->
+    <contributors>
+        <contributor>
+            <name>Jakub Knorr</name>
+            <timezone>Europe/London</timezone>
+            <roles>
+                <role>bug testing</role>
+            </roles>
+            <properties>
+                <discord>_Jake#4070</discord>
+            </properties>
+        </contributor>
+    </contributors>
+
+    <!--
+    Where bugs and issues can be reported can be tracked
+    - name of the program used
+    - url of the program
+    -->
     <issueManagement>
         <system>GitHub</system>
         <url>https://github.com/comportment/diax/issues</url>
     </issueManagement>
 
+    <!--
+    Where target/source files of the project can be downloaded
+    - url of the location
+    - maven status [if applicable]
+    -->
     <distributionManagement>
         <downloadUrl>https://github.com/Comportment/Diax/releases</downloadUrl>
         <status>none</status>
