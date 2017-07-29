@@ -12,6 +12,11 @@
     <artifactId>Diax</artifactId>
     <version>0.0.0</version>
 
+    <organization>
+        <name>Diax Software</name>
+        <url>http://diax.me</url>
+    </organization>
+
     <!--
     Project unofficial name,
     description,
@@ -40,11 +45,12 @@
     Build targets to be completed:
     - including all resource files and output to /resources inside the packaged jar
     - makes sure project is 1.8 [set above, but this is just incase]
+    - maven javadoc plugin- generates javadocs
     -->
     <build>
         <defaultGoal>install</defaultGoal>
         <directory>${basedir}/build</directory>
-        <finalName>${artifactId}-${version}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <resources>
             <resource>
                 <targetPath>${basedir}/resources</targetPath>
@@ -65,7 +71,13 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0-M1</version>
+            </plugin>
         </plugins>
+
     </build>
 
     <!--
@@ -118,6 +130,7 @@
             <timezone>Europe/London</timezone>
             <roles>
                 <role>bug testing</role>
+                <role>documentation</role>
             </roles>
             <properties>
                 <discord>_Jake#4070</discord>
@@ -138,10 +151,8 @@
     <!--
     Where target/source files of the project can be downloaded
     - url of the location
-    - maven status [if applicable]
     -->
     <distributionManagement>
         <downloadUrl>https://github.com/Comportment/Diax/releases</downloadUrl>
-        <status>none</status>
     </distributionManagement>
 </project>
