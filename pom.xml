@@ -39,6 +39,7 @@
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
+        <kotlin.version>1.1.3-2</kotlin.version>
     </properties>
 
     <!--
@@ -48,6 +49,7 @@
     - maven javadoc plugin- generates javadocs
     -->
     <build>
+        <sourceDirectory>src/main</sourceDirectory>
         <defaultGoal>install</defaultGoal>
         <directory>${basedir}/build</directory>
         <finalName>${project.artifactId}-${project.version}</finalName>
@@ -64,20 +66,59 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0-M1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jvmTarget>1.8</jvmTarget>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>testCompile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0-M1</version>
-            </plugin>
         </plugins>
-
     </build>
 
     <!--
@@ -99,6 +140,7 @@
             <name>Ryan Arrowsmith</name>
             <timezone>Europe/London</timezone>
             <url>http://comp.diax.me</url>
+            <email>comportment@protonmail.com</email>
             <organization>Diax Software</organization>
             <organizationUrl>http://diax.me</organizationUrl>
             <roles>
@@ -125,17 +167,6 @@
       - twitter
     -->
     <contributors>
-        <contributor>
-            <name>Jakub Knorr</name>
-            <timezone>Europe/London</timezone>
-            <roles>
-                <role>bug testing</role>
-                <role>documentation</role>
-            </roles>
-            <properties>
-                <discord>_Jake#4070</discord>
-            </properties>
-        </contributor>
     </contributors>
 
     <!--
@@ -155,4 +186,60 @@
     <distributionManagement>
         <downloadUrl>https://github.com/Comportment/Diax/releases</downloadUrl>
     </distributionManagement>
+
+    <!--
+    Licensed under Apache2.0
+    -->
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <repositories>
+        <repository>
+            <id>jitpack-io</id>
+            <name>jitpack</name>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <name>jcenter</name>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.8.0-alpha2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.8.0-alpha2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jre8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>3.2.0_241</version>
+        </dependency>
+        -->
+    </dependencies>
 </project>

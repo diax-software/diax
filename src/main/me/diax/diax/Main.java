@@ -1,5 +1,5 @@
 /*
-Copyright © 2017 Diax Software
+Copyright © 2017 Ryan Arrowsmith
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,25 +18,22 @@ package me.diax.diax;
 public class Main {
 
     /**
-     *
      * Calls a new instance of this class using the {@link #main()} method.
      *
      * @param args Not needed, launched at runtime.
      * @author comportment
      * @since 0.0.0
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new Main().main();
     }
 
     /**
-     *
      * Non static instance of this class to launch code and keep with conventions.
      *
      * @author comportment
      * @since 0.0.0
      */
-    private void main() {
-
+    private void main() throws Exception {
     }
 }
