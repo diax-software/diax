@@ -1,6 +1,8 @@
 <h2>Diax</h2>
 <h4>The multi-platform bot.</h4>
 <br />
+<a name="developers">
+</a>
 <h3>Contributors</h3>
 <p>Anyone willing to contribute must first read and agree to the terms of the <a href="#licence">licence</a>
 </p>
