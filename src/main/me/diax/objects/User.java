@@ -13,27 +13,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package me.diax.diax;
+package me.diax.objects;
 
-public class Main {
+/**
+ *
+ * This class is to represent a Diax user object.
+ */
+public interface User {
 
-    /**
-     * Calls a new instance of this class using the {@link #main()} method.
-     *
-     * @param args Not needed, launched at runtime.
-     * @author comportment
-     * @since 0.0.0
-     */
-    public static void main(String[] args) throws Exception {
-        new Main().main();
-    }
+    API getApi();
 
-    /**
-     * Non static instance of this class to launch code and keep with conventions.
-     *
-     * @author comportment
-     * @since 0.0.0
-     */
-    private void main() throws Exception {
+    String getName();
+
+    String getID();
+
+    default String asString() {
+        return getName() + " [" + getID() + "]";
     }
 }

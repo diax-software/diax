@@ -5,3 +5,4 @@ dependancy-reduced-pom.xml
 .floo
 .flooignore
 
+build/
