@@ -18,7 +18,6 @@ package me.diax.bot.discord;
 import me.diax.bot.SharedListener;
 import me.diax.objects.*;
 import me.diax.objects.channel.Channel;
-import me.diax.objects.channel.MessageChannel;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;

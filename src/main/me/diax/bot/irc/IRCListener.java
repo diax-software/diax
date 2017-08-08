@@ -19,7 +19,6 @@ import me.diax.objects.API;
 import me.diax.objects.Message;
 import me.diax.objects.channel.Channel;
 import me.diax.objects.User;
-import me.diax.objects.channel.MessageChannel;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
