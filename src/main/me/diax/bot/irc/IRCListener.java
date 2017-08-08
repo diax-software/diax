@@ -15,15 +15,13 @@ limitations under the License.
  */
 package me.diax.bot.irc;
 
-import me.diax.bot.SharedListener;
 import me.diax.objects.API;
-import me.diax.objects.Channel;
 import me.diax.objects.Message;
+import me.diax.objects.channel.Channel;
 import me.diax.objects.User;
+import me.diax.objects.channel.MessageChannel;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
-
-import java.sql.Timestamp;
 
 public class IRCListener extends ListenerAdapter {
 
@@ -35,40 +33,10 @@ public class IRCListener extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) throws Exception {
-        api.getBoundListener().onMessage(new Message() {
-            @Override
-            public String getContent() {
-                return event.getMessage();
-            }
-
-            @Override
-            public User getAuthor() {
-                return new User() {
-                    @Override
-                    public API getApi() {
-                        return api;
-                    }
-
-                    @Override
-                    public String getName() {
-                        return event.getUser().getNick();
-                    }
-
-                    @Override
-                    public String getID() {
-                        return event.getUser().getUserId().toString();
-                    }
-                };
-            }
-
-            @Override
-            public Timestamp getTimestamp() {
-                return new Timestamp(System.currentTimeMillis());
-            }
-
-            @Override
-            public Channel getChannel() {
-                return new Channel() {
+        api.getBoundListener().onMessage(new Message(
+                event.getMessage(),
+                new User(api, event.getUser().getNick(), event.getUser().getUserId().toString()),
+                new Channel() {
                     @Override
                     public API getAPI() {
                         return api;
@@ -83,8 +51,7 @@ public class IRCListener extends ListenerAdapter {
                     public String getId() {
                         return event.getChannel().getChannelId().toString();
                     }
-                };
-            }
-        });
+                })
+        );
     }
 }

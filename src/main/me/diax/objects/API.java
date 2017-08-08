@@ -16,6 +16,7 @@ limitations under the License.
 package me.diax.objects;
 
 import me.diax.bot.SharedListener;
+import me.diax.objects.channel.Channel;
 
 /**
  *

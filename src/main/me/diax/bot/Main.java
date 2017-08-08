@@ -15,7 +15,6 @@ limitations under the License.
  */
 package me.diax.bot;
 
-import me.diax.bot.discord.DiscordAPI;
 import me.diax.bot.irc.IRCAPI;
 
 public class Main {
@@ -39,7 +38,7 @@ public class Main {
      */
     private void main() throws Exception {
         SharedListener listener = new SharedListener();
-        new Thread(() -> new IRCAPI(listener, "irc.domirc.net", "#diax.me").start()).start();
-        new Thread(() -> new DiscordAPI(listener, "").start()).start();
+        new Thread(() -> new IRCAPI(listener, "irc.domirc.net", "##diax").start()).start();
+        // new Thread(() -> new DiscordAPI(listener, "").start()).start();
     }
 }

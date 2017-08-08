@@ -16,13 +16,11 @@ limitations under the License.
 package me.diax.bot.discord;
 
 import me.diax.objects.API;
-import me.diax.objects.Channel;
+import me.diax.objects.channel.Channel;
 import me.diax.objects.Message;
 import me.diax.objects.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-
-import java.sql.Timestamp;
 
 public class DiscordListener extends ListenerAdapter {
 
@@ -35,10 +33,10 @@ public class DiscordListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot() || event.getAuthor().equals(event.getJDA().getSelfUser())) return;
-        api.getBoundListener().onMessage(new Message() {
-            @Override
-            public Channel getChannel() {
-                return new Channel() {
+        api.getBoundListener().onMessage(new Message(
+                event.getMessage().getRawContent(),
+                new User(api, event.getAuthor().getName(), event.getAuthor().getId()),
+                new Channel() {
                     @Override
                     public API getAPI() {
                         return api;
@@ -53,38 +51,7 @@ public class DiscordListener extends ListenerAdapter {
                     public String getId() {
                         return event.getChannel().getId();
                     }
-                };
-            }
-
-            @Override
-            public String getContent() {
-                return event.getMessage().getContent();
-            }
-
-            @Override
-            public User getAuthor() {
-                return new User() {
-                    @Override
-                    public API getApi() {
-                        return api;
-                    }
-
-                    @Override
-                    public String getName() {
-                        return event.getAuthor().getName();
-                    }
-
-                    @Override
-                    public String getID() {
-                        return event.getAuthor().getId();
-                    }
-                };
-            }
-
-            @Override
-            public Timestamp getTimestamp() {
-                return new Timestamp(System.currentTimeMillis());
-            }
-        });
+                })
+        );
     }
 }

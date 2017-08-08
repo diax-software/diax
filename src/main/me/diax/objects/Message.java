@@ -15,15 +15,41 @@ limitations under the License.
  */
 package me.diax.objects;
 
+import me.diax.objects.channel.Channel;
+
 import java.sql.Timestamp;
 
-public interface Message {
+public class Message {
 
-    String getContent();
+    private String content;
+    private User author;
+    private Timestamp timestamp;
+    private Channel channel;
 
-    User getAuthor();
+    public Message(String content, User author, Timestamp timestamp, Channel channel) {
+        this.content = content;
+        this.author = author;
+        this.timestamp = timestamp;
+        this.channel = channel;
+    }
 
-    Timestamp getTimestamp();
+    public Message(String content, User author, Channel channel) {
+        this (content, author, new Timestamp(System.currentTimeMillis()), channel);
+    }
 
-    Channel getChannel();
+    public String getContent() {
+        return content;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public Channel getChannel() {
+        return channel;
+    }
 }

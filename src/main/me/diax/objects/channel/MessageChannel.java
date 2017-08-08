@@ -13,55 +13,38 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package me.diax.objects;
+package me.diax.objects.channel;
 
-/**
- *
- * This class is to represent a Diax user object.
- */
-public class User {
+import me.diax.objects.API;
+
+public final class MessageChannel implements Channel {
 
     private API api;
     private String name;
     private String id;
 
-    public User(API api, String name, String id) {
+    public MessageChannel(API api, String name, String id) {
         this.api = api;
         this.name = name;
         this.id = id;
     }
 
-    /**
-     *
-     * @return the API associated with this User
-     */
-
-    public API getApi() {
+    @Override
+    public API getAPI() {
         return api;
     }
 
-    /**
-     *
-     * @return the username of the User
-     */
-
+    @Override
     public String getName() {
         return name;
     }
 
-    /**
-     * This returns a UUID if the User is an IRC user,
-     * or a long Snowflake (as a string) if the User is a Discord user.
-     *
-     * @return the ID of the User, as a String
-     */
-
-    public String getID() {
+    @Override
+    public String getId() {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return getName() + " [" + getID() + "]";
+    public void sendMessage(String message) {
+        this.getAPI().sendMessage(this, message);
     }
 }

@@ -17,7 +17,7 @@ package me.diax.bot.irc;
 
 import me.diax.bot.SharedListener;
 import me.diax.objects.API;
-import me.diax.objects.Channel;
+import me.diax.objects.channel.Channel;
 import me.diax.objects.Platform;
 import me.diax.objects.User;
 import org.pircbotx.Configuration;
@@ -56,7 +56,7 @@ public class IRCAPI implements API {
         try {
             instance.startBot();
         } catch (Exception e) {
-            start();
+            e.printStackTrace();
         }
     }
 

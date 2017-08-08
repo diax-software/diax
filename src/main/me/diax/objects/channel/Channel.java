@@ -13,16 +13,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package me.diax.bot;
+package me.diax.objects.channel;
 
-import me.diax.objects.Message;
+import me.diax.objects.API;
 
-public class SharedListener {
+public interface Channel {
 
-    public void onMessage(Message message) {
-        String content = message.getContent();
-        if (!content.startsWith("<>")) return;
-        message.getChannel().sendMessage("You are not registered with Diax! Please register to be able to use commands.");
-        System.out.println(message.getAuthor().getName() + " " + message.getContent());
+    API getAPI();
+
+    default void sendMessage(String message) {
+        this.getAPI().sendMessage(this, message);
     }
+
+    String getName();
+
+    String getId();
 }

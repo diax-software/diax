@@ -13,17 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package me.diax.objects;
+package me.diax.objects.channel;
 
-public interface Channel {
+public class VoiceChannel {
 
-    API getAPI();
-
-    default void sendMessage(String message) {
-        this.getAPI().sendMessage(this, message);
+    public void sendAudio(byte[] audio) {
+        // TODO: Implement.
     }
-
-    String getName();
-
-    String getId();
 }

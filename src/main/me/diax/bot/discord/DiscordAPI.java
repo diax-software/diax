@@ -17,6 +17,8 @@ package me.diax.bot.discord;
 
 import me.diax.bot.SharedListener;
 import me.diax.objects.*;
+import me.diax.objects.channel.Channel;
+import me.diax.objects.channel.MessageChannel;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -29,9 +31,10 @@ public class DiscordAPI implements API {
 
     public DiscordAPI(SharedListener listener, String token) {
         this.listener = listener;
-        this.token = token;
+        this.token    = token;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public JDA getInstance() {
         return instance;
@@ -45,7 +48,7 @@ public class DiscordAPI implements API {
                     .addEventListener(new DiscordListener(this))
                     .buildBlocking();
         } catch (Exception e) {
-            start();
+            e.printStackTrace();
         }
     }
 
@@ -67,7 +70,7 @@ public class DiscordAPI implements API {
 
     @Override
     public void messageUser(User user, String message) {
-        this.getInstance().getPrivateChannelById(user.getID()).sendMessage(message).queue();
+        this.getInstance().getUserById(user.getID()).openPrivateChannel().queue(pc -> pc.sendMessage(message).queue());
     }
 
     @Override
