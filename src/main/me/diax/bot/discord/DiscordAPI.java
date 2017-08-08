@@ -15,6 +15,7 @@ limitations under the License.
  */
 package me.diax.bot.discord;
 
+import me.diax.bot.SharedListener;
 import me.diax.objects.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -24,8 +25,10 @@ public class DiscordAPI implements API {
 
     private JDA instance = null;
     private String token;
+    private SharedListener listener;
 
-    public DiscordAPI(String token) {
+    public DiscordAPI(SharedListener listener, String token) {
+        this.listener = listener;
         this.token = token;
     }
 
@@ -65,5 +68,10 @@ public class DiscordAPI implements API {
     @Override
     public void messageUser(User user, String message) {
         this.getInstance().getPrivateChannelById(user.getID()).sendMessage(message).queue();
+    }
+
+    @Override
+    public SharedListener getBoundListener() {
+        return listener;
     }
 }

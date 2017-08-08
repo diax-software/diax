@@ -15,26 +15,5 @@ limitations under the License.
  */
 package me.diax.objects;
 
-import me.diax.bot.SharedListener;
-
-/**
- *
- * This class is meant to interface a specific api with a Diax integration.
- * For example crosses the gap between JDA and Diax.
- */
-public interface API {
-
-    SharedListener getBoundListener();
-
-    <T> T getInstance();
-
-    void start();
-
-    void stop();
-
-    Platform getPlatform();
-
-    void sendMessage(Channel channel, String message);
-
-    void messageUser(User user, String message);
+public interface Listener {
 }

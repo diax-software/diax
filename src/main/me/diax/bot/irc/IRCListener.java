@@ -35,7 +35,7 @@ public class IRCListener extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) throws Exception {
-        SharedListener.onMessage(new Message() {
+        api.getBoundListener().onMessage(new Message() {
             @Override
             public String getContent() {
                 return event.getMessage();

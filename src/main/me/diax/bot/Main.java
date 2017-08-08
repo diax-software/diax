@@ -38,7 +38,8 @@ public class Main {
      * @since 0.0.0
      */
     private void main() throws Exception {
-        new Thread(() -> new IRCAPI("irc.domirc.net", "#diax.me").start()).start();
-        new Thread(() -> new DiscordAPI("").start()).start();
+        SharedListener listener = new SharedListener();
+        new Thread(() -> new IRCAPI(listener, "irc.domirc.net", "#diax.me").start()).start();
+        new Thread(() -> new DiscordAPI(listener, "").start()).start();
     }
 }

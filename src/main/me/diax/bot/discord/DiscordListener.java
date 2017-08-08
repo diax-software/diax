@@ -15,7 +15,6 @@ limitations under the License.
  */
 package me.diax.bot.discord;
 
-import me.diax.bot.SharedListener;
 import me.diax.objects.API;
 import me.diax.objects.Channel;
 import me.diax.objects.Message;
@@ -36,7 +35,7 @@ public class DiscordListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot() || event.getAuthor().equals(event.getJDA().getSelfUser())) return;
-        SharedListener.onMessage(new Message() {
+        api.getBoundListener().onMessage(new Message() {
             @Override
             public Channel getChannel() {
                 return new Channel() {

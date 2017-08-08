@@ -19,7 +19,7 @@ import me.diax.objects.Message;
 
 public class SharedListener {
 
-    public static void onMessage(Message message) {
+    public void onMessage(Message message) {
         String content = message.getContent();
         if (!content.startsWith("<>")) return;
         message.getChannel().sendMessage(content.replaceFirst("<>", ""));

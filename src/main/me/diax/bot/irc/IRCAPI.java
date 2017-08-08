@@ -15,6 +15,7 @@ limitations under the License.
  */
 package me.diax.bot.irc;
 
+import me.diax.bot.SharedListener;
 import me.diax.objects.API;
 import me.diax.objects.Channel;
 import me.diax.objects.Platform;
@@ -27,12 +28,15 @@ public class IRCAPI implements API {
     private String server;
     private String channel;
     private PircBotX instance = null;
+    private SharedListener listener;
 
-    public IRCAPI(String server, String channel) {
-        this.server = server;
-        this.channel = channel;
+    public IRCAPI(SharedListener listener, String server, String channel) {
+        this.listener = listener;
+        this.server   = server;
+        this.channel  = channel;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public PircBotX getInstance() {
         return instance;
@@ -74,5 +78,10 @@ public class IRCAPI implements API {
     @Override
     public void messageUser(User user, String message) {
         this.getInstance().sendIRC().message(user.getName(), message);
+    }
+
+    @Override
+    public SharedListener getBoundListener() {
+        return listener;
     }
 }
