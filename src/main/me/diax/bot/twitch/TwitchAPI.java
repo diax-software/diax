@@ -66,7 +66,7 @@ public class TwitchAPI implements API {
     }
     @Override
     public void stop() {
-        instance = null;
+        instance.disconnect()
     }
 
     public Platform getPlatform() {
