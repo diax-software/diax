@@ -244,5 +244,11 @@
             <artifactId>pircbotx</artifactId>
             <version>2.1</version>
         </dependency>
+           <dependency>
+	    <groupId>com.github.PhilippHeuer</groupId>
+	    <artifactId>twitch4j</artifactId>
+	    <version>v0.9.9.10</version>
+         </dependency>
+
     </dependencies>
 </project>
