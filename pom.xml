@@ -75,7 +75,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>me.diax.diax.Main</mainClass> <!-- You have to replace this with a path to your main class like my.path.Main -->
+                            <mainClass>me.diax.Main</mainClass> <!-- You have to replace this with a path to your main class like my.path.Main -->
                         </manifest>
                     </archive>
                     <descriptorRefs>
