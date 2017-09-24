@@ -68,6 +68,7 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <addClasspath>true</addClasspath>
                             <mainClass>me.diax.diax.Main</mainClass>
                         </manifest>
                     </archive>
