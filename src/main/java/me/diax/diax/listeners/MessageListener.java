@@ -44,7 +44,7 @@ public class MessageListener extends ListenerAdapter {
             Command command = handler.findCommand(first);
             if (command == null) return;
             if (command.hasAttribute("owner") && !prefix.equals("</>")) return;
-            handler.execute(command, event.getMessage(), content);
+            handler.execute(command, event.getMessage(), content.replaceFirst(Pattern.quote(first), ""));
         } catch (PermissionException ignored) {
         } catch (Exception e) {
             WebHookUtil.log(event.getJDA(), Emote.X + " An exception occurred.", "An uncaught exception occurred when trying to run: ```" + (handler.findCommand(first).getDescription().name() + " | " + event.getGuild() + " | " + event.getChannel()).replace("`", "\\`") + "```");
