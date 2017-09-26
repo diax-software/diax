@@ -10,6 +10,7 @@ import me.diax.diax.music.GuildMusicManager;
 import me.diax.diax.music.MusicTrack;
 import me.diax.diax.music.TrackScheduler;
 import me.diax.diax.util.Emote;
+import me.diax.diax.util.StringUtil;
 import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.Message;
 
@@ -34,7 +35,7 @@ public class Play implements Command {
 
             @Override
             public void trackLoaded(AudioTrack track) {
-                message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format(" - Queueing `%s ` by `%s. `", track.getIdentifier(), track.getInfo().author)).queue();
+                message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format(" - Queueing `%s ` by `%s. `", StringUtil.stripMarkdown(track.getInfo()), StringUtil.stripMarkdown(track.getInfo().author))).queue();
                 manager.getScheduler().queue(new MusicTrack(track, message.getMember(), message.getTextChannel()));
             }
 
@@ -47,7 +48,7 @@ public class Play implements Command {
                 } else if (playlist.getSelectedTrack() != null) {
                     this.trackLoaded(playlist.getSelectedTrack());
                 } else {
-                    message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format("- Adding `%s ` tracks to the queue from the playlist `%s `.", playlist.getTracks().size(), playlist.getName())).queue();
+                    message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format("- Adding `%s ` tracks to the queue from the playlist `%s `.", playlist.getTracks().size(), StringUtil.stripMarkdown(playlist.getName()))).queue();
                     playlist.getTracks().forEach(track -> scheduler.queue(new MusicTrack(track, message.getMember(), message.getTextChannel())));
                 }
             }

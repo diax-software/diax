@@ -4,6 +4,8 @@ import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.util.Emote;
 import me.diax.diax.util.WebHookUtil;
+import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
@@ -20,13 +22,7 @@ public class MessageListener extends ListenerAdapter {
     }
 
     @Override
-    public void onPrivateMessageReceived(PrivateMessageReceivedEvent event) {
-        if (event.getAuthor().isBot()) return;
-        event.getChannel().sendMessage(Emote.X + " - Commands don't currently work in private messages.").queue();
-    }
-
-    @Override
-    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+    public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
         String prefix;
         if (event.getMessage().getRawContent().startsWith("<>")) {
@@ -35,6 +31,8 @@ public class MessageListener extends ListenerAdapter {
             prefix = "</>";
         } else if (event.getMessage().getRawContent().startsWith("<@295500621862404097>")) {
             prefix = "<@295500621862404097>";
+        } else if (event.getChannelType().equals(ChannelType.PRIVATE)) {
+            prefix = "";
         } else {
             return;
         }
@@ -44,6 +42,10 @@ public class MessageListener extends ListenerAdapter {
             Command command = handler.findCommand(first);
             if (command == null) return;
             if (command.hasAttribute("owner") && !prefix.equals("</>")) return;
+            if (event.getChannelType().equals(ChannelType.PRIVATE) && command.hasAttribute("private")) {
+                event.getChannel().sendMessage(Emote.X + " - This command does not work in private messages.").queue();
+                return;
+            }
             handler.execute(command, event.getMessage(), content.replaceFirst(Pattern.quote(first), ""));
         } catch (PermissionException ignored) {
         } catch (Exception e) {

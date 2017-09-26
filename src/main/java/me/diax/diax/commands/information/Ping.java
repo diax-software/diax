@@ -1,6 +1,7 @@
 package me.diax.diax.commands.information;
 
 import me.diax.comportment.jdacommand.Command;
+import me.diax.comportment.jdacommand.CommandAttribute;
 import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.diax.util.Emote;
 import net.dv8tion.jda.core.entities.Message;
@@ -9,7 +10,8 @@ import java.util.Random;
 
 @CommandDescription(
     name = "ping",
-    triggers = "ping"
+    triggers = "ping",
+        attributes = @CommandAttribute(key = "private")
 )
 public class Ping implements Command {
 

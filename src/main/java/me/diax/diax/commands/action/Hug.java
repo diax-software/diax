@@ -2,6 +2,7 @@ package me.diax.diax.commands.action;
 
 import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.diax.util.Embed;
+import me.diax.diax.util.Emote;
 import me.diax.diax.util.StringUtil;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
@@ -33,6 +34,10 @@ public class Hug implements ActionCommand {
     @Override
     public void execute(Message message, String s) {
         String msg;
+        if (message.getMentionedUsers().isEmpty()) {
+            message.getChannel().sendMessage(Emote.X + " - Please @mention somebody to hug.").queue();
+            return;
+        }
         if (message.getMentionedUsers().contains(message.getAuthor())) {
             msg = "*Diax is hugging " + message.getAuthor().getName() + "*";
         } else {

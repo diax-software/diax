@@ -1,12 +1,14 @@
 package me.diax.diax.commands.information;
 
 import me.diax.comportment.jdacommand.Command;
+import me.diax.comportment.jdacommand.CommandAttribute;
 import me.diax.comportment.jdacommand.CommandDescription;
 import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "credits",
-        triggers = "credits"
+        triggers = "credits",
+        attributes = @CommandAttribute(key = "private")
 )
 public class Credits implements Command {
 
