@@ -9,12 +9,12 @@ import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
-        name = "report",
-        description = "Report bugs easily!",
-        triggers = "report",
+        name = "suggest",
+        description = "Suggest features easily!",
+        triggers = "suggest",
         attributes = @CommandAttribute(key = "private")
 )
-public class Report implements Command {
+public class Suggest implements Command {
 
     @Override
     public void execute(Message message, String s) {
@@ -22,12 +22,13 @@ public class Report implements Command {
         if (s.length() < 149) {
             error = "Please provide more information.";
         } else if (s.length() > 500) {
-            error = "Please try and keep your report to the point.";
+            error = "Please try and keep your suggestion to the point.";
         }
         if (!error.isEmpty()) {
             message.getChannel().sendMessage(Emote.X + "- " + error).queue();
             return;
         }
-        WebHookUtil.report(message.getJDA(), "```" + StringUtil.stripMarkdown(s) + "```\nReporter: *" + message.getAuthor().getName() + "#" + message.getAuthor().getDiscriminator() + "*");
+        WebHookUtil.suggest(message.getJDA(), "```" + StringUtil.stripMarkdown(s) + "```\nSuggester: *" + message.getAuthor().getName() + "#" + message.getAuthor().getDiscriminator() + "*");
     }
 }
+

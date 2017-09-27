@@ -25,7 +25,15 @@ public class WebHookUtil {
     public static void report(JDA jda, String message) {
         jda.getTextChannelById("356682048510885889").getWebhooks().queue(whs -> {
             WebhookClient wh = whs.get(0).newClient().build();
-            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(Emote.SPARKLES + " Diax Bug Report").setDescription(message).build()).setUsername("Diax Bug Reports").build());
+            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(Emote.BUG + " Diax Bug Report").setDescription(message).build()).setUsername("Diax Bug Reports").build());
+            wh.close();
+        });
+    }
+
+    public static void suggest(JDA jda, String message) {
+        jda.getTextChannelById("356564127864586240").getWebhooks().queue(whs -> {
+            WebhookClient wh = whs.get(0).newClient().build();
+            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(Emote.SPARKLES + " Diax Suggestion").setDescription(message).build()).setUsername("Diax Suggestions").build());
             wh.close();
         });
     }

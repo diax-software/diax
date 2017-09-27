@@ -3,10 +3,7 @@ package me.diax.diax;
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.commands.action.Hug;
 import me.diax.diax.commands.fun.CSGO;
-import me.diax.diax.commands.information.Credits;
-import me.diax.diax.commands.information.Help;
-import me.diax.diax.commands.information.Ping;
-import me.diax.diax.commands.information.Report;
+import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
 import me.diax.diax.commands.owner.Announce;
 import me.diax.diax.listeners.DisconnectListener;
@@ -39,6 +36,7 @@ public class Main {
                     new Help(handler),
                     new Ping(),
                     new Report(),
+                    new Suggest(),
 
                     new Join(),
                     new NowPlaying(),
