@@ -4,6 +4,8 @@ import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandAttribute;
 import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.diax.util.Emote;
+import me.diax.diax.util.StringUtil;
+import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
@@ -26,5 +28,6 @@ public class Report implements Command {
             message.getChannel().sendMessage(Emote.X + "- " + error).queue();
             return;
         }
+        WebHookUtil.report(message.getJDA(), "```" + StringUtil.stripMarkdown(s) + "```\n*" + message.getAuthor().getName() + "#" + message.getAuthor().getDiscriminator() + "*");
     }
 }

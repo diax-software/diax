@@ -17,7 +17,15 @@ public class WebHookUtil {
     public static void announce(JDA jda, String message) {
         jda.getTextChannelById("343552348670656532").getWebhooks().queue(whs -> {
             WebhookClient wh = whs.get(0).newClient().build();
-            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(Emote.SPARKLES + " Diax Announcements").setDescription(message).build()).setUsername("Diax Announcements").build());
+            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(Emote.SPARKLES + " Diax Announcement").setDescription(message).build()).setUsername("Diax Announcements").build());
+            wh.close();
+        });
+    }
+
+    public static void report(JDA jda, String message) {
+        jda.getTextChannelById("356682048510885889").getWebhooks().queue(whs -> {
+            WebhookClient wh = whs.get(0).newClient().build();
+            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(Emote.SPARKLES + " Diax Bug Report").setDescription(message).build()).setUsername("Diax Bug Reports").build());
             wh.close();
         });
     }
