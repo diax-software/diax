@@ -16,7 +16,9 @@ public class JDAUtil {
                 "Guilds: (guilds)",
                 "Users: (users)",
                 "Invite: https://discord.gg/5sJZa2y",
-                "It's alive!!!"
+                "It's alive!!!",
+                "Pronounced Die-Axe",
+                "Kinda works now"
         };
         return "<>help | " + status[new Random().nextInt(status.length)]
                 .replaceAll("\\(guilds\\)", jda.getGuilds().size() + "")
@@ -26,7 +28,7 @@ public class JDAUtil {
     @Deprecated
     public static void updateGuilds(JDA jda) {
         jda.getPresence().setStatus(OnlineStatus.ONLINE);
-        jda.getPresence().setGame(Game.of("<>help | Guilds: " + jda.getGuilds().size()));
+        //jda.getPresence().setGame(Game.of("<>help | Guilds: " + jda.getGuilds().size())); // probably dont need this if using cycling games
     }
 
     public static void startGameChanging(JDA jda) {
