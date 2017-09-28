@@ -6,6 +6,7 @@ import me.diax.diax.commands.fun.CSGO;
 import me.diax.diax.commands.information.Credits;
 import me.diax.diax.commands.information.Help;
 import me.diax.diax.commands.information.Ping;
+import me.diax.diax.commands.information.Suggest;
 import me.diax.diax.commands.music.*;
 import me.diax.diax.commands.owner.Announce;
 import me.diax.diax.listeners.DisconnectListener;
@@ -37,6 +38,7 @@ public class Main {
                     new Credits(),
                     new Help(handler),
                     new Ping(),
+                    new Suggest(jda), // fix this i dont know how but it will need access to jda object but it isnt defined yet
 
                     new Join(),
                     new NowPlaying(),
