@@ -41,6 +41,10 @@ public class MessageListener extends ListenerAdapter {
         try {
             Command command = handler.findCommand(first);
             if (command == null) return;
+            if (command.hasAttribute("patreon")) {
+                event.getChannel().sendMessage(Emote.X + " - This is a Patreon-only command.").queue();
+                return;
+            }
             if (command.hasAttribute("owner") && !prefix.equals("</>")) return;
             if (event.getChannelType().equals(ChannelType.PRIVATE) && command.hasAttribute("private")) {
                 event.getChannel().sendMessage(Emote.X + " - This command does not work in private messages.").queue();
