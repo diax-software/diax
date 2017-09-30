@@ -41,6 +41,7 @@ public class Main {
                     new Join(),
                     new NowPlaying(),
                     new Play(),
+                    new Queue(),
                     new Repeat(),
                     new Shuffle(),
                     new Skip(),

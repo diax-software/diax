@@ -47,7 +47,7 @@ public class Hug implements ActionCommand {
 
     @Override
     public void execute(Message message, String s) {
-        String msg = "*";
+        String msg = "***";
         if (message.getMentionedUsers().isEmpty()) {
             message.getChannel().sendMessage(Emote.X + " - Please @mention somebody to hug.").queue();
             return;
@@ -57,7 +57,7 @@ public class Hug implements ActionCommand {
         } else {
             msg += message.getMember().getEffectiveName();
         }
-        msg += " is hugging " + StringUtil.stripMarkdown(message.getMentionedUsers().stream().map(User::getName).collect(Collectors.joining(", "))) + "*";
+        msg += " is hugging " + StringUtil.stripMarkdown(message.getMentionedUsers().stream().map(User::getName).collect(Collectors.joining(", "))) + "***";
         message.getChannel().sendMessage(Embed.transparent().setDescription(msg).setImage(this.getImage()).build()).queue();
     }
 }

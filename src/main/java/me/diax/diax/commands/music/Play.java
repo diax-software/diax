@@ -35,7 +35,7 @@ public class Play implements Command {
 
             @Override
             public void trackLoaded(AudioTrack track) {
-                message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format(" - Queueing `%s ` by `%s. `", StringUtil.stripMarkdown(track.getInfo()), StringUtil.stripMarkdown(track.getInfo().author))).queue();
+                message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format(" - Queueing `%s ` by `%s. `", StringUtil.stripMarkdown(track.getInfo().title), StringUtil.stripMarkdown(track.getInfo().author))).queue();
                 manager.getScheduler().queue(new MusicTrack(track, message.getMember(), message.getTextChannel()));
             }
 
@@ -48,7 +48,7 @@ public class Play implements Command {
                 } else if (playlist.getSelectedTrack() != null) {
                     this.trackLoaded(playlist.getSelectedTrack());
                 } else {
-                    message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format("- Adding `%s ` tracks to the queue from the playlist `%s `.", playlist.getTracks().size(), StringUtil.stripMarkdown(playlist.getName()))).queue();
+                    message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format(" - Adding `%s ` tracks to the queue from the playlist `%s `.", playlist.getTracks().size(), StringUtil.stripMarkdown(playlist.getName()))).queue();
                     playlist.getTracks().forEach(track -> scheduler.queue(new MusicTrack(track, message.getMember(), message.getTextChannel())));
                 }
             }
@@ -64,7 +64,7 @@ public class Play implements Command {
 
             @Override
             public void loadFailed(FriendlyException exception) {
-                message.getTextChannel().sendMessage(Emote.X  + String.format("- Failed to load `%s` because `%s`.", query, exception.getMessage())).queue();
+                message.getTextChannel().sendMessage(Emote.X + String.format(" - Failed to load `%s` because `%s`.", query, exception.getMessage())).queue();
             }
         });
     }

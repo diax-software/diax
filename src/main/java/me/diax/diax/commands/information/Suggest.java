@@ -19,7 +19,7 @@ public class Suggest implements Command {
     @Override
     public void execute(Message message, String s) {
         String error = "";
-        if (s.length() < 149) {
+        if (s.length() < 50) {
             error = "Please provide more information.";
         } else if (s.length() > 500) {
             error = "Please try and keep your suggestion to the point.";
@@ -28,7 +28,7 @@ public class Suggest implements Command {
             message.getChannel().sendMessage(Emote.X + "- " + error).queue();
             return;
         }
-        WebHookUtil.suggest(message.getJDA(), "```" + StringUtil.stripMarkdown(s) + "```\nSuggester: *" + message.getAuthor().getName() + "#" + message.getAuthor().getDiscriminator() + "*");
+        WebHookUtil.suggest(message.getJDA(), "```" + StringUtil.stripMarkdown(s) + "```\n*Suggested by " + StringUtil.stripMarkdown(message.getAuthor().getName()) + "#" + message.getAuthor().getDiscriminator() + "*");
     }
 }
 

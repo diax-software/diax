@@ -31,7 +31,7 @@ public class Help implements Command {
                         false)
                 .addField(
                         "__**Commands**__",
-                        handler.getCommands().stream().map(command -> command.getDescription().name()).collect(Collectors.joining("\n", "`<> ", "`")),
+                        handler.getCommands().stream().sorted().map(command -> "`<>" + command.getDescription().name() + "`").collect(Collectors.joining("\n")),
                         false
                 ).build()).queue();
     }
