@@ -15,6 +15,6 @@ public class Announce implements Command {
 
     @Override
     public void execute(Message message, String s) {
-        WebHookUtil.announce(message.getJDA(), s);
+        WebHookUtil.announce(message.getJDA(), s + " - *" + message.getAuthor().getName() + "*");
     }
 }

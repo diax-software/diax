@@ -1,6 +1,7 @@
 package me.diax.diax.commands.information;
 
 import me.diax.comportment.jdacommand.Command;
+import me.diax.comportment.jdacommand.CommandAttribute;
 import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.util.Embed;
@@ -10,7 +11,8 @@ import java.util.stream.Collectors;
 
 @CommandDescription(
         name = "help",
-        triggers = "help"
+        triggers = "help",
+        attributes = @CommandAttribute(key = "private")
 )
 public class Help implements Command {
 
@@ -29,7 +31,7 @@ public class Help implements Command {
                         false)
                 .addField(
                         "__**Commands**__",
-                        handler.getCommands().stream().map(command -> "`<>" + command.getDescription().name()).collect(Collectors.joining("\n")),
+                        handler.getCommands().stream().sorted().map(command -> "`<>" + command.getDescription().name() + "`").collect(Collectors.joining("\n")),
                         false
                 ).build()).queue();
     }

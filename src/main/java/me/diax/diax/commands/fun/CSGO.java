@@ -1,12 +1,14 @@
 package me.diax.diax.commands.fun;
 
 import me.diax.comportment.jdacommand.Command;
+import me.diax.comportment.jdacommand.CommandAttribute;
 import me.diax.comportment.jdacommand.CommandDescription;
 import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "csgo",
-        triggers = "csgo"
+        triggers = "csgo",
+        attributes = @CommandAttribute(key = "private")
 )
 public class CSGO implements Command {
 

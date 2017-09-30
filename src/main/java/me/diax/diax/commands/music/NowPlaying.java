@@ -5,6 +5,7 @@ import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.diax.music.GuildMusicManager;
 import me.diax.diax.music.MusicTrack;
 import me.diax.diax.util.Emote;
+import me.diax.diax.util.StringUtil;
 import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
@@ -21,6 +22,6 @@ public class NowPlaying implements Command {
     @Override
     public void execute(Message message, String s) {
         MusicTrack track = GuildMusicManager.getManagerFor(message.getGuild()).getScheduler().getCurrent();
-        message.getChannel().sendMessage(track == null ? Emote.X + " - No song is currently playing in this guild." : Emote.MUSICAL_NOTE + "- Now playing: `" + track.getTrack().getInfo().title.replace("`", "\\`") + " ` by: `" + track.getTrack().getInfo().author.replace("`", "\\`") + " `").queue();
+        message.getChannel().sendMessage(track == null ? Emote.X + " - No song is currently playing in this guild." : Emote.MUSICAL_NOTE + " - Now playing: `" + StringUtil.stripMarkdown(track.getTrack().getInfo().title) + " ` by: `" + StringUtil.stripMarkdown(track.getTrack().getInfo().author) + " `\n\nRequested by: `" + "`").queue();
     }
 }
