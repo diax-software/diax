@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @CommandDescription(
         name = "hug",
         triggers = "hug",
-        description = "[@mention]"
+        description = "[@mention...] | Hugs the mentioned users."
 )
 public class Hug implements ActionCommand {
 

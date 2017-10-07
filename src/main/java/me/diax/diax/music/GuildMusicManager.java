@@ -14,7 +14,7 @@ public class GuildMusicManager {
     private static Map<String, GuildMusicManager> MANAGERS;
     private static DefaultAudioPlayerManager MANAGER;
 
-    static  {
+    static {
         MANAGERS = new HashMap<>();
         MANAGER = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerRemoteSources(MANAGER);

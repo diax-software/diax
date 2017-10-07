@@ -1,7 +1,6 @@
 package me.diax.diax.commands.music;
 
 import me.diax.comportment.jdacommand.Command;
-
 import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.diax.util.Emote;
 import net.dv8tion.jda.core.entities.GuildVoiceState;
@@ -11,7 +10,8 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
 
 @CommandDescription(
         name = "join",
-        triggers = "join"
+        triggers = "join",
+        description = "Summons Diax to your voice channel."
 )
 public class Join implements Command {
 

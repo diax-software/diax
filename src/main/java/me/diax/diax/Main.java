@@ -21,10 +21,10 @@ import net.dv8tion.jda.core.entities.Game;
 public class Main {
 
     public static void main(String[] args) {
-        new Main().main(args[0]);
+        new Main().main(args[0], args[1]);
     }
 
-    public void main(String token) {
+    public void main(String token, String prefix) {
         try {
             CommandHandler handler = new CommandHandler();
             handler.registerCommands(
@@ -58,10 +58,12 @@ public class Main {
                     .addEventListener(
                             new DisconnectListener(),
                             new GuildJoinLeaveListener(),
-                            new MessageListener(handler)
+                            new MessageListener(handler, prefix)
                     ).buildBlocking();
             WebHookUtil.log(jda, Emote.SPARKLES + " Start", "Diax has finished starting!");
             JDAUtil.startGameChanging(jda);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

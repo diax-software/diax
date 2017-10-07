@@ -19,7 +19,7 @@ public class Suggest implements Command {
     @Override
     public void execute(Message message, String s) {
         String error = "";
-        if (s.length() < 50) {
+        if (s.length() < 20) {
             error = "Please provide more information.";
         } else if (s.length() > 500) {
             error = "Please try and keep your suggestion to the point.";

@@ -15,7 +15,8 @@ import net.dv8tion.jda.core.entities.Message;
                 "current",
                 "nowplaying",
                 "np"
-        }
+        },
+        description = "Shows the currently playing song."
 )
 public class NowPlaying implements Command {
 

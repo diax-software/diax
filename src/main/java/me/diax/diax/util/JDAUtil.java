@@ -13,10 +13,9 @@ public class JDAUtil {
 
     private static String getStatus(JDA jda) {
         String[] status = new String[]{
-                "Guilds: (guilds)",
-                "Users: (users)",
+                "Guilds: (guilds) | Users: (users)",
                 "Invite: https://discord.gg/5sJZa2y",
-                "It's alive!!!"
+                "Donate: https://patreon.com/comportment"
         };
         return "<>help | " + status[new Random().nextInt(status.length)]
                 .replaceAll("\\(guilds\\)", jda.getGuilds().size() + "")
@@ -31,14 +30,13 @@ public class JDAUtil {
 
     public static void startGameChanging(JDA jda) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-         Runnable periodicTask = () -> {
+        Runnable periodicTask = () -> {
             String status = jda.getPresence().getGame().getName();
             while (status.equals(jda.getPresence().getGame().getName())) {
                 status = getStatus(jda);
             }
             jda.getPresence().setGame(Game.of(status));
             jda.getPresence().setStatus(OnlineStatus.ONLINE);
-            WebHookUtil.log(jda, Emote.VIDEO_GAME + " Status Update", "Status has been updated to: ```" + status + "```");
         };
         executor.scheduleAtFixedRate(periodicTask, 0, 20, TimeUnit.SECONDS);
     }
