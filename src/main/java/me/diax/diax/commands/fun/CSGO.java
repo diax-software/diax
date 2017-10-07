@@ -8,7 +8,10 @@ import net.dv8tion.jda.core.entities.Message;
 @CommandDescription(
         name = "csgo",
         triggers = "csgo",
-        attributes = @CommandAttribute(key = "private")
+        attributes = {
+                @CommandAttribute(key = "private"),
+                @CommandAttribute(key = "hidden")
+        }
 )
 public class CSGO implements Command {
 

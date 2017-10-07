@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 
 @CommandDescription(
         name = "queue",
-        triggers = "queue"
+        triggers = "queue",
+        description = "Displays the track queue."
 )
 public class Queue implements Command {
 

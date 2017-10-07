@@ -6,8 +6,6 @@ import me.diax.diax.util.Emote;
 import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -16,17 +14,19 @@ import java.util.regex.Pattern;
 public class MessageListener extends ListenerAdapter {
 
     private CommandHandler handler;
+    private String defaultPrefix;
 
-    public MessageListener(CommandHandler handler) {
+    public MessageListener(CommandHandler handler, String prefix) {
         this.handler = handler;
+        defaultPrefix = prefix;
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
         String prefix;
-        if (event.getMessage().getRawContent().startsWith("<>")) {
-            prefix = "<>";
+        if (event.getMessage().getRawContent().startsWith(defaultPrefix)) {
+            prefix = defaultPrefix;
         } else if (event.getMessage().getRawContent().startsWith("</>") && event.getAuthor().getId().equals("293884638101897216")) {
             prefix = "</>";
         } else if (event.getMessage().getRawContent().startsWith("<@295500621862404097>")) {
@@ -53,6 +53,7 @@ public class MessageListener extends ListenerAdapter {
             handler.execute(command, event.getMessage(), content.replaceFirst(Pattern.quote(first), ""));
         } catch (PermissionException ignored) {
         } catch (Exception e) {
+            e.printStackTrace();
             WebHookUtil.log(event.getJDA(), Emote.X + " An exception occurred.", "An uncaught exception occurred when trying to run: ```" + (handler.findCommand(first).getDescription().name() + " | " + event.getGuild() + " | " + event.getChannel()).replace("`", "\\`") + "```");
         }
     }

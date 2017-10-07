@@ -7,8 +7,9 @@ import me.diax.diax.util.Emote;
 import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
-    name = "shuffle",
-    triggers = "shuffle"
+        name = "shuffle",
+        triggers = "shuffle",
+        description = "Shuffles the queue."
 )
 public class Shuffle implements Command {
 

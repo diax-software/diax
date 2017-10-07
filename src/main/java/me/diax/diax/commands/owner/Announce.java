@@ -9,7 +9,11 @@ import net.dv8tion.jda.core.entities.Message;
 @CommandDescription(
         name = "announce",
         triggers = "announce",
-        attributes = @CommandAttribute(key = "owner")
+        attributes = {
+                @CommandAttribute(key = "owner"),
+                @CommandAttribute(key = "hidden")
+
+        }
 )
 public class Announce implements Command {
 

@@ -130,7 +130,8 @@ public class TrackScheduler extends AudioEventAdapter {
                 queue.addAll(tracks);
                 return true;
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
         return false;
     }
 
@@ -165,7 +166,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
     @Override
     public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
-        current.getChannel().sendMessage(Emote.X  + " - Got stuck attempting to play track, skipping.").queue();
+        current.getChannel().sendMessage(Emote.X + " - Got stuck attempting to play track, skipping.").queue();
         skip();
     }
 }

@@ -11,12 +11,12 @@ import me.diax.diax.music.MusicTrack;
 import me.diax.diax.music.TrackScheduler;
 import me.diax.diax.util.Emote;
 import me.diax.diax.util.StringUtil;
-import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "play",
-        triggers = "play"
+        triggers = "play",
+        description = "[url/query] | Plays a track from a URL or query."
 )
 public class Play implements Command {
 
