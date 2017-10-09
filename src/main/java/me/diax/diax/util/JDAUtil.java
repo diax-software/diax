@@ -17,25 +17,19 @@ public class JDAUtil {
                 "Invite: https://discord.gg/5sJZa2y",
                 "Donate: https://patreon.com/comportment"
         };
-        return "<>help | " + status[new Random().nextInt(status.length)]
+        return "help | " + status[new Random().nextInt(status.length)]
                 .replaceAll("\\(guilds\\)", jda.getGuilds().size() + "")
                 .replaceAll("\\(users\\)", jda.getUsers().size() + "");
     }
 
-    @Deprecated
-    public static void updateGuilds(JDA jda) {
-        jda.getPresence().setStatus(OnlineStatus.ONLINE);
-        jda.getPresence().setGame(Game.of("<>help | Guilds: " + jda.getGuilds().size()));
-    }
-
-    public static void startGameChanging(JDA jda) {
+    public static void startGameChanging(JDA jda, String prefix) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         Runnable periodicTask = () -> {
             String status = jda.getPresence().getGame().getName();
             while (status.equals(jda.getPresence().getGame().getName())) {
                 status = getStatus(jda);
             }
-            jda.getPresence().setGame(Game.of(status));
+            jda.getPresence().setGame(Game.of(prefix + status));
             jda.getPresence().setStatus(OnlineStatus.ONLINE);
         };
         executor.scheduleAtFixedRate(periodicTask, 0, 20, TimeUnit.SECONDS);

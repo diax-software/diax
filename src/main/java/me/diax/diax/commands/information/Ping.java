@@ -21,7 +21,7 @@ public class Ping implements Command {
         long start = System.currentTimeMillis();
         message.getChannel().sendTyping().queue(typing -> {
             long ping = System.currentTimeMillis() - start;
-            message.getChannel().sendMessage(Emote.PING_PONG + " - ***P" + new String[]{"a", "e", "i", "o", "u"}[new Random().nextInt(5)] + "ng!***\n" + this.pingToEmote(ping) + " Response: " + ping + "ms\n" + Emote.BOOKS + "API: " + message.getJDA().getPing() + "ms").queue();
+            message.getChannel().sendMessage(Emote.PING_PONG + " - ***P" + new String[]{"a", "e", "i", "o", "u"}[new Random().nextInt(5)] + "ng!***\n" + this.pingToEmote(ping) + " Response: " + ping + "ms\n" + Emote.BOOKS + " API: " + message.getJDA().getPing() + "ms").queue();
         });
     }
 
