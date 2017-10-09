@@ -5,7 +5,7 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import me.diax.diax.util.Embed;
 import me.diax.diax.util.Emote;
 import me.diax.diax.util.StringUtil;
 import me.diax.diax.util.WebHookUtil;
@@ -198,10 +198,9 @@ public class TrackScheduler extends AudioEventAdapter {
         skip();
     }
 
+
     private void sendEmbed(MusicTrack track) {
-        AudioTrackInfo info = track.getTrack().getInfo();
-        Member requester = track.getRequester();
-        track.getChannel().sendMessage(String.format(Emote.MUSICAL_NOTE + " - Now playing: `%s ` by `%s `" + (requester == null ? "" : "\nRequested by: `" + requester.getEffectiveName() + " `"), info.title, info.author)).queue();
+        track.getChannel().sendMessage(Embed.music(track)).queue();
     }
 
     public List<MusicTrack> getQueue() {
