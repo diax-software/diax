@@ -22,7 +22,7 @@ public class NowPlaying implements Command {
 
     @Override
     public void execute(Message message, String s) {
-        MusicTrack track = GuildMusicManager.getManagerFor(message.getGuild()).getScheduler().getCurrent();
+        MusicTrack track = GuildMusicManager.getManagerFor(message.getGuild()).getScheduler().getCurrentTrack();
         message.getChannel().sendMessage(track == null ? Emote.X + " - No song is currently playing in this guild." : Emote.MUSICAL_NOTE + " - Now playing: `" + StringUtil.stripMarkdown(track.getTrack().getInfo().title) + " ` by: `" + StringUtil.stripMarkdown(track.getTrack().getInfo().author) + " `\n\nRequested by: `" + "`").queue();
     }
 }

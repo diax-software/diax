@@ -35,7 +35,7 @@ public class Play implements Command {
 
             @Override
             public void trackLoaded(AudioTrack track) {
-                message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format(" - Queueing `%s ` by `%s. `", StringUtil.stripMarkdown(track.getInfo().title), StringUtil.stripMarkdown(track.getInfo().author))).queue();
+                message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format(" - Queuing `%s ` by `%s. `", StringUtil.stripMarkdown(track.getInfo().title), StringUtil.stripMarkdown(track.getInfo().author))).queue();
                 manager.getScheduler().queue(new MusicTrack(track, message.getMember(), message.getTextChannel()));
             }
 
