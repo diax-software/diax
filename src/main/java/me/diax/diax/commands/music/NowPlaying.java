@@ -6,7 +6,6 @@ import me.diax.diax.music.GuildMusicManager;
 import me.diax.diax.music.MusicTrack;
 import me.diax.diax.util.Embed;
 import me.diax.diax.util.Emote;
-import me.diax.diax.util.StringUtil;
 import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(

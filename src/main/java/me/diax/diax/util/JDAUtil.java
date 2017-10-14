@@ -34,9 +34,4 @@ public class JDAUtil {
         };
         executor.scheduleAtFixedRate(periodicTask, 0, 20, TimeUnit.SECONDS);
     }
-
-    @Deprecated
-    public static void log(JDA jda, String message) {
-        jda.getTextChannelById("357109761533149185").sendMessage(message).queue();
-    }
 }
