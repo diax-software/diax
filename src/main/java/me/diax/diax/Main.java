@@ -33,7 +33,7 @@ public class Main {
                     new CSGO(),
 
                     new Credits(),
-                    new Help(handler),
+                    new Help(handler, prefix),
                     new Ping(),
                     new Report(),
                     new Suggest(),
@@ -60,8 +60,8 @@ public class Main {
                             new GuildJoinLeaveListener(),
                             new MessageListener(handler, prefix)
                     ).buildBlocking();
-            WebHookUtil.log(jda, Emote.SPARKLES + " Start", "Diax has finished starting!");
-            JDAUtil.startGameChanging(jda);
+            WebHookUtil.log(jda, Emote.SPARKLES + " Start", jda.getSelfUser().getName() + " has finished starting!");
+            JDAUtil.startGameChanging(jda, prefix);
         } catch (Exception e) {
             e.printStackTrace();
         }

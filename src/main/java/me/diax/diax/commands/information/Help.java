@@ -18,9 +18,11 @@ import java.util.stream.Collectors;
 public class Help implements Command {
 
     private CommandHandler handler;
+    private String prefix;
 
-    public Help(CommandHandler handler) {
+    public Help(CommandHandler handler, String prefix) {
         this.handler = handler;
+        this.prefix = prefix;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class Help implements Command {
                         false)
                 .addField(
                         "__**Commands**__",
-                        handler.getCommands().stream().filter(command -> !command.hasAttribute("hidden")).sorted().map(command -> "`<>" + command.getDescription().name() + " | " + command.getDescription().description() + "`").collect(Collectors.joining("\n")),
+                        handler.getCommands().stream().filter(command -> !command.hasAttribute("hidden")).sorted().map(command -> "`" + prefix + command.getDescription().name() + " | " + command.getDescription().description() + "`").collect(Collectors.joining("\n")),
                         false
                 )
                 .addField("__**Donation**__",

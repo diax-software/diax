@@ -20,7 +20,9 @@ public class Queue implements Command {
 
     @Override
     public void execute(Message message, String s) {
-        List<MusicTrack> queue = new ArrayList<>(GuildMusicManager.getManagerFor(message.getGuild()).getScheduler().getQueue());
+        GuildMusicManager manager = GuildMusicManager.getManagerFor(message.getGuild());
+        List<MusicTrack> queue = new ArrayList<>(manager.getScheduler().getQueue());
+        queue.add(manager.getScheduler().getCurrentTrack());
         String msg;
         if (queue.isEmpty()) {
             msg = "The queue is empty.";
