@@ -36,8 +36,6 @@ public class TrackScheduler extends AudioEventAdapter {
     private boolean repeatTrack;
     private boolean repeatQueue;
 
-    private boolean channelLock;
-
     private ScheduledFuture<?> afkCheck;
     private long leave = -1;
     private boolean persist = true;
@@ -92,7 +90,6 @@ public class TrackScheduler extends AudioEventAdapter {
                 manager.getPlayer().stopTrack();
                 currentTrack.getChannel().sendMessage(Emote.MUSICAL_NOTE + " - Queue concluded!").queue();
             }
-            channelLock = false;
             currentTrack = null;
         }
     }
@@ -125,7 +122,7 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     public boolean isPlaying() {
-        return currentTrack != null && channelLock;
+        return currentTrack != null;
     }
 
     private boolean joinVoiceChannel() {
