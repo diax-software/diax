@@ -15,7 +15,7 @@ public class Stop implements Command {
 
     @Override
     public void execute(Message message, String s) {
-        GuildMusicManager.getManagerFor(message.getGuild()).getScheduler().stop();
+        GuildMusicManager.getManagerFor(message.getGuild()).getScheduler().stop(message.getTextChannel());
         message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + " - Playback has been stopped.").queue();
     }
 }

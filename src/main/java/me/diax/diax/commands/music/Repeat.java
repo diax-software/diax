@@ -14,6 +14,6 @@ public class Repeat implements Command {
 
     @Override
     public void execute(Message trigger, String truncated) {
-        trigger.getTextChannel().sendMessage(Emote.X + " - This is a Patreon feature only.").queue();
+
     }
 }

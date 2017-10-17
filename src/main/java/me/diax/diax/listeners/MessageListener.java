@@ -29,8 +29,8 @@ public class MessageListener extends ListenerAdapter {
             prefix = defaultPrefix;
         } else if (event.getMessage().getRawContent().startsWith("</>") && event.getAuthor().getId().equals("293884638101897216")) {
             prefix = "</>";
-        } else if (event.getMessage().getRawContent().startsWith("<@295500621862404097>")) {
-            prefix = "<@295500621862404097>";
+        } else if (event.getMessage().getRawContent().startsWith(event.getJDA().getSelfUser().getAsMention())) {
+            prefix = event.getJDA().getSelfUser().getAsMention();
         } else if (event.getChannelType().equals(ChannelType.PRIVATE)) {
             prefix = "";
         } else {
