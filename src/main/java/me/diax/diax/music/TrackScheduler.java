@@ -82,7 +82,7 @@ public class TrackScheduler extends AudioEventAdapter {
         Guild guild = manager.getGuild();
         Member member = current.getRequester();
         VoiceChannel voiceChannel = getVoiceChannel(member);
-        if (!guild.getAudioManager().isConnected() || this.queue.isEmpty()) {
+        if (!guild.getAudioManager().isConnected()) {
             try {
                 guild.getAudioManager().openAudioConnection(voiceChannel);
             } catch (PermissionException exception) {
@@ -138,7 +138,10 @@ public class TrackScheduler extends AudioEventAdapter {
         if (queue.isEmpty()) { // If there is nothing in the queue, then stop.
             this.stop();
         } else { // Else, play the next track in the queue.
-            this.play(queue.poll());
+            MusicTrack track = queue.poll();
+            current = track;
+            this.play(track);
+
         }
     }
 
@@ -186,7 +189,6 @@ public class TrackScheduler extends AudioEventAdapter {
         if (channel != null) this.channel = channel;
         if (current != null) previous = current;
         manager.getPlayer().playTrack(track.getTrack());
-        this.sendEmbed(track);
     }
 
     // Gets the current playing track.

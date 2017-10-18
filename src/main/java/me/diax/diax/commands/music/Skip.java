@@ -19,7 +19,7 @@ public class Skip implements Command {
             message.getChannel().sendMessage(Emote.X + " - There is nothing playing!").queue();
             return;
         }
-        message.getTextChannel().sendMessage(Emote.X + " - Skipping...").queue();
+        message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + " - Skipping the current track.").queue();
         GuildMusicManager.getManagerFor(message.getGuild()).getScheduler().skip(message.getTextChannel());
     }
 }
