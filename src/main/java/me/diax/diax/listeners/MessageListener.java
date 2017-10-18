@@ -28,8 +28,6 @@ public class MessageListener extends ListenerAdapter {
         String prefix;
         if (event.getMessage().getRawContent().startsWith(defaultPrefix)) {
             prefix = defaultPrefix;
-        } else if (event.getMessage().getRawContent().startsWith("</>") && Util.isDeveloper(event.getAuthor().getIdLong())) {
-            prefix = "</>";
         } else if (event.getMessage().getRawContent().startsWith(event.getJDA().getSelfUser().getAsMention())) {
             prefix = event.getJDA().getSelfUser().getAsMention();
         } else if (event.getChannelType().equals(ChannelType.PRIVATE)) {
@@ -46,7 +44,7 @@ public class MessageListener extends ListenerAdapter {
                 event.getChannel().sendMessage(Emote.X + " - This is a Patreon-only command.").queue();
                 return;
             }
-            if (command.hasAttribute("owner") && !prefix.equals("</>")) return;
+            if (command.hasAttribute("owner") && !Util.isDeveloper(event.getAuthor().getIdLong())) return;
             if (event.getChannelType().equals(ChannelType.PRIVATE) && command.hasAttribute("private")) {
                 event.getChannel().sendMessage(Emote.X + " - This command does not work in private messages.").queue();
                 return;

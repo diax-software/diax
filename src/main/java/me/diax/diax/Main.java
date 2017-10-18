@@ -6,6 +6,7 @@ import me.diax.diax.commands.fun.CSGO;
 import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
 import me.diax.diax.commands.owner.Announce;
+import me.diax.diax.commands.owner.Developer;
 import me.diax.diax.listeners.DisconnectListener;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
@@ -50,7 +51,8 @@ public class Main {
                     new Stop(),
                     new Volume(),
 
-                    new Announce()
+                    new Announce(),
+                    new Developer()
             );
             new JDABuilder(AccountType.BOT)
                     .setToken(token)
