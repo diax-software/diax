@@ -157,6 +157,7 @@ public class TrackScheduler extends AudioEventAdapter {
         if (isPlaying()) {
             manager.getPlayer().stopTrack();
             this.channel.sendMessage(Emote.MUSICAL_NOTE + " - Queue concluded.").queue();
+            manager.getGuild().getAudioManager().closeAudioConnection();
             previous = current;
             current = null;
         }
