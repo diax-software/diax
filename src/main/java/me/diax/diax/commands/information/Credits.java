@@ -8,7 +8,7 @@ import net.dv8tion.jda.core.entities.Message;
 @CommandDescription(
         name = "credits",
         triggers = "credits",
-        description = "Diax's credits.",
+        description = "Display the credits for Diax.",
         attributes = @CommandAttribute(key = "private")
 )
 public class Credits implements Command {

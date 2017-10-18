@@ -15,7 +15,7 @@ public class Skip implements Command {
 
     @Override
     public void execute(Message message, String s) {
-        if (!GuildMusicManager.getManagerFor(message.getGuild()).getScheduler().isPlaying()) {
+        if (!GuildMusicManager.getManagerFor(message.getGuild()).getScheduler().isPlaying(message.getTextChannel())) {
             message.getChannel().sendMessage(Emote.X + " - There is nothing playing!").queue();
             return;
         }

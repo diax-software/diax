@@ -18,6 +18,6 @@ public class Developer implements Command {
 
     @Override
     public void execute(Message message, String s) {
-        message.getChannel().sendMessage(message.getAuthor().getName() + " is recognised as a Diax develoepr.").queue();
+        message.getChannel().sendMessage(message.getAuthor().getName() + " is an official Diax developer.").queue();
     }
 }

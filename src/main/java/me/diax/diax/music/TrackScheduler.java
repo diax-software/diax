@@ -192,6 +192,22 @@ public class TrackScheduler extends AudioEventAdapter {
         manager.getPlayer().playTrack(track.getTrack());
     }
 
+    // Sets the track to repeating
+    public boolean setRepeating(boolean repeat) {
+        return this.setRepeating(repeat, null);
+    }
+
+    public boolean setRepeating(boolean repeat, TextChannel channel) {
+        if (channel != null) this.channel = channel;
+        this.repeat = repeat;
+        return repeat;
+    }
+
+    // Returns true if the track is repeating.
+    public boolean isRepeating() {
+        return repeat;
+    }
+
     // Gets the current playing track.
     public MusicTrack getCurrentTrack() {
         if (current == null) return null;

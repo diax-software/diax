@@ -11,7 +11,7 @@ import java.util.Random;
 @CommandDescription(
         name = "ping",
         triggers = "ping",
-        description = "Test Diax's ping.",
+        description = "Shows the message response time and api ping.",
         attributes = @CommandAttribute(key = "private")
 )
 public class Ping implements Command {
