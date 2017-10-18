@@ -41,7 +41,9 @@ public class Hug implements ActionCommand {
                 "https://media.giphy.com/media/ArLxZ4PebH2Ug/giphy.gif",
                 "https://media.giphy.com/media/wSY4wcrHnB0CA/giphy.gif",
                 "https://media.giphy.com/media/wnsgren9NtITS/giphy.gif",
-                "https://media.giphy.com/media/pXQhWw2oHoPIs/giphy.gif"
+                "https://media.giphy.com/media/pXQhWw2oHoPIs/giphy.gif",
+                "https://media.giphy.com/media/8tpiC1JAYVMFq/giphy.gif",
+                "https://media.giphy.com/media/lXiRKBj0SAA0EWvbG/giphy.gif"
         };
     }
 

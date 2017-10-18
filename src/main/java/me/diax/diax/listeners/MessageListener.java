@@ -3,6 +3,7 @@ package me.diax.diax.listeners;
 import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.util.Emote;
+import me.diax.diax.util.Util;
 import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -27,7 +28,7 @@ public class MessageListener extends ListenerAdapter {
         String prefix;
         if (event.getMessage().getRawContent().startsWith(defaultPrefix)) {
             prefix = defaultPrefix;
-        } else if (event.getMessage().getRawContent().startsWith("</>") && event.getAuthor().getId().equals("293884638101897216")) {
+        } else if (event.getMessage().getRawContent().startsWith("</>") && Util.isDeveloper(event.getAuthor().getIdLong())) {
             prefix = "</>";
         } else if (event.getMessage().getRawContent().startsWith(event.getJDA().getSelfUser().getAsMention())) {
             prefix = event.getJDA().getSelfUser().getAsMention();
