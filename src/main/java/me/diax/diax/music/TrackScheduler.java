@@ -39,9 +39,14 @@ public class TrackScheduler extends AudioEventAdapter {
     // Last channel used.
     private TextChannel channel;
 
+
+    // Is music playing?
+    private boolean playing;
+
     public TrackScheduler(GuildMusicManager manager, TextChannel channel) {
         this.current = null;
         this.repeat = false;
+        this.playing = false;
         this.previous = null;
         this.manager = manager;
         this.channel = channel;
@@ -112,7 +117,7 @@ public class TrackScheduler extends AudioEventAdapter {
     // If the current track is not null, then something is playing.
     public boolean isPlaying(TextChannel channel) {
         if (channel != null) this.channel = channel;
-        return current != null;
+        return playing;
     }
 
     // Adds a MusicTrack to the queue.
@@ -160,6 +165,8 @@ public class TrackScheduler extends AudioEventAdapter {
             manager.getGuild().getAudioManager().closeAudioConnection();
             previous = current;
             current = null;
+            playing = false;
+            queue.clear();
         }
         manager.getGuild().getAudioManager().closeAudioConnection();
     }
@@ -189,6 +196,7 @@ public class TrackScheduler extends AudioEventAdapter {
     public void play(MusicTrack track, TextChannel channel) {
         if (channel != null) this.channel = channel;
         if (current != null) previous = current;
+        playing = (track.getTrack() != null);
         manager.getPlayer().playTrack(track.getTrack());
     }
 
@@ -237,6 +245,7 @@ public class TrackScheduler extends AudioEventAdapter {
         if (repeat) repeat = false;
         channel.sendMessage(Emote.X + " - Failed to play the track due to: ```" + exception.getMessage() + " ```").queue();
         WebHookUtil.log(current.getChannel().getJDA(), Emote.X + " An exception occurred.", "Failed to play a track due to: : ```" + (exception.getMessage() + " | " + current.getChannel().getGuild() + " | " + StringUtil.stripMarkdown(current.getChannel())) + "```");
+        skip();
     }
 
     @Override
