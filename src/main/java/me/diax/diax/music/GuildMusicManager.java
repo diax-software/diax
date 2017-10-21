@@ -19,6 +19,7 @@ public class GuildMusicManager {
         MANAGERS = new HashMap<>();
         MANAGER = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerRemoteSources(MANAGER);
+        AudioSourceManagers.registerLocalSource(MANAGER);
     }
 
     private final AudioPlayer player;
@@ -27,7 +28,7 @@ public class GuildMusicManager {
 
     public GuildMusicManager(Guild guild, TextChannel channel) {
         player = MANAGER.createPlayer();
-        scheduler = new TrackScheduler(this, guild.getTextChannels().get(0));
+        scheduler = new TrackScheduler(this, channel);
         this.guild = guild;
         player.addListener(scheduler);
         guild.getAudioManager().setSendingHandler(this.getSendHandler());

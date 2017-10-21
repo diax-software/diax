@@ -32,18 +32,18 @@ public class Hug implements ActionCommand {
     @Override
     public String[] getImages() {
         return new String[]{
-                "https://media.giphy.com/media/qscdhWs5o3yb6/giphy.gif",
-                "https://media.giphy.com/media/BXrwTdoho6hkQ/giphy.gif",
-                "https://media.giphy.com/media/BXrwTdoho6hkQ/giphy.gif",
-                "https://media.giphy.com/media/143v0Z4767T15e/giphy.gif",
-                "https://media.giphy.com/media/a5s3dI6Wv1Qcw/giphy.gif",
-                "https://media.giphy.com/media/trJ68zLtt85QA/giphy.gif",
-                "https://media.giphy.com/media/ArLxZ4PebH2Ug/giphy.gif",
-                "https://media.giphy.com/media/wSY4wcrHnB0CA/giphy.gif",
-                "https://media.giphy.com/media/wnsgren9NtITS/giphy.gif",
-                "https://media.giphy.com/media/pXQhWw2oHoPIs/giphy.gif",
-                "https://media.giphy.com/media/8tpiC1JAYVMFq/giphy.gif",
-                "https://media.giphy.com/media/lXiRKBj0SAA0EWvbG/giphy.gif"
+                "qscdhWs5o3yb6",
+                "BXrwTdoho6hkQ",
+                "BXrwTdoho6hkQ",
+                "143v0Z4767T15e",
+                "a5s3dI6Wv1Qcw",
+                "trJ68zLtt85QA",
+                "ArLxZ4PebH2Ug",
+                "wSY4wcrHnB0CA",
+                "wnsgren9NtITS",
+                "pXQhWw2oHoPIs",
+                "8tpiC1JAYVMFq",
+                "lXiRKBj0SAA0EWvbG"
         };
     }
 

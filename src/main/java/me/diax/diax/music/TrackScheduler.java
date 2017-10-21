@@ -159,16 +159,18 @@ public class TrackScheduler extends AudioEventAdapter {
         if (channel != null) this.channel = channel;
         manager.getPlayer().setPaused(false);
         manager.getPlayer().setVolume(100);
-        if (isPlaying()) {
+        if (this.isPlaying() || !this.queue.isEmpty()) {
             manager.getPlayer().stopTrack();
             this.channel.sendMessage(Emote.MUSICAL_NOTE + " - Queue concluded.").queue();
-            manager.getGuild().getAudioManager().closeAudioConnection();
             previous = current;
             current = null;
             playing = false;
             queue.clear();
         }
-        manager.getGuild().getAudioManager().closeAudioConnection();
+        try {
+            manager.getGuild().getAudioManager().closeAudioConnection();
+        } catch (Exception ignored) {
+        }
     }
 
     // Shuffle the queue.

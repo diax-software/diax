@@ -32,6 +32,6 @@ public interface ActionCommand extends Command {
      */
     default String getImage() {
         String[] imgs = getImages();
-        return imgs[new Random().nextInt(imgs.length)];
+        return "https://media.giphy.com/media/" + imgs[new Random().nextInt(imgs.length)] + "/giphy.gif";
     }
 }
