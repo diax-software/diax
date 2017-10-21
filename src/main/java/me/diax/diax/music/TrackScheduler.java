@@ -11,126 +11,83 @@ import me.diax.diax.util.StringUtil;
 import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
-/**
- * Copied from Tohsaka source found: https://github.com/NachtRaben/TohsakaBot/blob/master/TohsakaCore/src/main/java/com/nachtraben/core/audio/TrackScheduler.java
- *
- * @author NachtRaben
- */
 public class TrackScheduler extends AudioEventAdapter {
 
-    private GuildMusicManager manager;
-
+    // The queue
     private final BlockingDeque<MusicTrack> queue;
+    // The manager associated with this Scheduler
+    private GuildMusicManager manager;
+    // The previous track that was played, null if no previous track.
+    private MusicTrack current;
 
-    private MusicTrack lastTrack;
-    private MusicTrack currentTrack;
+    // The current track that is playing, null if no track currently being played.
+    private MusicTrack previous;
 
-    private boolean repeatTrack;
-    private boolean repeatQueue;
+    // True if the current track is on repeat.
+    private boolean repeat;
 
-    private ScheduledFuture<?> afkCheck;
-    private long leave = -1;
-    private boolean persist = true;
+    // Last channel used.
+    private TextChannel channel;
 
 
-    public TrackScheduler(GuildMusicManager guildMusicManager) {
-        this.manager = guildMusicManager;
-        queue = new LinkedBlockingDeque<>();
-        afkCheck = Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
-            Guild g = manager.getGuild();
-            if (g != null && !persist) {
-                VoiceChannel v = g.getAudioManager().getConnectedChannel();
-                if (v != null) {
-                    if ((v.getMembers().size() < 2 || currentTrack == null) && leave == -1) {
-                        leave = TimeUnit.MINUTES.toMillis(2) + System.currentTimeMillis();
-                    } else if (v.getMembers().size() > 1 && currentTrack != null && leave != -1) {
-                        leave = -1;
-                    } else if ((v.getMembers().size() < 2 || currentTrack == null) && leave != -1 && System.currentTimeMillis() > leave) {
-                        stop();
-                        Executors.newSingleThreadExecutor().execute(() -> {
-                            g.getAudioManager().closeAudioConnection();
-                        });
-                    }
-                } else if (leave != -1) {
-                    leave = -1;
-                }
-            }
-        }, 0L, 5L, TimeUnit.SECONDS);
+    // Is music playing?
+    private boolean playing;
+
+    public TrackScheduler(GuildMusicManager manager, TextChannel channel) {
+        this.current = null;
+        this.repeat = false;
+        this.playing = false;
+        this.previous = null;
+        this.manager = manager;
+        this.channel = channel;
+        this.queue = new LinkedBlockingDeque<>();
     }
 
-    public void queue(MusicTrack track) {
-        synchronized (queue) {
-            synchronized (queue) {
-                queue.offer(track);
-            }
-            if (!isPlaying()) skip();
-        }
-    }
-
-    public void play(MusicTrack track) {
-        currentTrack = track;
-        manager.getPlayer().playTrack(track.getTrack());
-    }
-
-    public void stop() {
-        synchronized (queue) {
-            repeatTrack = false;
-            repeatQueue = false;
-            manager.getPlayer().setPaused(false);
-            queue.clear();
-            if (isPlaying()) {
-                manager.getPlayer().stopTrack();
-                currentTrack.getChannel().sendMessage(Emote.MUSICAL_NOTE + " - Queue concluded!").queue();
-            }
-            currentTrack = null;
-        }
-    }
-
-    public void skip() {
-        synchronized (queue) {
-            repeatTrack = false;
-            lastTrack = currentTrack;
-            if (currentTrack != null && repeatQueue)
-                queue.addLast(getCurrentTrack());
-            if (queue.isEmpty() && isPlaying()) {
-                stop();
-            } else if (!queue.isEmpty()) {
-                play(queue.poll());
+    @Override
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason reason) {
+        if (reason.mayStartNext) { // If the reason will allow another track to start..
+            if (repeat) { // If the current track is repeating, then play it again.
+                player.playTrack(this.getCurrentTrack().getTrack());
+            } else { // Else, play the next track.
+                this.skip();
             }
         }
     }
 
-    public boolean shuffle() {
-        synchronized (queue) {
-            if (!queue.isEmpty()) {
-                List<MusicTrack> tracks = new ArrayList<>();
-                queue.drainTo(tracks);
-                Collections.shuffle(tracks);
-                queue.addAll(tracks);
-                return true;
-            }
-            return false;
+    @Override
+    public void onTrackStart(AudioPlayer player, AudioTrack track) {
+        Guild guild = current.getChannel().getGuild();
+        if (guild == null) { // If the server doesn't exist, stop the track.
+            this.stop();
+            return;
+        } else if (current.getRequester() == null) { // If the person who requested the song doesn't exist, then skip.
+            channel.sendMessage(Emote.X + " - The person who requested this track is no longer in the server, skipping...").queue();
+            this.skip();
         }
+        if (!joinVoiceChannel()) { // If couldn't join the voice channel, then stop.
+            channel.sendMessage(Emote.X + " - Could not join the voice channel, stopping.").queue();
+            stop();
+            return;
+        }
+        this.sendEmbed(current); // Send music info to the channel.
     }
 
-    public boolean isPlaying() {
-        return currentTrack != null;
-    }
-
+    // Can join voice channel? False: No, True: Yes
     private boolean joinVoiceChannel() {
-
         Guild guild = manager.getGuild();
-        Member member = currentTrack.getRequester();
-        VoiceChannel voiceChannel = getVoiceChannel(guild, member);
-        if (!guild.getAudioManager().isConnected() || this.queue.isEmpty()) {
+        Member member = current.getRequester();
+        VoiceChannel voiceChannel = getVoiceChannel(member);
+        if (!guild.getAudioManager().isConnected()) {
             try {
                 guild.getAudioManager().openAudioConnection(voiceChannel);
             } catch (PermissionException exception) {
@@ -140,31 +97,12 @@ public class TrackScheduler extends AudioEventAdapter {
         return true;
     }
 
-    @Override
-    public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        Guild guild = currentTrack.getRequester().getGuild();
-        if (guild == null) {
-            stop();
-            player.destroy();
-            return;
-        }
-        if (currentTrack.getRequester() == null) {
-            skip();
-            return;
-        }
-        if (!joinVoiceChannel()) {
-            currentTrack.getChannel().sendMessage(Emote.X + " - Could not join that voice channel!").queue();
-            stop();
-            return;
-        }
-        if (!repeatTrack) {
-            sendEmbed(new MusicTrack(track, null, null));
-        }
-    }
-
-    public VoiceChannel getVoiceChannel(Guild guild, Member member) {
+    // Get the voice channel of a member.
+    private VoiceChannel getVoiceChannel(Member member) {
+        if (member == null) return null;
+        Guild guild = member.getGuild();
         VoiceChannel vc = null;
-        if (member != null && member.getVoiceState().inVoiceChannel()) {
+        if (member.getVoiceState().inVoiceChannel()) {
             vc = member.getVoiceState().getChannel();
         } else if (!guild.getVoiceChannels().isEmpty()) {
             vc = guild.getVoiceChannels().get(0);
@@ -172,96 +110,149 @@ public class TrackScheduler extends AudioEventAdapter {
         return vc;
     }
 
-    @Override
-    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        if (endReason.mayStartNext && repeatTrack) {
-            player.playTrack(getCurrentTrack().getTrack());
-        } else if (endReason.mayStartNext) {
-            skip();
+    public boolean isPlaying() {
+        return this.isPlaying(null);
+    }
+
+    // If the current track is not null, then something is playing.
+    public boolean isPlaying(TextChannel channel) {
+        if (channel != null) this.channel = channel;
+        return playing;
+    }
+
+    // Adds a MusicTrack to the queue.
+    public synchronized void queue(MusicTrack track) {
+        this.queue(track, null);
+    }
+
+    public synchronized void queue(MusicTrack track, TextChannel channel) {
+        if (channel != null) this.channel = channel;
+        queue.offer(track);
+        if (!this.isPlaying()) this.skip(); // If nothing is currently playing, then skip.
+    }
+
+    // Force skips the current track.
+    public synchronized void skip() {
+        this.skip(null);
+    }
+
+    public synchronized void skip(TextChannel channel) {
+        if (channel != null) this.channel = channel;
+        if (current != null) previous = current;
+        repeat = false;
+        if (queue.isEmpty()) { // If there is nothing in the queue, then stop.
+            this.stop();
+        } else { // Else, play the next track in the queue.
+            MusicTrack track = queue.poll();
+            current = track;
+            this.play(track);
+
         }
+    }
+
+    // Stops and cleans up the player.
+    public synchronized void stop() {
+        this.stop(null);
+    }
+
+    public synchronized void stop(TextChannel channel) {
+        if (channel != null) this.channel = channel;
+        manager.getPlayer().setPaused(false);
+        manager.getPlayer().setVolume(100);
+        if (this.isPlaying() || !this.queue.isEmpty()) {
+            manager.getPlayer().stopTrack();
+            this.channel.sendMessage(Emote.MUSICAL_NOTE + " - Queue concluded.").queue();
+            previous = current;
+            current = null;
+            playing = false;
+            queue.clear();
+        }
+        try {
+            manager.getGuild().getAudioManager().closeAudioConnection();
+        } catch (Exception ignored) {
+        }
+    }
+
+    // Shuffle the queue.
+    public synchronized boolean shuffle() {
+        return this.shuffle(null);
+    }
+
+    public synchronized boolean shuffle(TextChannel channel) {
+        if (channel != null) this.channel = channel;
+        if (queue.isEmpty()) {
+            return false;
+        }
+        List<MusicTrack> tracks = new ArrayList<>();
+        queue.drainTo(tracks);
+        Collections.shuffle(tracks);
+        queue.addAll(tracks);
+        return true;
+    }
+
+    // Plays the given track.
+    public void play(MusicTrack track) {
+        this.play(track, null);
+    }
+
+    public void play(MusicTrack track, TextChannel channel) {
+        if (channel != null) this.channel = channel;
+        if (current != null) previous = current;
+        playing = (track.getTrack() != null);
+        manager.getPlayer().playTrack(track.getTrack());
+    }
+
+    // Sets the track to repeating
+    public boolean setRepeating(boolean repeat) {
+        return this.setRepeating(repeat, null);
+    }
+
+    public boolean setRepeating(boolean repeat, TextChannel channel) {
+        if (channel != null) this.channel = channel;
+        this.repeat = repeat;
+        return repeat;
+    }
+
+    // Returns true if the track is repeating.
+    public boolean isRepeating() {
+        return repeat;
+    }
+
+    // Gets the current playing track.
+    public MusicTrack getCurrentTrack() {
+        if (current == null) return null;
+        return current.makeClone();
+    }
+
+    // Gets the previous track.
+    public MusicTrack getPreviousTrack() {
+        if (previous == null) return null;
+        return previous.makeClone();
+    }
+
+    // Gets the queue.
+    public synchronized List<MusicTrack> getQueue() {
+        List<MusicTrack> tracks = new ArrayList<>();
+        tracks.addAll(queue);
+        return tracks;
+    }
+
+    // Sends the now playing message to the selected channel.
+    private void sendEmbed(MusicTrack track) {
+        channel.sendMessage(Embed.music(track)).queue();
     }
 
     @Override
     public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
-        if (repeatTrack)
-            repeatTrack = false;
-        currentTrack.getChannel().sendMessage(Emote.X + " - Failed to play the track due to: ```" + exception.getMessage() + " ```").queue();
-        WebHookUtil.log(currentTrack.getChannel().getJDA(), Emote.X + " An exception occurred.", "Failed to play a track due to: : ```" + (exception.getMessage() + " | " + currentTrack.getChannel().getGuild() + " | " + StringUtil.stripMarkdown(currentTrack.getChannel())) + "```");
+        if (repeat) repeat = false;
+        channel.sendMessage(Emote.X + " - Failed to play the track due to: ```" + exception.getMessage() + " ```").queue();
+        WebHookUtil.log(current.getChannel().getJDA(), Emote.X + " An exception occurred.", "Failed to play a track due to: : ```" + (exception.getMessage() + " | " + current.getChannel().getGuild() + " | " + StringUtil.stripMarkdown(current.getChannel())) + "```");
+        skip();
     }
 
     @Override
     public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
-        currentTrack.getChannel().sendMessage(Emote.X + " - Got stuck attempting to play track, skipping.").queue();
+        channel.sendMessage(Emote.X + " - Got stuck attempting to play track, skipping.").queue();
         skip();
-    }
-
-
-    private void sendEmbed(MusicTrack track) {
-        track.getChannel().sendMessage(Embed.music(track)).queue();
-    }
-
-    public List<MusicTrack> getQueue() {
-        List<MusicTrack> tracks = new ArrayList<>();
-        synchronized (queue) {
-            tracks.addAll(queue);
-        }
-        return tracks;
-    }
-
-    public void skipTo(AudioTrack track) {
-        synchronized (queue) {
-            if (queue.contains(track)) {
-                while (queue.peek() != track) {
-                    if (repeatQueue)
-                        queue.addLast(queue.pop());
-                    else
-                        queue.pop();
-                }
-                skip();
-            }
-        }
-    }
-
-    public MusicTrack getLastTrack() {
-        if (lastTrack != null) {
-            return lastTrack.makeClone();
-        }
-        return null;
-    }
-
-    public MusicTrack getCurrentTrack() {
-        if (currentTrack != null) {
-            return currentTrack.makeClone();
-        }
-        return null;
-    }
-
-    public boolean isRepeatTrack() {
-        return repeatTrack;
-    }
-
-    public void setRepeatTrack(boolean repeatTrack) {
-        this.repeatTrack = repeatTrack;
-    }
-
-    public boolean isRepeatQueue() {
-        return repeatQueue;
-    }
-
-    public void setRepeatQueue(boolean repeatQueue) {
-        this.repeatQueue = repeatQueue;
-    }
-
-    public boolean isPersist() {
-        return persist;
-    }
-
-    public void setPersist(boolean b) {
-        this.persist = b;
-    }
-
-    public void destroy() {
-        if (afkCheck != null && !afkCheck.isCancelled())
-            afkCheck.cancel(true);
     }
 }

@@ -5,6 +5,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,18 +19,23 @@ public class GuildMusicManager {
         MANAGERS = new HashMap<>();
         MANAGER = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerRemoteSources(MANAGER);
+        AudioSourceManagers.registerLocalSource(MANAGER);
     }
 
     private final AudioPlayer player;
     private final TrackScheduler scheduler;
     private final Guild guild;
 
-    public GuildMusicManager(Guild guild) {
+    public GuildMusicManager(Guild guild, TextChannel channel) {
         player = MANAGER.createPlayer();
-        scheduler = new TrackScheduler(this);
+        scheduler = new TrackScheduler(this, channel);
         this.guild = guild;
         player.addListener(scheduler);
         guild.getAudioManager().setSendingHandler(this.getSendHandler());
+    }
+
+    public GuildMusicManager(Guild guild) {
+        this(guild, guild.getTextChannels().get(0));
     }
 
     public static GuildMusicManager getManagerFor(Guild guild) {

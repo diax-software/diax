@@ -30,16 +30,18 @@ public class Help implements Command {
         message.getChannel().sendMessage(Embed.transparent()
                 .addField(
                         "__**Information**__",
-                        "I develop Diax in my free time, so do not expect amazing things from him, this is purely for fun.\nHave fun!\n- comportment",
+                        "I develop Diax in my free time, so do not expect amazing things from him, this is purely for fun.\nHave fun!\n- *comportment#4475*",
                         false)
                 .addField(
                         "__**Commands**__",
                         handler.getCommands().stream().filter(command -> !command.hasAttribute("hidden")).sorted().map(command -> "`" + prefix + command.getDescription().name() + " | " + command.getDescription().description() + "`").collect(Collectors.joining("\n")),
                         false
                 )
-                .addField("__**Donation**__",
+                .addField("__**Links**__", String.join("\n",
                         "[Patreon](https://patreon.com/comportment) - Donate here to help support us!",
-                        false
+                        "[Discord](https://discord.gg/5sJZa2y) - Come here to chat or for help!",
+                        "[Website](http://diax.me) - Check out our website!"
+                        ), false
                 ).build()).queue();
     }
 }

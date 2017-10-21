@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "report",
-        description = "Report bugs easily!",
+        description = "[description] | Used for reporting bugs to Diax's developers.",
         triggers = "report",
         attributes = @CommandAttribute(key = "private")
 )
@@ -19,7 +19,7 @@ public class Report implements Command {
     @Override
     public void execute(Message message, String s) {
         String error = "";
-        if (s.length() < 149) {
+        if (s.length() < 20) {
             error = "Please provide more information.";
         } else if (s.length() > 500) {
             error = "Please try and keep your report to the point.";
@@ -29,5 +29,6 @@ public class Report implements Command {
             return;
         }
         WebHookUtil.report(message.getJDA(), "```" + StringUtil.stripMarkdown(s) + "```\nReporter: *" + message.getAuthor().getName() + "#" + message.getAuthor().getDiscriminator() + "*");
+        message.getChannel().sendMessage(Emote.SMILE + " - Reported successfully, join here if you need more assistance: https://discord.gg/5sJZa2y").queue();
     }
 }

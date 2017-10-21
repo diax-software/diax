@@ -12,6 +12,9 @@ import me.diax.diax.music.TrackScheduler;
 import me.diax.diax.util.Emote;
 import me.diax.diax.util.StringUtil;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.TextChannel;
+
+import javax.xml.soap.Text;
 
 @CommandDescription(
         name = "play",
@@ -31,12 +34,13 @@ public class Play implements Command {
     }
 
     private void query(GuildMusicManager manager, Message message, String query) {
+        TextChannel channel = message.getTextChannel();
         manager.getPlayerManager().loadItem(query, new AudioLoadResultHandler() {
 
             @Override
             public void trackLoaded(AudioTrack track) {
                 message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format(" - Queuing `%s ` by `%s. `", StringUtil.stripMarkdown(track.getInfo().title), StringUtil.stripMarkdown(track.getInfo().author))).queue();
-                manager.getScheduler().queue(new MusicTrack(track, message.getMember(), message.getTextChannel()));
+                manager.getScheduler().queue(new MusicTrack(track, message.getMember(), message.getTextChannel()), channel);
             }
 
             @Override
@@ -49,7 +53,7 @@ public class Play implements Command {
                     this.trackLoaded(playlist.getSelectedTrack());
                 } else {
                     message.getTextChannel().sendMessage(Emote.MUSICAL_NOTE + String.format(" - Adding `%s ` tracks to the queue from the playlist `%s `.", playlist.getTracks().size(), StringUtil.stripMarkdown(playlist.getName()))).queue();
-                    playlist.getTracks().forEach(track -> scheduler.queue(new MusicTrack(track, message.getMember(), message.getTextChannel())));
+                    playlist.getTracks().forEach(track -> scheduler.queue(new MusicTrack(track, message.getMember(), message.getTextChannel()), channel));
                 }
             }
 
