@@ -171,6 +171,11 @@ public class TrackScheduler extends AudioEventAdapter {
             manager.getGuild().getAudioManager().closeAudioConnection();
         } catch (Exception ignored) {
         }
+        try {
+            GuildMusicManager.removeManagerFor(channel.getGuild());
+        } catch (NullPointerException ignored) {
+        }
+        manager.getGuild().getAudioManager().closeAudioConnection();
     }
 
     // Shuffle the queue.

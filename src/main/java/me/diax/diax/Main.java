@@ -38,6 +38,7 @@ public class Main {
                     new EightBall(),
 
                     new Credits(),
+                    new Invite(),
                     new Help(handler, prefix),
                     new Ping(),
                     new Report(),
