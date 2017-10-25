@@ -12,7 +12,9 @@ import net.dv8tion.jda.core.entities.Message;
         name = "report",
         description = "[description] | Used for reporting bugs to Diax's developers.",
         triggers = "report",
-        attributes = @CommandAttribute(key = "private")
+        attributes = {
+                @CommandAttribute(key = "private")
+        }
 )
 public class Report implements Command {
 

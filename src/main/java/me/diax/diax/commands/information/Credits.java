@@ -10,7 +10,9 @@ import net.dv8tion.jda.core.entities.Message;
         name = "credits",
         triggers = "credits",
         description = "Display the credits for Diax.",
-        attributes = @CommandAttribute(key = "private")
+        attributes = {
+                @CommandAttribute(key = "private")
+        }
 )
 public class Credits implements Command {
 

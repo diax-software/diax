@@ -12,7 +12,9 @@ import net.dv8tion.jda.core.entities.Message;
         name = "suggest",
         description = "[description] | Used to suggest features for Diax.",
         triggers = "suggest",
-        attributes = @CommandAttribute(key = "private")
+        attributes = {
+                @CommandAttribute(key = "private")
+        }
 )
 public class Suggest implements Command {
 

@@ -13,7 +13,9 @@ import java.util.stream.Collectors;
         name = "help",
         triggers = "help",
         description = "Displays the help message for Diax.",
-        attributes = @CommandAttribute(key = "private")
+        attributes = {
+                @CommandAttribute(key = "private")
+        }
 )
 public class Help implements Command {
 

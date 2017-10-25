@@ -3,6 +3,7 @@ package me.diax.diax;
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.commands.action.Hug;
 import me.diax.diax.commands.fun.CSGO;
+import me.diax.diax.commands.fun.EightBall;
 import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
 import me.diax.diax.commands.owner.Announce;
@@ -34,6 +35,7 @@ public class Main {
                     new Hug(),
 
                     new CSGO(),
+                    new EightBall(),
 
                     new Credits(),
                     new Help(handler, prefix),

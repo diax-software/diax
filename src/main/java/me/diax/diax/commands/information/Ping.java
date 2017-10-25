@@ -12,7 +12,9 @@ import java.util.Random;
         name = "ping",
         triggers = {"ping", "pang", "peng", "pong", "pung"},
         description = "Shows the message response time and api ping.",
-        attributes = @CommandAttribute(key = "private")
+        attributes = {
+                @CommandAttribute(key = "private")
+        }
 )
 public class Ping implements Command {
 

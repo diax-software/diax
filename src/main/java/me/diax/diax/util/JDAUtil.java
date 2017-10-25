@@ -41,7 +41,7 @@ public class JDAUtil {
             DiscordBotsAPI api = new DiscordBotsAPI(token);
             api.postStats(jda.getSelfUser().getIdLong(), new int[]{jda.getGuilds().size()});
         } catch (Exception e) {
-            WebHookUtil.log(jda, Emote.X + " Error", "Couldn't update bot list stats.");
+            WebHookUtil.err(jda, "Couldn't update bot list stats.");
         }
     }
 }

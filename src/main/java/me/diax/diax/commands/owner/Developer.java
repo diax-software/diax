@@ -11,7 +11,6 @@ import net.dv8tion.jda.core.entities.Message;
         attributes = {
                 @CommandAttribute(key = "owner"),
                 @CommandAttribute(key = "hidden")
-
         }
 )
 public class Developer implements Command {

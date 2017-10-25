@@ -22,4 +22,5 @@ public class Emote {
     public static String SPARKLES = "✨";
     public static String MUSICAL_NOTE = "\uD83C\uDFB5";
     public static String BUG = "\uD83D\uDC1B";
+    public static String EIGHT_BALL = "\uD83C\uDFB1";
 }
