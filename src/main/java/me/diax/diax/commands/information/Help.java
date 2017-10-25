@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @CommandDescription(
         name = "help",
         triggers = "help",
-        description = "Diax help!",
+        description = "Displays the help message for Diax.",
         attributes = @CommandAttribute(key = "private")
 )
 public class Help implements Command {
@@ -28,10 +28,6 @@ public class Help implements Command {
     @Override
     public void execute(Message message, String s) {
         message.getChannel().sendMessage(Embed.transparent()
-                .addField(
-                        "__**Information**__",
-                        "I develop Diax in my free time, so do not expect amazing things from him, this is purely for fun.\nHave fun!\n- *comportment#4475*",
-                        false)
                 .addField(
                         "__**Commands**__",
                         handler.getCommands().stream().filter(command -> !command.hasAttribute("hidden")).sorted().map(command -> "`" + prefix + command.getDescription().name() + " | " + command.getDescription().description() + "`").collect(Collectors.joining("\n")),

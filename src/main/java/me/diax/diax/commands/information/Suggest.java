@@ -29,6 +29,6 @@ public class Suggest implements Command {
             return;
         }
         WebHookUtil.suggest(message.getJDA(), "```" + StringUtil.stripMarkdown(s) + "```\n*Suggested by " + StringUtil.stripMarkdown(message.getAuthor().getName()) + "#" + message.getAuthor().getDiscriminator() + "*");
-        message.getChannel().sendMessage(Emote.SMILE + " - Your suggestion has been submitted!").queue();
+        message.getChannel().sendMessage(Emote.SMILE + " - Your suggestion has been submitted, join here to track it: https://discord.gg/5sJZa2y").queue();
     }
 }

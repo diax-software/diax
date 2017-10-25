@@ -29,10 +29,6 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
     }
 
     private void onLeaveOrJoin(GenericGuildEvent event) {
-        try {
-            JDAUtil.sendGuilds(event.getJDA(), auth);
-        } catch (Exception e) {
-            WebHookUtil.log(event.getJDA(), Emote.X + " Error!", "Couldn't update bot list stats.");
-        }
+        JDAUtil.sendGuilds(event.getJDA(), auth);
     }
 }

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @CommandDescription(
         name = "queue",
         triggers = "queue",
-        description = "Displays the track queue."
+        description = "Displays the songs in the queue."
 )
 public class Queue implements Command {
 

@@ -68,11 +68,8 @@ public class Main {
                                 public void onReady(ReadyEvent event) {
                                     JDA jda = event.getJDA();
                                     WebHookUtil.log(jda, Emote.SPARKLES + " Start", jda.getSelfUser().getName() + " has finished starting!");
-                                    try {
-                                        JDAUtil.sendGuilds(jda, auth);
-                                    } catch (Exception ignored) {
-                                    }
                                     JDAUtil.startGameChanging(jda, prefix);
+                                    JDAUtil.sendGuilds(event.getJDA(), auth);
                                 }
                             }
                     ).buildBlocking();
