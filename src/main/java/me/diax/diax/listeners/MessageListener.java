@@ -24,7 +24,7 @@ public class MessageListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.getAuthor().isBot()) return;
+        if (event.getAuthor().isBot() || event.getMessage().isWebhookMessage()) return;
         String prefix;
         if (event.getMessage().getRawContent().startsWith(defaultPrefix)) {
             prefix = defaultPrefix;
@@ -35,7 +35,7 @@ public class MessageListener extends ListenerAdapter {
         } else {
             return;
         }
-        String content = event.getMessage().getRawContent().replaceFirst(Pattern.quote(prefix), "");
+        String content = event.getMessage().getRawContent().replaceFirst(Pattern.quote(prefix), "").trim();
         String first = content.split("\\s+")[0].trim();
         try {
             Command command = handler.findCommand(first);
