@@ -2,6 +2,7 @@ package me.diax.diax.listeners;
 
 import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandHandler;
+import me.diax.diax.util.Data;
 import me.diax.diax.util.Emote;
 import me.diax.diax.util.Util;
 import me.diax.diax.util.WebHookUtil;
@@ -15,19 +16,19 @@ import java.util.regex.Pattern;
 public class MessageListener extends ListenerAdapter {
 
     private CommandHandler handler;
-    private String defaultPrefix;
+    private Data data;
 
-    public MessageListener(CommandHandler handler, String prefix) {
+    public MessageListener(CommandHandler handler, Data data) {
         this.handler = handler;
-        defaultPrefix = prefix;
+        this.data = data;
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot() || event.getMessage().isWebhookMessage()) return;
         String prefix;
-        if (event.getMessage().getRawContent().startsWith(defaultPrefix)) {
-            prefix = defaultPrefix;
+        if (event.getMessage().getRawContent().startsWith(data.getPrefix())) {
+            prefix = data.getPrefix();
         } else if (event.getMessage().getRawContent().startsWith(event.getJDA().getSelfUser().getAsMention())) {
             prefix = event.getJDA().getSelfUser().getAsMention();
         } else if (event.getChannelType().equals(ChannelType.PRIVATE)) {
@@ -44,7 +45,7 @@ public class MessageListener extends ListenerAdapter {
                 event.getChannel().sendMessage(Emote.X + " - This is a Patreon-only command.").queue();
                 return;
             }
-            if (command.hasAttribute("owner") && !Util.isDeveloper(event.getAuthor().getIdLong())) return;
+            if (command.hasAttribute("owner") && !Util.isDeveloper(data, event.getAuthor().getId())) return;
             if (event.getChannelType().equals(ChannelType.PRIVATE) && command.hasAttribute("private")) {
                 event.getChannel().sendMessage(Emote.X + " - This command does not work in private messages.").queue();
                 return;
