@@ -8,6 +8,8 @@ import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
 import me.diax.diax.commands.owner.Announce;
 import me.diax.diax.commands.owner.Developer;
+import me.diax.diax.commands.owner.Reload;
+import me.diax.diax.commands.owner.Shutdown;
 import me.diax.diax.listeners.DisconnectListener;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
@@ -39,6 +41,7 @@ public class Main {
     public void main(String location) {
         try {
             data = new Data(new File(location));
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> data.saveData()));
         } catch (Exception e) {
             logger.error("Couldn't load data file.");
             e.printStackTrace();
@@ -70,7 +73,9 @@ public class Main {
                     new Volume(),
 
                     new Announce(),
-                    new Developer()
+                    new Developer(),
+                    new Reload(data),
+                    new Shutdown(data)
             );
             new JDABuilder(AccountType.BOT)
                     .setToken(data.getToken())

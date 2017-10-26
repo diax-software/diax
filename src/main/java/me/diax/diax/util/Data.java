@@ -30,8 +30,6 @@ public class Data {
 
     public Data(File file) throws Exception {
         this.file = file;
-        data = new JSONObject(readFile(file.getPath(), StandardCharsets.UTF_8));
-        System.out.println(data.toString());
         this.reloadData();
     }
 
@@ -42,8 +40,8 @@ public class Data {
     }
 
     @SuppressWarnings("unchecked")
-    public void reloadData() {
-        if (data == null) throw new NullPointerException();
+    public void reloadData() throws Exception {
+        data = new JSONObject(readFile(file.getPath(), StandardCharsets.UTF_8));
         token = data.getString("token");
         botlistToken = data.getString("botlist-token");
         prefix = data.getString("prefix");
@@ -63,10 +61,18 @@ public class Data {
                 .put("developers", developers)
                 .put("donors", donors)
                 .put("blacklist", blacklist);
+
         try {
-            data.write(new FileWriter(file));
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(data.toString(2));
+            fileWriter.flush();
+            fileWriter.close();
+
         } catch (IOException e) {
             LoggerFactory.getLogger(Data.class).error("Error saving data!");
+            e.printStackTrace();
+        } catch (Exception e) {
+            LoggerFactory.getLogger(Data.class).error("An unknown exception occurred whilst saving data!");
             e.printStackTrace();
         }
     }

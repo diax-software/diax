@@ -9,7 +9,10 @@ import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "volume",
-        triggers = "volume",
+        triggers = {
+                "volume",
+                "vol"
+        },
         attributes = @CommandAttribute(key = "patreon"),
         description = "[0-150] | Sets the volume of Diax."
 )

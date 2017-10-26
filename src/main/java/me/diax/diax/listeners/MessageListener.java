@@ -4,7 +4,6 @@ import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.util.Data;
 import me.diax.diax.util.Emote;
-import me.diax.diax.util.Util;
 import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -41,11 +40,11 @@ public class MessageListener extends ListenerAdapter {
         try {
             Command command = handler.findCommand(first);
             if (command == null) return;
-            if (command.hasAttribute("patreon")) {
+            if (command.hasAttribute("patreon") && !(data.getDonors().contains(event.getAuthor().getId()) || data.getDevelopers().contains(event.getAuthor().getId()))) {
                 event.getChannel().sendMessage(Emote.X + " - This is a Patreon-only command.").queue();
                 return;
             }
-            if (command.hasAttribute("owner") && !Util.isDeveloper(data, event.getAuthor().getId())) return;
+            if (command.hasAttribute("owner") && (!data.getDevelopers().contains(event.getAuthor().getId()))) return;
             if (event.getChannelType().equals(ChannelType.PRIVATE) && command.hasAttribute("private")) {
                 event.getChannel().sendMessage(Emote.X + " - This command does not work in private messages.").queue();
                 return;
