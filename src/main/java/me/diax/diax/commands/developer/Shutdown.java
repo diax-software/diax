@@ -1,4 +1,4 @@
-package me.diax.diax.commands.owner;
+package me.diax.diax.commands.developer;
 
 import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandAttribute;
@@ -8,29 +8,30 @@ import me.diax.diax.util.Emote;
 import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
-
-        name = "reload",
-        triggers = "reload",
+        name = "shutdown",
+        triggers = "shutdown",
         attributes = {
-                @CommandAttribute(key = "owner"),
+                @CommandAttribute(key = "developer"),
                 @CommandAttribute(key = "hidden")
         }
 )
-public class Reload implements Command {
+public class Shutdown implements Command {
 
     private Data data;
 
-    public Reload(Data data) {
+    public Shutdown(Data data) {
         this.data = data;
     }
 
     @Override
     public void execute(Message message, String s) {
-        message.getChannel().sendMessage(Emote.SMILE + " - Reloading data...").queue();
+        message.getChannel().sendMessage(Emote.ZZZ + " - Shutting down...").queue();
+        data.addDeveloper("101");
         try {
-            data.reloadData();
+            data.saveData();
         } catch (Exception e) {
-            message.getChannel().sendMessage(Emote.X + " - Error reloading data!").queue();
+            message.getChannel().sendMessage(Emote.X + " - Error saving data.").queue();
         }
+        System.exit(-1);
     }
 }

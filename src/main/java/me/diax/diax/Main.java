@@ -2,14 +2,12 @@ package me.diax.diax;
 
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.commands.action.Hug;
+import me.diax.diax.commands.developer.*;
+import me.diax.diax.commands.developer.Shutdown;
 import me.diax.diax.commands.fun.CSGO;
 import me.diax.diax.commands.fun.EightBall;
 import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
-import me.diax.diax.commands.owner.Announce;
-import me.diax.diax.commands.owner.Developer;
-import me.diax.diax.commands.owner.Reload;
-import me.diax.diax.commands.owner.Shutdown;
 import me.diax.diax.listeners.DisconnectListener;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
@@ -73,8 +71,10 @@ public class Main {
                     new Volume(),
 
                     new Announce(),
+                    new Blacklist(data),
                     new Developer(),
                     new Reload(data),
+                    new Save(data),
                     new Shutdown(data)
             );
             new JDABuilder(AccountType.BOT)

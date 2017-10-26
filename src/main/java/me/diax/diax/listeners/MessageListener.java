@@ -24,7 +24,8 @@ public class MessageListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.getAuthor().isBot() || event.getMessage().isWebhookMessage()) return;
+        if (event.getAuthor().isBot() || event.getMessage().isWebhookMessage() || data.getBlacklist().contains(event.getAuthor().getId()))
+            return;
         String prefix;
         if (event.getMessage().getRawContent().startsWith(data.getPrefix())) {
             prefix = data.getPrefix();
@@ -44,7 +45,8 @@ public class MessageListener extends ListenerAdapter {
                 event.getChannel().sendMessage(Emote.X + " - This is a Patreon-only command.").queue();
                 return;
             }
-            if (command.hasAttribute("owner") && (!data.getDevelopers().contains(event.getAuthor().getId()))) return;
+            if (command.hasAttribute("developer") && (!data.getDevelopers().contains(event.getAuthor().getId())))
+                return;
             if (event.getChannelType().equals(ChannelType.PRIVATE) && command.hasAttribute("private")) {
                 event.getChannel().sendMessage(Emote.X + " - This command does not work in private messages.").queue();
                 return;
