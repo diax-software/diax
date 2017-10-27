@@ -24,4 +24,5 @@ public class Emote {
     public static String BUG = "\uD83D\uDC1B";
     public static String EIGHT_BALL = "\uD83C\uDFB1";
     public static String ZZZ = "\uD83D\uDCA4";
+    public static String GAME_DIE = "\uD83C\uDFB2";
 }

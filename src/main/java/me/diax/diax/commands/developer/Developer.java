@@ -10,8 +10,7 @@ import net.dv8tion.jda.core.entities.Message;
         triggers = "developer",
         attributes = {
                 @CommandAttribute(key = "developer"),
-                @CommandAttribute(key = "hidden")
-        }
+                @CommandAttribute(key = "hidden")}
 )
 public class Developer implements Command {
 

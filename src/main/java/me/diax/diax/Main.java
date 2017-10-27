@@ -5,6 +5,7 @@ import me.diax.diax.commands.action.Hug;
 import me.diax.diax.commands.developer.*;
 import me.diax.diax.commands.developer.Shutdown;
 import me.diax.diax.commands.fun.CSGO;
+import me.diax.diax.commands.fun.Die;
 import me.diax.diax.commands.fun.EightBall;
 import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
@@ -51,6 +52,7 @@ public class Main {
                     new Hug(),
 
                     new CSGO(),
+                    new Die(),
                     new EightBall(),
 
                     new Credits(),
