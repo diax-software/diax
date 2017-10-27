@@ -7,7 +7,6 @@ import me.diax.diax.commands.developer.Shutdown;
 import me.diax.diax.commands.fun.*;
 import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
-import me.diax.diax.listeners.DisconnectListener;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
 import me.diax.diax.util.Data;
@@ -56,8 +55,9 @@ public class Main {
                     new Say(),
 
                     new Credits(),
-                    new Invite(),
                     new Help(handler, data.getPrefix()),
+                    new Invite(),
+                    new Links(),
                     new Ping(),
                     new Report(),
                     new Suggest(),
@@ -85,7 +85,6 @@ public class Main {
                     .setGame(Game.of("Diax is starting, hold tight!"))
                     .setStatus(OnlineStatus.IDLE)
                     .addEventListener(
-                            new DisconnectListener(),
                             new GuildJoinLeaveListener(data.getBotlistToken()),
                             new MessageListener(handler, data),
                             new ListenerAdapter() {

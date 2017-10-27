@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @CommandDescription(
         name = "help",
         triggers = "help",
-        description = "Displays the help message for Diax.",
         attributes = {
                 @CommandAttribute(key = "private")
         }
@@ -32,7 +31,7 @@ public class Help implements Command {
         message.getChannel().sendMessage(Embed.transparent()
                 .addField(
                         "__**Commands**__",
-                        handler.getCommands().stream().filter(command -> !command.hasAttribute("hidden")).sorted().map(command -> "`" + prefix + command.getDescription().name() + " | " + command.getDescription().description() + "`").collect(Collectors.joining("\n")),
+                        "\nOptional arguments are `{}`\nNeeded arguments are `[]`\n" + handler.getCommands().stream().filter(command -> !command.hasAttribute("hidden")).sorted().map(command -> "`" + prefix + command.getDescription().name() + (command.getDescription().description().isEmpty() ? "" : " | " + command.getDescription().description()) + "`").collect(Collectors.joining("\n")),
                         false
                 )
                 .addField("__**Links**__", String.join("\n",
