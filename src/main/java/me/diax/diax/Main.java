@@ -4,9 +4,7 @@ import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.commands.action.Hug;
 import me.diax.diax.commands.developer.*;
 import me.diax.diax.commands.developer.Shutdown;
-import me.diax.diax.commands.fun.CSGO;
-import me.diax.diax.commands.fun.Die;
-import me.diax.diax.commands.fun.EightBall;
+import me.diax.diax.commands.fun.*;
 import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
 import me.diax.diax.listeners.DisconnectListener;
@@ -54,6 +52,8 @@ public class Main {
                     new CSGO(),
                     new Die(),
                     new EightBall(),
+                    new Flip(),
+                    new Say(),
 
                     new Credits(),
                     new Invite(),
