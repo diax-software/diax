@@ -34,7 +34,7 @@ public class Die implements Command {
         } else {
             try {
                 result = parseDiceRoll(s);
-            } catch (IllegalArgumentException e) {
+            } catch(Exception e) {
                 message.getChannel().sendMessage(Emote.X + " - Invalid dice roll!").queue();
                 return;
             }
@@ -45,9 +45,10 @@ public class Die implements Command {
     /**
      * Parses a dice roll like <code><b>6,8d22+5,1d5</b></code>
      * @param roll The dice roll that is being parsed
+     * @throws A Exception, used to catch any {@link IndexOutOfBoundsException} or any other Exception that may occur
      * @return The complete result of the dice roll(s)
      */
-	public int parseDiceRoll(String roll) {
+	public int parseDiceRoll(String roll) throws Exception {
 		roll = roll.replace(" ", "");
 		if(roll.contains(",")) {
 			String[] parts = roll.split(",");
@@ -63,10 +64,11 @@ public class Die implements Command {
 	
 	/**
 	 * Results a dice roll like <code><b>5d11</b></code> or <code><b>7d17-1</b></code>
-	 * @param adb The dice roll to parse and result 
+	 * @param adb The dice roll to parse and result
+	 * @throws A Exception, used to catch any {@link IndexOutOfBoundsException} or any other Exception that may occur
 	 * @return The complete result of the dice roll
 	 */
-	private int resultDieceRoll(String adb) {
+	private int resultDieceRoll(String adb) throws Exception {
 		int a = 0, b = 0, result = 0;
 		if(!adb.contains("d")) {
 			int[] change = getDiceChange(adb);
@@ -99,9 +101,10 @@ public class Die implements Command {
 	/**
 	 * This handles dice throws that look like <b><code>2d7-5</code></b> or <b><code>8d10+6</code></b>
 	 * @param b The string to be tested
+	 * @throws A Exception, used to catch any {@link IndexOutOfBoundsException} or any other Exception that may occur
 	 * @return A int array of the parts incase a <b><code>+</code></b> or <b><code>-</code></b> was given
 	 */
-	private int[] getDiceChange(String b) {
+	private int[] getDiceChange(String b) throws Exception {
 		int[] parts = new int[2];
 		if(b.contains("+")) {
 			String[] sparts = b.split("\\+");
