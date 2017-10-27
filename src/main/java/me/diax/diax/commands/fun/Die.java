@@ -21,13 +21,12 @@ import java.util.Random;
 public class Die implements Command {
 
     private Random random;
+    private static final int MAX_ROLLS = 50000;
+    private static final int MAX_SIDES = 50000;
 
     public Die() {
         random = new Random();
     }
-
-    private final int MAX_ROLLS = 50000;
-    private final int MAX_SIDES = 50000;
 
     @Override
     public void execute(Message message, String s) {
@@ -38,7 +37,13 @@ public class Die implements Command {
             try {
                 result = parseDiceRoll(s);
             } catch (Exception e) {
-                message.getChannel().sendMessage(Emote.X + " - Invalid dice roll!").queue();
+                message.getChannel().sendMessage(Emote.X + " - Invalid dice roll!\nExamples: \n```" +
+                        "Examples:\n" +
+                        "<>roll 1\n" +
+                        "<>roll 2d10\n" +
+                        "<>roll 1d4+20\n" +
+                        "<>roll 1d5-2```"
+                ).queue();
                 return;
             }
         }
@@ -105,7 +110,7 @@ public class Die implements Command {
      * This handles dice throws that look like <b><code>2d7-5</code></b> or <b><code>8d10+6</code></b>
      *
      * @param b The string to be tested
-     * @return A int array of the parts incase a <b><code>+</code></b> or <b><code>-</code></b> was given
+     * @return A int array of the parts in case a <b><code>+</code></b> or <b><code>-</code></b> was given
      * @throws Exception, used to catch any {@link IndexOutOfBoundsException} or any other Exception that may occur
      */
     private int[] getDiceChange(String b) throws Exception {
