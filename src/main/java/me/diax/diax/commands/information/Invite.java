@@ -9,7 +9,6 @@ import net.dv8tion.jda.core.entities.Message;
 @CommandDescription(
         name = "invite",
         triggers = "invite",
-        description = "Shows the invite link for Diax.",
         attributes = {
                 @CommandAttribute(key = "private")
         }

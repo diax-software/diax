@@ -13,7 +13,7 @@ import java.util.Random;
         triggers = {
                 "die", "dice", "roll"
         },
-        description = "{number} | Rolls a six-sided or the amount given die.",
+        description = "{number/dice notation}",
         attributes = {
                 @CommandAttribute(key = "private"),
         }

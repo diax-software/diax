@@ -13,7 +13,6 @@ import java.util.Random;
         triggers = {
                 "flip", "coin", "heads", "toss", "tails", "hot"
         },
-        description = "Flip a coin and print the result",
         attributes = {
                 @CommandAttribute(key = "private"),
         }

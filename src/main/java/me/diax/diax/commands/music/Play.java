@@ -17,7 +17,7 @@ import net.dv8tion.jda.core.entities.TextChannel;
 @CommandDescription(
         name = "play",
         triggers = "play",
-        description = "{url/query} | Plays a track from a URL or query, if no args then pauses the player."
+        description = "{url/query}"
 )
 public class Play implements Command {
 

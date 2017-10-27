@@ -9,8 +9,7 @@ import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "repeat",
-        triggers = "repeat",
-        description = "Toggles the repeating function."
+        triggers = "repeat"
 )
 public class Repeat implements Command {
 

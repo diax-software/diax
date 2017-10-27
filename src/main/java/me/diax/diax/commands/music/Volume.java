@@ -14,7 +14,7 @@ import net.dv8tion.jda.core.entities.Message;
                 "vol"
         },
         attributes = @CommandAttribute(key = "patreon"),
-        description = "[0-150] | Sets the volume of Diax."
+        description = "[0-150]"
 )
 public class Volume implements Command {
 

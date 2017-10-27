@@ -11,7 +11,7 @@ import net.dv8tion.jda.core.entities.Message;
         triggers = {
                 "say"
         },
-        description = "[message] | Get the bot to say what you do.",
+        description = "[message]",
         attributes = {
                 @CommandAttribute(key = "private"),
         }

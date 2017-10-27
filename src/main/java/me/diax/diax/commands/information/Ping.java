@@ -11,7 +11,6 @@ import java.util.Random;
 @CommandDescription(
         name = "ping",
         triggers = {"ping", "pang", "peng", "pong", "pung"},
-        description = "Shows the message response time and api ping.",
         attributes = {
                 @CommandAttribute(key = "private")
         }

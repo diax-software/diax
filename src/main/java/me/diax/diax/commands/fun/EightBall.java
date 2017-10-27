@@ -13,7 +13,7 @@ import java.util.Random;
         triggers = {
                 "8ball", "eightball", "8-ball"
         },
-        description = "Ask a question to the 8ball.",
+        description = "[question]",
         attributes = {
                 @CommandAttribute(key = "private"),
         }
