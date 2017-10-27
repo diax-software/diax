@@ -68,7 +68,7 @@ public class TrackScheduler extends AudioEventAdapter {
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
         Guild guild = current.getChannel().getGuild();
         if (guild == null) { // If the server doesn't exist, stop the track.
-            this.stop();
+            this.stop(channel);
             return;
         } else if (current.getRequester() == null) { // If the person who requested the song doesn't exist, then skip.
             channel.sendMessage(Emote.X + " - The person who requested this track is no longer in the server, skipping...").queue();
@@ -76,7 +76,7 @@ public class TrackScheduler extends AudioEventAdapter {
         }
         if (!joinVoiceChannel()) { // If couldn't join the voice channel, then stop.
             channel.sendMessage(Emote.X + " - Could not join the voice channel, stopping.").queue();
-            stop();
+            stop(channel);
             return;
         }
         this.sendEmbed(current); // Send music info to the channel.
@@ -141,7 +141,7 @@ public class TrackScheduler extends AudioEventAdapter {
         if (current != null) previous = current;
         repeat = false;
         if (queue.isEmpty()) { // If there is nothing in the queue, then stop.
-            this.stop();
+            this.stop(channel);
         } else { // Else, play the next track in the queue.
             MusicTrack track = queue.poll();
             current = track;
@@ -150,13 +150,7 @@ public class TrackScheduler extends AudioEventAdapter {
         }
     }
 
-    // Stops and cleans up the player.
-    public synchronized void stop() {
-        this.stop(null);
-    }
-
     public synchronized void stop(TextChannel channel) {
-        if (channel != null) this.channel = channel;
         manager.getPlayer().setPaused(false);
         manager.getPlayer().setVolume(100);
         if (this.isPlaying() || !this.queue.isEmpty()) {

@@ -54,6 +54,10 @@ public class MessageListener extends ListenerAdapter {
             handler.execute(command, event.getMessage(), content.replaceFirst(Pattern.quote(first), ""));
         } catch (PermissionException ignored) {
         } catch (Exception e) {
+            try {
+                event.getChannel().sendMessage(Emote.X + " - Something went wrong that we didn't know about ;-;\nJoin here for help: https://discord.gg/PedN8U").queue();
+            } catch (Exception ignored) {
+            }
             e.printStackTrace();
             WebHookUtil.log(event.getJDA(), Emote.X + " An exception occurred.", "An uncaught exception occurred when trying to run: ```" + (handler.findCommand(first).getDescription().name() + " | " + event.getGuild() + " | " + event.getChannel()).replace("`", "\\`") + "```");
         }
