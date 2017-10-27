@@ -1,15 +1,14 @@
 package me.diax.diax.commands.fun;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandAttribute;
 import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.diax.util.Emote;
 import net.dv8tion.jda.core.entities.Message;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 @CommandDescription(
         name = "die",
@@ -49,11 +48,9 @@ public class Die implements Command {
 		in = in.replace(" ", "");
 		if(in.contains(",")) {
 			String[] parts = in.split(",");
-			List<String> list = new ArrayList<>();
 			int finalResult = 0;
 			for(int i = 0; i < parts.length; i++) {
 				List<Integer> parsed = resultDieceRoll(parts[i]);
-				list.add(Arrays.toString(parsed.toArray(new Integer[parsed.size()])));
 				finalResult += parsed.stream().mapToInt(n -> n).sum();
 			}
 			return finalResult;
