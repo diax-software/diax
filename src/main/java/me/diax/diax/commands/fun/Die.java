@@ -1,7 +1,5 @@
 package me.diax.diax.commands.fun;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import me.diax.comportment.jdacommand.Command;
@@ -35,7 +33,7 @@ public class Die implements Command {
             result = random.nextInt(6) + 1;
         } else {
             try {
-                result = parseDice(s);
+                result = parseDiceRoll(s);
             } catch (IllegalArgumentException e) {
                 message.getChannel().sendMessage(Emote.X + " - Invalid dice roll!").queue();
                 return;
@@ -44,46 +42,48 @@ public class Die implements Command {
         message.getChannel().sendMessage(Emote.GAME_DIE + " - You rolled a `" + result + "`").queue();
     }
     
-	public int parseDice(String in) {
-		in = in.replace(" ", "");
-		if(in.contains(",")) {
-			String[] parts = in.split(",");
+    /**
+     * Parses a dice roll like <code><b>6,8d22+5,1d5</b></code>
+     * @param roll The dice roll that is being parsed
+     * @return The complete result of the dice roll(s)
+     */
+	public int parseDiceRoll(String roll) {
+		roll = roll.replace(" ", "");
+		if(roll.contains(",")) {
+			String[] parts = roll.split(",");
 			int finalResult = 0;
-			for(int i = 0; i < parts.length; i++) {
-				List<Integer> parsed = resultDieceRoll(parts[i]);
-				finalResult += parsed.stream().mapToInt(n -> n).sum();
-			}
+			for(int i = 0; i < parts.length; i++)
+				finalResult += resultDieceRoll(parts[i]);
 			return finalResult;
-		} else {
-			List<Integer> parsed = resultDieceRoll(in);
-			return parsed.stream().mapToInt(n -> n).sum();
-		}
+		} else return resultDieceRoll(roll);
 	}
 	
 	private final int MAX_ROLLS = 50000;
 	private final int MAX_SIDES = 50000;
 	
-	private List<Integer> resultDieceRoll(String adb) {
-		List<Integer> list = new ArrayList<>();
-		int a, b;
+	/**
+	 * Results a dice roll like <code><b>5d11</b></code> or <code><b>7d17-1</b></code>
+	 * @param adb The dice roll to parse and result 
+	 * @return The complete result of the dice roll
+	 */
+	private int resultDieceRoll(String adb) {
+		int a = 0, b = 0, result = 0;
 		if(!adb.contains("d")) {
-			int change = getDiceChange(adb);
+			int[] change = getDiceChange(adb);
 			try {
-				if(change > 0) a = Integer.parseInt(adb.split("\\+")[0]);
-				else if(change < 0) a = Integer.parseInt(adb.split("-")[0]);
+				if(change.length > 0) a = change[0];
 				else a = Integer.parseInt(adb);
 			} catch(NumberFormatException nfe) {
 				throw new IllegalArgumentException("The input must be a Number");
 			}
-			list.add(random.nextInt(a) + 1 + change);
-			return list;
+			result += (random.nextInt(a) + 1 + (change.length > 0 ? change[1] : 0));
+			return result;
 		} else {
 			String[] parts = adb.split("d");
-			int change = getDiceChange(parts[1]);
+			int[] change = getDiceChange(parts[1]);
 			try {
 				a = Integer.parseInt(parts[0]);
-				if(change > 0) b = Integer.parseInt(parts[1].split("\\+")[0]);
-				else if(change < 0) b = Integer.parseInt(parts[1].split("-")[0]);
+				if(change.length > 0) b = change[0];
 				else b = Integer.parseInt(parts[1]);
 			} catch(NumberFormatException nfe) {
 				throw new IllegalArgumentException("Not a valid format, A or B is supposed to be a Number");
@@ -91,28 +91,37 @@ public class Die implements Command {
 			if(a < 1 || b < 1) throw new IllegalArgumentException("Not a valid format, A or B cannot be Negative");
 			if(a > MAX_ROLLS || b > MAX_SIDES) throw new IllegalArgumentException("Numbers are too Big, you are not rolling Dice here anymore.");
 			for(int i = 0; i < a; i++)
-				list.add(random.nextInt(b) + 1 + change);
-			return list;
+				result += (random.nextInt(b) + 1 + (change.length > 0 ? change[1] : 0));
+			return result;
 		}
 	}
 	
-	private int getDiceChange(String b) {
-		int a;
+	/**
+	 * This handles dice throws that look like <b><code>2d7-5</code></b> or <b><code>8d10+6</code></b>
+	 * @param b The string to be tested
+	 * @return A int array of the parts incase a <b><code>+</code></b> or <b><code>-</code></b> was given
+	 */
+	private int[] getDiceChange(String b) {
+		int[] parts = new int[2];
 		if(b.contains("+")) {
+			String[] sparts = b.split("\\+");
 			try {
-				a = Integer.parseInt(b.split("\\+")[1]);
+				parts[0] = Integer.parseInt(sparts[0]);
+				parts[1] = Integer.parseInt(sparts[1]);
 			} catch(NumberFormatException nfe) {
-				a = 0;
+				parts = new int[0];
 			}
-			return a;
+			return parts;
 		} else if(b.contains("-")) {
+			String[] sparts = b.split("-");
 			try {
-				a = Integer.parseInt(b.split("-")[1]);
+				parts[0] = Integer.parseInt(sparts[0]);
+				parts[1] = -Integer.parseInt(sparts[1]);
 			} catch(NumberFormatException nfe) {
-				a = 0;
+				parts = new int[0];
 			}
-			return -a;
-		} else return 0;
+			return parts;
+		} else return new int[0];
 	}
     
 }
