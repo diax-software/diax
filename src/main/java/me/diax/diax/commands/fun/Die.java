@@ -30,7 +30,7 @@ public class Die implements Command {
 
     @Override
     public void execute(Message message, String s) {
-        int result;
+        long result;
         if (s.isEmpty()) {
             result = random.nextInt(6) + 1;
         } else {
@@ -57,11 +57,11 @@ public class Die implements Command {
      * @return The complete result of the dice roll(s)
      * @throws Exception, used to catch any {@link IndexOutOfBoundsException} or any other Exception that may occur
      */
-    public int parseDiceRoll(String roll) throws Exception {
+    public long parseDiceRoll(String roll) throws Exception {
         roll = roll.replace(" ", "");
         if (roll.contains(",")) {
             String[] parts = roll.split(",");
-            int finalResult = 0;
+            long finalResult = 0;
             for (int i = 0; i < parts.length; i++)
                 finalResult += resultDieceRoll(parts[i]);
             return finalResult;
@@ -75,33 +75,33 @@ public class Die implements Command {
      * @return The complete result of the dice roll
      * @throws Exception, used to catch any {@link IndexOutOfBoundsException} or any other Exception that may occur
      */
-    private int resultDieceRoll(String adb) throws Exception {
-        int a, b, result = 0;
+    private long resultDieceRoll(String adb) throws Exception {
+        long a = 0, b = 0, result = 0;
         if (!adb.contains("d")) {
-            int[] change = getDiceChange(adb);
+            long[] change = getDiceChange(adb);
             try {
-                if (change.length > 0) a = change[0];
-                else a = Integer.parseInt(adb);
+                if (change.length > 0) b = change[0];
+                else b = Long.parseLong(adb);
             } catch (NumberFormatException nfe) {
                 throw new IllegalArgumentException("The input must be a Number");
             }
-            result += (random.nextInt(a) + 1 + (change.length > 0 ? change[1] : 0));
+            result += (random.nextInt((int)b) + 1 + (change.length > 0 ? change[1] : 0));
             return result;
         } else {
             String[] parts = adb.split("d");
-            int[] change = getDiceChange(parts[1]);
+            long[] change = getDiceChange(parts[1]);
             try {
-                a = Integer.parseInt(parts[0]);
+                a = Long.parseLong(parts[0]);
                 if (change.length > 0) b = change[0];
-                else b = Integer.parseInt(parts[1]);
+                else b = Long.parseLong(parts[1]);
             } catch (NumberFormatException nfe) {
                 throw new IllegalArgumentException("Not a valid format, A or B is supposed to be a Number");
             }
             if (a < 1 || b < 1) throw new IllegalArgumentException("Not a valid format, A or B cannot be Negative");
-            if (a > MAX_ROLLS || b > MAX_SIDES)
+            if (a > MAX_ROLLS || b > MAX_SIDES || a > Integer.MAX_VALUE || b > Integer.MAX_VALUE)
                 throw new IllegalArgumentException("Numbers are too Big, you are not rolling Dice here anymore.");
             for (int i = 0; i < a; i++)
-                result += (random.nextInt(b) + 1 + (change.length > 0 ? change[1] : 0));
+                result += (random.nextInt((int)b) + 1 + (change.length > 0 ? change[1] : 0));
             return result;
         }
     }
@@ -113,26 +113,26 @@ public class Die implements Command {
      * @return A int array of the parts in case a <b><code>+</code></b> or <b><code>-</code></b> was given
      * @throws Exception, used to catch any {@link IndexOutOfBoundsException} or any other Exception that may occur
      */
-    private int[] getDiceChange(String b) throws Exception {
-        int[] parts = new int[2];
+    private long[] getDiceChange(String b) throws Exception {
+        long[] parts = new long[2];
         if (b.contains("+")) {
             String[] sparts = b.split("\\+");
             try {
-                parts[0] = Integer.parseInt(sparts[0]);
-                parts[1] = Integer.parseInt(sparts[1]);
+                parts[0] = Long.parseLong(sparts[0]);
+                parts[1] = Long.parseLong(sparts[1]);
             } catch (NumberFormatException nfe) {
-                parts = new int[0];
+                parts = new long[0];
             }
             return parts;
         } else if (b.contains("-")) {
             String[] sparts = b.split("-");
             try {
-                parts[0] = Integer.parseInt(sparts[0]);
-                parts[1] = -Integer.parseInt(sparts[1]);
+                parts[0] = Long.parseLong(sparts[0]);
+                parts[1] = -Long.parseLong(sparts[1]);
             } catch (NumberFormatException nfe) {
-                parts = new int[0];
+                parts = new long[0];
             }
             return parts;
-        } else return new int[0];
+        } else return new long[0];
     }
 }
