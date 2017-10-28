@@ -22,4 +22,9 @@ public class Emote {
     public static String SPARKLES = "✨";
     public static String MUSICAL_NOTE = "\uD83C\uDFB5";
     public static String BUG = "\uD83D\uDC1B";
+    public static String EIGHT_BALL = "\uD83C\uDFB1";
+    public static String ZZZ = "\uD83D\uDCA4";
+    public static String GAME_DIE = "\uD83C\uDFB2";
+    public static String BUST = "\uD83D\uDC64";
+    public static String BUTTON = "\uD83D\uDD18";
 }

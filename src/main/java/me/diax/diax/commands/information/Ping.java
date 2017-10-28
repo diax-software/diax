@@ -10,9 +10,10 @@ import java.util.Random;
 
 @CommandDescription(
         name = "ping",
-        triggers = "ping",
-        description = "Shows the message response time and api ping.",
-        attributes = @CommandAttribute(key = "private")
+        triggers = {"ping", "pang", "peng", "pong", "pung"},
+        attributes = {
+                @CommandAttribute(key = "private")
+        }
 )
 public class Ping implements Command {
 

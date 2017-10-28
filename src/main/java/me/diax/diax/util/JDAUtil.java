@@ -1,13 +1,10 @@
 package me.diax.diax.util;
 
+import com.github.natanbc.discordbotsapi.DiscordBotsAPI;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -39,18 +36,13 @@ public class JDAUtil {
         executor.scheduleAtFixedRate(periodicTask, 0, 20, TimeUnit.SECONDS);
     }
 
-    public static void sendGuilds(JDA jda, String auth) throws IOException {
-        String url = "https://discordbots.org/api/bots/" + jda.getSelfUser().getId() + "/stats";
-        String query = "{\"server_count\": " + jda.getGuilds().size() + "}";
-
-        URLConnection conn = new URL(url).openConnection();
-        conn.setDoOutput(true);
-        conn.setRequestProperty("Accept-Charset", "UTF-8");
-        conn.setRequestProperty("Content-Type", "application/json");
-        conn.setRequestProperty("Authorization", auth);
-
-        OutputStream output = conn.getOutputStream();
-        output.write(query.getBytes("UTF-8"));
-        output.close();
+    public static void sendGuilds(JDA jda, String token) {
+        if (token.isEmpty()) return;
+        try {
+            DiscordBotsAPI api = new DiscordBotsAPI(token);
+            api.postStats(jda.getSelfUser().getIdLong(), new int[]{jda.getGuilds().size()});
+        } catch (Exception e) {
+            WebHookUtil.err(jda, "Couldn't update bot list stats.");
+        }
     }
 }

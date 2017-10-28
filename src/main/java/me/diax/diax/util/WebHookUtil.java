@@ -3,15 +3,27 @@ package me.diax.diax.util;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.webhook.WebhookClient;
 import net.dv8tion.jda.webhook.WebhookMessageBuilder;
+import org.slf4j.LoggerFactory;
 
 public class WebHookUtil {
 
     public static void log(JDA jda, String title, String message) {
-        jda.getTextChannelById("357109761533149185").getWebhooks().queue(whs -> {
-            WebhookClient wh = whs.get(0).newClient().build();
-            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(title).setDescription(message).build()).setUsername("Diax Logging").build());
-            wh.close();
-        });
+        LoggerFactory.getLogger(WebHookUtil.class).info(message);
+        try {
+            jda.getTextChannelById("357109761533149185").getWebhooks().queue(whs -> {
+                WebhookClient wh = whs.get(0).newClient().build();
+                wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(title).setDescription(message).build()).setUsername("Diax Logging").build());
+                wh.close();
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    public static void err(JDA jda, String message) {
+        try {
+            WebHookUtil.log(jda, Emote.X + " - Error!", message);
+        } catch (Exception ignored) {
+        }
     }
 
     public static void announce(JDA jda, String message) {

@@ -42,6 +42,10 @@ public class GuildMusicManager {
         return MANAGERS.computeIfAbsent(guild.getId(), (id) -> new GuildMusicManager(guild));
     }
 
+    public static void removeManagerFor(Guild guild) {
+        MANAGERS.remove(guild.getId());
+    }
+
     public AudioPlayerManager getPlayerManager() {
         return MANAGER;
     }

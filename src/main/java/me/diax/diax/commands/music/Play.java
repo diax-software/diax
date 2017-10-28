@@ -14,12 +14,10 @@ import me.diax.diax.util.StringUtil;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 
-import javax.xml.soap.Text;
-
 @CommandDescription(
         name = "play",
         triggers = "play",
-        description = "[url/query] | Plays a track from a URL or query."
+        description = "{url/query}"
 )
 public class Play implements Command {
 

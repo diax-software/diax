@@ -25,12 +25,12 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>3.3.1_280</version>
+            <version>3.3.1_293</version>
         </dependency>
         <dependency>
             <groupId>com.sedmelluq</groupId>
             <artifactId>lavaplayer</artifactId>
-            <version>1.2.43</version>
+            <version>1.2.44</version>
         </dependency>
         <dependency>
             <groupId>com.github.comportment</groupId>
@@ -46,6 +46,21 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.natanbc</groupId>
+            <artifactId>discordbots-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
         </dependency>
     </dependencies>
 

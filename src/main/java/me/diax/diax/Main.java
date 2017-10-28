@@ -2,14 +2,15 @@ package me.diax.diax;
 
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.commands.action.Hug;
-import me.diax.diax.commands.fun.CSGO;
+import me.diax.diax.commands.developer.*;
+import me.diax.diax.commands.developer.Shutdown;
+import me.diax.diax.commands.fun.*;
+import me.diax.diax.commands.image.Catgirl;
 import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
-import me.diax.diax.commands.owner.Announce;
-import me.diax.diax.commands.owner.Developer;
-import me.diax.diax.listeners.DisconnectListener;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
+import me.diax.diax.util.Data;
 import me.diax.diax.util.Emote;
 import me.diax.diax.util.JDAUtil;
 import me.diax.diax.util.WebHookUtil;
@@ -20,23 +21,47 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
 
 public class Main {
 
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
+    private Data data;
+
     public static void main(String[] args) {
-        new Main().main(args[0], args[1], args[2]);
+        new Main().main(args.length == 0 || args[0].isEmpty() ? System.getProperty("user.dir") + "/data.json" : args[0]);
     }
 
-    public void main(String token, String auth, String prefix) {
+    public void main(String location) {
+        try {
+            data = new Data(new File(location));
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> data.saveData()));
+        } catch (Exception e) {
+            logger.error("Couldn't load data file.");
+            e.printStackTrace();
+            System.exit(1);
+        }
         try {
             CommandHandler handler = new CommandHandler();
             handler.registerCommands(
                     new Hug(),
 
                     new CSGO(),
+                    new Die(),
+                    new EightBall(),
+                    new Flip(),
+                    new Say(),
+
+                    new Catgirl(),
 
                     new Credits(),
-                    new Help(handler, prefix),
+                    new Help(handler, data.getPrefix()),
+                    new Info(handler),
+                    new Invite(),
+                    new Links(),
                     new Ping(),
                     new Report(),
                     new Suggest(),
@@ -52,27 +77,27 @@ public class Main {
                     new Volume(),
 
                     new Announce(),
-                    new Developer()
+                    new Blacklist(data),
+                    new Developer(),
+                    new Reload(data),
+                    new Save(data),
+                    new Shutdown(data)
             );
             new JDABuilder(AccountType.BOT)
-                    .setToken(token)
+                    .setToken(data.getToken())
                     .setAudioEnabled(true)
                     .setGame(Game.of("Diax is starting, hold tight!"))
                     .setStatus(OnlineStatus.IDLE)
                     .addEventListener(
-                            new DisconnectListener(),
-                            new GuildJoinLeaveListener(auth),
-                            new MessageListener(handler, prefix),
+                            new GuildJoinLeaveListener(data.getBotlistToken()),
+                            new MessageListener(handler, data),
                             new ListenerAdapter() {
                                 @Override
                                 public void onReady(ReadyEvent event) {
                                     JDA jda = event.getJDA();
                                     WebHookUtil.log(jda, Emote.SPARKLES + " Start", jda.getSelfUser().getName() + " has finished starting!");
-                                    try {
-                                        JDAUtil.sendGuilds(jda, auth);
-                                    } catch (Exception ignored) {
-                                    }
-                                    JDAUtil.startGameChanging(jda, prefix);
+                                    JDAUtil.startGameChanging(jda, data.getPrefix());
+                                    JDAUtil.sendGuilds(event.getJDA(), data.getBotlistToken());
                                 }
                             }
                     ).buildBlocking();

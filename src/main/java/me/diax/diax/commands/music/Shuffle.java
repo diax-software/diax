@@ -8,8 +8,7 @@ import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "shuffle",
-        triggers = "shuffle",
-        description = "Shuffles the queue."
+        triggers = "shuffle"
 )
 public class Shuffle implements Command {
 

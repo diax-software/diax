@@ -1,4 +1,4 @@
-package me.diax.diax.commands.owner;
+package me.diax.diax.commands.developer;
 
 import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandAttribute;
@@ -10,9 +10,8 @@ import net.dv8tion.jda.core.entities.Message;
         name = "announce",
         triggers = "announce",
         attributes = {
-                @CommandAttribute(key = "owner"),
+                @CommandAttribute(key = "developer"),
                 @CommandAttribute(key = "hidden")
-
         }
 )
 public class Announce implements Command {

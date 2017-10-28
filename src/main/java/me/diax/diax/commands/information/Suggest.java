@@ -10,9 +10,11 @@ import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "suggest",
-        description = "[description] | Used to suggest features for Diax.",
+        description = "[description]",
         triggers = "suggest",
-        attributes = @CommandAttribute(key = "private")
+        attributes = {
+                @CommandAttribute(key = "private")
+        }
 )
 public class Suggest implements Command {
 
@@ -29,6 +31,6 @@ public class Suggest implements Command {
             return;
         }
         WebHookUtil.suggest(message.getJDA(), "```" + StringUtil.stripMarkdown(s) + "```\n*Suggested by " + StringUtil.stripMarkdown(message.getAuthor().getName()) + "#" + message.getAuthor().getDiscriminator() + "*");
-        message.getChannel().sendMessage(Emote.SMILE + " - Your suggestion has been submitted!").queue();
+        message.getChannel().sendMessage(Emote.SMILE + " - Your suggestion has been submitted, join here to track it: https://discord.gg/5sJZa2y").queue();
     }
 }

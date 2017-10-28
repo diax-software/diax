@@ -8,8 +8,7 @@ import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "stop",
-        triggers = "stop",
-        description = "Stops the player."
+        triggers = "stop"
 )
 public class Stop implements Command {
 

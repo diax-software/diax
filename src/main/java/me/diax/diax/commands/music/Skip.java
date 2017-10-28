@@ -8,8 +8,7 @@ import net.dv8tion.jda.core.entities.Message;
 
 @CommandDescription(
         name = "skip",
-        triggers = "skip",
-        description = "Skips the current track."
+        triggers = "skip"
 )
 public class Skip implements Command {
 

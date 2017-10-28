@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
 
 @CommandDescription(
         name = "queue",
-        triggers = "queue",
-        description = "Displays the track queue."
+        triggers = "queue"
 )
 public class Queue implements Command {
 
@@ -29,8 +28,8 @@ public class Queue implements Command {
             msg = Emote.MUSICAL_NOTE + " - The queue is empty.";
         } else {
             List<MusicTrack> reducedQueue = queue.subList(0, queue.size() > 10 ? 10 : queue.size());
-            msg = reducedQueue.stream().map(track -> "` (" + (reducedQueue.indexOf(track) + 1) + ") " + StringUtil.stripMarkdown(track.getTrack().getInfo().title) + " | " + StringUtil.stripMarkdown(track.getRequester().getNickname()) + "#" + track.getRequester().getUser().getDiscriminator() + "`").collect(Collectors.joining("\n", "Queue:\n\n", String.format("\n\nShowing (%s/%s) items.", reducedQueue.size(), queue.size())));
+            msg = reducedQueue.stream().map(track -> "` (" + (reducedQueue.indexOf(track) == 9 ? "" : "0") + (reducedQueue.indexOf(track) + 1) + ") " + StringUtil.stripMarkdown(track.getTrack().getInfo().title) + " | " + StringUtil.stripMarkdown(track.getRequester().getEffectiveName()) + "#" + track.getRequester().getUser().getDiscriminator() + "`").collect(Collectors.joining("\n", "Queue:\n\n", String.format("\n\nShowing (%s/%s) items.", reducedQueue.size(), queue.size())));
         }
-        message.getChannel().sendMessage(msg).queue();
+        message.getChannel().sendMessage(Emote.MUSICAL_NOTE + " - " + msg).queue();
     }
 }
