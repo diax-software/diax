@@ -5,6 +5,7 @@ import me.diax.diax.commands.action.Hug;
 import me.diax.diax.commands.developer.*;
 import me.diax.diax.commands.developer.Shutdown;
 import me.diax.diax.commands.fun.*;
+import me.diax.diax.commands.image.Catgirl;
 import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
@@ -54,8 +55,11 @@ public class Main {
                     new Flip(),
                     new Say(),
 
+                    new Catgirl(),
+
                     new Credits(),
                     new Help(handler, data.getPrefix()),
+                    new Info(handler),
                     new Invite(),
                     new Links(),
                     new Ping(),
