@@ -39,7 +39,7 @@ public class Info implements Command {
                 "",
                 "----- Diax Information -----",
                 "",
-                "API Ping: " + jda.getPing(),
+                "API Ping: " + jda.getPing() + "ms",
                 "Guilds: " + jda.getGuilds().size(),
                 "Text Channels: " + jda.getTextChannels().size(),
                 "Users: " + jda.getUsers().size(),
