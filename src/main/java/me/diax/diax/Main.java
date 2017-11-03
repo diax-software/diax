@@ -56,7 +56,7 @@ public class Main {
             //Welcome to automation
             handler.registerCommands(
                 reflections.getSubTypesOf(Command.class).stream()
-                    .filter(c -> Modifier.isAbstract(c.getModifiers()) && c.isAnnotationPresent(CommandDescription.class))
+                    .filter(c -> !Modifier.isAbstract(c.getModifiers()) && c.isAnnotationPresent(CommandDescription.class))
                     .map(injector::getInstance)
                     .collect(Collectors.toSet())
             );
