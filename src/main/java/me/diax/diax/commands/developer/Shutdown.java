@@ -7,6 +7,8 @@ import me.diax.diax.util.Data;
 import me.diax.diax.util.Emote;
 import net.dv8tion.jda.core.entities.Message;
 
+import javax.inject.Inject;
+
 @CommandDescription(
         name = "shutdown",
         triggers = "shutdown",
@@ -19,6 +21,7 @@ public class Shutdown implements Command {
 
     private Data data;
 
+    @Inject
     public Shutdown(Data data) {
         this.data = data;
     }
