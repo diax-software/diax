@@ -1,6 +1,7 @@
 package me.diax.diax;
 
 import com.google.inject.Injector;
+import lombok.extern.slf4j.Slf4j;
 import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.comportment.jdacommand.CommandHandler;
@@ -16,16 +17,14 @@ import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.reflections.Reflections;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.lang.reflect.Modifier;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class Main {
 
-    private static Logger logger = LoggerFactory.getLogger(Main.class);
     private Data data;
     private WeebAPI requester;
 
@@ -38,7 +37,7 @@ public class Main {
             data = new Data(new File(location));
             Runtime.getRuntime().addShutdownHook(new Thread(() -> data.saveData()));
         } catch (Exception e) {
-            logger.error("Couldn't load data file.");
+            log.error("Couldn't load data file.");
             e.printStackTrace();
             System.exit(1);
         }

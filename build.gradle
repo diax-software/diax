@@ -13,7 +13,7 @@ plugins {
 }
 
 //Define the Main Class
-mainClassName = "net.kodehawa.mantarobot.MantaroBot"
+mainClassName = 'me.diax.diax.Main'
 
 //Use an unified versioning system
 def ver = new Version(major: 0, minor: 0, revision: 1)
