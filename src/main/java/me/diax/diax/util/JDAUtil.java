@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 public class JDAUtil {
 
+    private static DiscordBotsAPI API;
+
     private static String getStatus(JDA jda) {
         String[] status = new String[]{
                 "Guilds: (guilds) | Users: (users)",
@@ -38,9 +40,9 @@ public class JDAUtil {
 
     public static void sendGuilds(JDA jda, String token) {
         if (token.isEmpty()) return;
+        if (API == null) API = new DiscordBotsAPI(token);
         try {
-            DiscordBotsAPI api = new DiscordBotsAPI(token);
-            api.postStats(jda.getSelfUser().getIdLong(), new int[]{jda.getGuilds().size()});
+            API.postStats(1, 0, jda.getGuilds().size());
         } catch (Exception e) {
             WebHookUtil.err(jda, "Couldn't update bot list stats.");
         }

@@ -27,7 +27,7 @@ public class Catgirl implements Command {
     public void execute(Message message, String s) {
         try {
             JSONObject json = new JSONObject(new OkHttpClient().newCall(new Request.Builder().url(ENDPOINT).build()).execute().body().string());
-            message.getChannel().sendMessage(Embed.transparent().setTitle("nyaaaa").setImage(json.getString("neko")).build()).queue();
+            message.getChannel().sendMessage(Embed.transparent().setTitle(Emote.CAT2 + " nyaaaa~").setImage(json.getString("neko")).build()).queue();
         } catch (Exception e) {
             message.getChannel().sendMessage(Emote.X + " - Something went wrong fetching a catgirl ;-;").queue();
             message.getChannel().sendMessage(e.getMessage()).queue();

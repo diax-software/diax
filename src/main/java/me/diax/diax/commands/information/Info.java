@@ -31,6 +31,7 @@ public class Info implements Command {
     public void execute(Message message, String s) {
         JDA jda = message.getJDA();
         Runtime runtime = Runtime.getRuntime();
+        String java = System.getProperty("java.runtime.version");
         message.getChannel().sendMessage(Embed.transparent().setDescription(String.join("\n",
                 "```prolog",
                 "----- Library Versions -----",
@@ -42,7 +43,7 @@ public class Info implements Command {
                 "",
                 "----- Diax Information -----",
                 "",
-                "API Ping: " + jda.getPing(),
+                "API Ping: " + jda.getPing() + "ms",
                 "Guilds: " + jda.getGuilds().size(),
                 "Text Channels: " + jda.getTextChannels().size(),
                 "Users: " + jda.getUsers().size(),
@@ -52,7 +53,7 @@ public class Info implements Command {
                 "----- VPS Information -----",
                 "",
                 "Location: " + System.getProperty("user.country"),
-                "Java Version: " + System.getProperty("java.runtime.version"),
+                "Java Version: " + (java.contains("-") ? java.split("-")[0] : java),
                 "OS: " + System.getProperty("os.name") + "-" + System.getProperty("os.version"),
                 "OS Arch: " + System.getProperty("os.arch"),
                 "RAM: " + ((runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024) + "Mb/" + (runtime.totalMemory() / 1024 / 1024) + "Mb",

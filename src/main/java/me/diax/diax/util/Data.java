@@ -27,6 +27,7 @@ public class Data {
     private List<String> developers;
     private List<String> donors;
     private List<String> blacklist;
+    private String weebToken;
 
     public Data(File file) throws Exception {
         this.file = file;
@@ -49,6 +50,7 @@ public class Data {
         developers = (ArrayList) data.getJSONArray("developers").toList();
         donors = ((ArrayList) data.getJSONArray("donors").toList());
         blacklist = ((ArrayList) data.getJSONArray("blacklist").toList());
+        weebToken = data.getString("weeb-token");
     }
 
     public void saveData() {
@@ -60,7 +62,8 @@ public class Data {
                 .put("channels", channels)
                 .put("developers", developers)
                 .put("donors", donors)
-                .put("blacklist", blacklist);
+                .put("blacklist", blacklist)
+                .put("weeb-token", weebToken);
 
         try {
             FileWriter fileWriter = new FileWriter(file);
@@ -127,5 +130,9 @@ public class Data {
 
     public void unBlacklist(String id) {
         blacklist.remove(id);
+    }
+
+    public String getWeebToken() {
+        return weebToken;
     }
 }

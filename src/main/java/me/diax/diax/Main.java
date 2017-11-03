@@ -5,12 +5,12 @@ import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.injection.DiaxInjections;
+import me.diax.diax.commands.action.Kiss;
+import me.diax.diax.commands.action.Lewd;
+import me.diax.diax.commands.action.Pat;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
-import me.diax.diax.util.Data;
-import me.diax.diax.util.Emote;
-import me.diax.diax.util.JDAUtil;
-import me.diax.diax.util.WebHookUtil;
+import me.diax.diax.util.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -29,12 +29,12 @@ import java.util.stream.Collectors;
 public class Main {
 
     private static Logger logger = LoggerFactory.getLogger(Main.class);
+    private Data data;
+    private WeebAPI requester;
 
     public static void main(String[] args) {
         new Main().main(args.length == 0 || args[0].isEmpty() ? System.getProperty("user.dir") + "/data.json" : args[0]);
     }
-
-    private Data data;
 
     public void main(String location) {
         try {
@@ -45,6 +45,7 @@ public class Main {
             e.printStackTrace();
             System.exit(1);
         }
+        requester = new WeebAPI(data.getWeebToken());
         try {
             //todo maybe move code to a separated class
 
