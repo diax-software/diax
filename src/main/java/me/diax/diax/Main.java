@@ -2,6 +2,9 @@ package me.diax.diax;
 
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.commands.action.Hug;
+import me.diax.diax.commands.action.Kiss;
+import me.diax.diax.commands.action.Lewd;
+import me.diax.diax.commands.action.Pat;
 import me.diax.diax.commands.developer.*;
 import me.diax.diax.commands.developer.Shutdown;
 import me.diax.diax.commands.fun.*;
@@ -10,10 +13,7 @@ import me.diax.diax.commands.information.*;
 import me.diax.diax.commands.music.*;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
-import me.diax.diax.util.Data;
-import me.diax.diax.util.Emote;
-import me.diax.diax.util.JDAUtil;
-import me.diax.diax.util.WebHookUtil;
+import me.diax.diax.util.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -30,6 +30,7 @@ public class Main {
 
     private static Logger logger = LoggerFactory.getLogger(Main.class);
     private Data data;
+    private WeebAPI requester;
 
     public static void main(String[] args) {
         new Main().main(args.length == 0 || args[0].isEmpty() ? System.getProperty("user.dir") + "/data.json" : args[0]);
@@ -44,10 +45,14 @@ public class Main {
             e.printStackTrace();
             System.exit(1);
         }
+        requester = new WeebAPI(data.getWeebToken());
         try {
             CommandHandler handler = new CommandHandler();
             handler.registerCommands(
-                    new Hug(),
+                    new Hug(requester),
+                    new Kiss(requester),
+                    new Lewd(requester),
+                    new Pat(requester),
 
                     new CSGO(),
                     new Die(),
