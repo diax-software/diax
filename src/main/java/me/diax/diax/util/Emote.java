@@ -28,4 +28,5 @@ public class Emote {
     public static String BUST = "\uD83D\uDC64";
     public static String BUTTON = "\uD83D\uDD18";
     public static String CAT2 = "\uD83D\uDC08";
+    public static String HEART = "❤";
 }
