@@ -1,16 +1,10 @@
 package me.diax.diax;
 
+import com.google.inject.Injector;
+import me.diax.comportment.jdacommand.Command;
+import me.diax.comportment.jdacommand.CommandDescription;
 import me.diax.comportment.jdacommand.CommandHandler;
-import me.diax.diax.commands.action.Hug;
-import me.diax.diax.commands.action.Kiss;
-import me.diax.diax.commands.action.Lewd;
-import me.diax.diax.commands.action.Pat;
-import me.diax.diax.commands.developer.*;
-import me.diax.diax.commands.developer.Shutdown;
-import me.diax.diax.commands.fun.*;
-import me.diax.diax.commands.image.Catgirl;
-import me.diax.diax.commands.information.*;
-import me.diax.diax.commands.music.*;
+import me.diax.diax.injection.DiaxInjections;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
 import me.diax.diax.util.*;
@@ -21,10 +15,13 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.lang.reflect.Modifier;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -47,65 +44,39 @@ public class Main {
         }
         requester = new WeebAPI(data.getWeebToken());
         try {
+            //todo maybe move code to a separated class
+
+            Reflections reflections = new Reflections("me.diax.diax");
             CommandHandler handler = new CommandHandler();
+
+            Injector injector = new DiaxInjections(handler, data, requester).toInjector();
+
+            //Welcome to automation
             handler.registerCommands(
-                    new Hug(requester),
-                    new Kiss(requester),
-                    new Lewd(requester),
-                    new Pat(requester),
-
-                    new CSGO(),
-                    new Die(),
-                    new EightBall(),
-                    new Flip(),
-                    new Say(),
-
-                    new Catgirl(),
-
-                    new Credits(),
-                    new Help(handler, data.getPrefix()),
-                    new Info(handler),
-                    new Invite(),
-                    new Links(),
-                    new Ping(),
-                    new Report(),
-                    new Suggest(),
-
-                    new Join(),
-                    new NowPlaying(),
-                    new Play(),
-                    new Queue(),
-                    new Repeat(),
-                    new Shuffle(),
-                    new Skip(),
-                    new Stop(),
-                    new Volume(),
-
-                    new Announce(),
-                    new Blacklist(data),
-                    new Developer(),
-                    new Reload(data),
-                    new Save(data),
-                    new Shutdown(data)
+                reflections.getSubTypesOf(Command.class).stream()
+                    .filter(c -> !Modifier.isAbstract(c.getModifiers()) && c.isAnnotationPresent(CommandDescription.class))
+                    .map(injector::getInstance)
+                    .collect(Collectors.toSet())
             );
+
             new JDABuilder(AccountType.BOT)
-                    .setToken(data.getToken())
-                    .setAudioEnabled(true)
-                    .setGame(Game.of("Diax is starting, hold tight!"))
-                    .setStatus(OnlineStatus.IDLE)
-                    .addEventListener(
-                            new GuildJoinLeaveListener(data.getBotlistToken()),
-                            new MessageListener(handler, data),
-                            new ListenerAdapter() {
-                                @Override
-                                public void onReady(ReadyEvent event) {
-                                    JDA jda = event.getJDA();
-                                    WebHookUtil.log(jda, Emote.SPARKLES + " Start", jda.getSelfUser().getName() + " has finished starting!");
-                                    JDAUtil.startGameChanging(jda, data.getPrefix());
-                                    JDAUtil.sendGuilds(event.getJDA(), data.getBotlistToken());
-                                }
-                            }
-                    ).buildBlocking();
+                .setToken(data.getToken())
+                .setAudioEnabled(true)
+                .setGame(Game.of("Diax is starting, hold tight!"))
+                .setStatus(OnlineStatus.IDLE)
+                .addEventListener(
+                    new GuildJoinLeaveListener(data.getBotlistToken()),
+                    new MessageListener(handler, data),
+                    new ListenerAdapter() {
+                        @Override
+                        public void onReady(ReadyEvent event) {
+                            JDA jda = event.getJDA();
+                            WebHookUtil.log(jda, Emote.SPARKLES + " Start", jda.getSelfUser().getName() + " has finished starting!");
+                            JDAUtil.startGameChanging(jda, data.getPrefix());
+                            JDAUtil.sendGuilds(event.getJDA(), data.getBotlistToken());
+                        }
+                    }
+                ).buildBlocking();
         } catch (Exception e) {
             e.printStackTrace();
         }
