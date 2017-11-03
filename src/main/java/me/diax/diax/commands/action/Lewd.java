@@ -8,6 +8,8 @@ import me.diax.diax.util.WebHookUtil;
 import me.diax.diax.util.WeebAPI;
 import net.dv8tion.jda.core.entities.Message;
 
+import javax.inject.Inject;
+
 @CommandDescription(
         name = "lewd",
         triggers = "lewd"
@@ -16,6 +18,7 @@ public class Lewd implements Command {
 
     private WeebAPI requester;
 
+    @Inject
     public Lewd(WeebAPI requester) {
         this.requester = requester;
     }

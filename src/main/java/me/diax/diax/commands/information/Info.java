@@ -7,6 +7,8 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDAInfo;
 import net.dv8tion.jda.core.entities.Message;
 
+import javax.inject.Inject;
+
 @CommandDescription(
         name = "info",
         triggers = {
@@ -20,6 +22,7 @@ public class Info implements Command {
 
     private CommandHandler handler;
 
+    @Inject
     public Info(CommandHandler handler) {
         this.handler = handler;
     }

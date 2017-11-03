@@ -1,7 +1,7 @@
 package me.diax.diax.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class Data {
 
     private JSONObject data;
@@ -72,10 +73,10 @@ public class Data {
             fileWriter.close();
 
         } catch (IOException e) {
-            LoggerFactory.getLogger(Data.class).error("Error saving data!");
+            log.error("Error saving data!");
             e.printStackTrace();
         } catch (Exception e) {
-            LoggerFactory.getLogger(Data.class).error("An unknown exception occurred whilst saving data!");
+            log.error("An unknown exception occurred whilst saving data!");
             e.printStackTrace();
         }
     }

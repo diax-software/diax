@@ -1,14 +1,14 @@
 package me.diax.diax.util;
 
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.webhook.WebhookClient;
 import net.dv8tion.jda.webhook.WebhookMessageBuilder;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class WebHookUtil {
-
     public static void log(JDA jda, String title, String message) {
-        LoggerFactory.getLogger(WebHookUtil.class).info(message);
+        log.info(message);
         try {
             jda.getTextChannelById("357109761533149185").getWebhooks().queue(whs -> {
                 WebhookClient wh = whs.get(0).newClient().build();
@@ -49,4 +49,5 @@ public class WebHookUtil {
             wh.close();
         });
     }
+
 }

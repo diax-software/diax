@@ -1,0 +1,115 @@
+/* Diax's build.gradle */
+//Imports
+import org.apache.tools.ant.filters.ReplaceTokens
+
+//Plugins
+plugins {
+    //Compiles Java
+    id 'java'
+    //Adds an Executable Manifest
+    id 'application'
+    //Creates FatJars (don't bully them they also have feelings)
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+}
+
+//Define the Main Class
+mainClassName = 'me.diax.diax.Main'
+
+//Use an unified versioning system
+def ver = new Version(major: 0, minor: 0, revision: 1)
+version ver.toString()
+
+//We are going to use Java 8
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url  "https://dl.bintray.com/kodehawa/maven" }
+    mavenLocal()
+}
+
+dependencies {
+    // Main APIs
+    compile 'net.dv8tion:JDA:3.3.1_300'
+    compile 'com.sedmelluq:lavaplayer:1.2.44'
+
+    //Helping stuff
+    compile 'ch.qos.logback:logback-classic:0.9.26'
+    compile group: 'com.github.natanbc', name: 'discordbots-api', version: '1.2'
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.0'
+    compile group: 'org.json', name: 'json', version: '20160810'
+    compile 'br.com.brjdevs:snowflakes:1.0.0_2'
+
+    //Scanning and Injections
+    compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+
+    //Data Stack
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.0.pr1'
+    compile('com.rethinkdb:rethinkdb-driver:2.3.3') {
+        exclude group: 'junit', module: 'junit'
+    }
+    compileOnly "org.projectlombok:lombok:1.16.16"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.2'
+}
+
+//Task for the versioning system
+task prepareSource(type: Copy) {
+    from 'src/main/java'
+    into 'build/prepared-src'
+
+    filteringCharset = 'UTF-8'
+
+    filter(ReplaceTokens, tokens: [
+        version: ver.toString()
+    ])
+    dependsOn clean
+}
+prepareSource.dependsOn clean
+
+compileJava {
+    source = prepareSource.destinationDir
+    classpath = sourceSets.main.compileClasspath
+    options.encoding = 'UTF-8'
+    dependsOn prepareSource
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+build.dependsOn shadowJar
+
+artifacts {
+    archives shadowJar
+}
+
+task cleanDistTar(type: Delete) { delete files(distTar) }
+distTar { classifier = "trash" }
+distTar.finalizedBy cleanDistTar
+
+task cleanDistZip(type: Delete) { delete files(distZip) }
+distZip { classifier = "trash" }
+distZip.finalizedBy cleanDistZip
+
+task cleanDefJar(type: Delete) { delete files(jar) }
+jar { classifier = "trash" }
+jar.finalizedBy cleanDefJar
+
+shadowJar {
+    classifier = ""
+}
+
+class Version {
+    String major, minor, revision
+
+    String toString() {
+        "${major}.${minor}.${revision}"
+    }
+}

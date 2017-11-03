@@ -6,6 +6,7 @@ import me.diax.diax.util.*;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 
+import javax.inject.Inject;
 import java.util.stream.Collectors;
 
 @CommandDescription(
@@ -16,6 +17,7 @@ public class Kiss implements Command {
 
     private WeebAPI requester;
 
+    @Inject
     public Kiss(WeebAPI requester) {
         this.requester = requester;
     }

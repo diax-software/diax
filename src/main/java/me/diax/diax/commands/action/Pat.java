@@ -7,6 +7,7 @@ import me.diax.diax.util.*;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 
+import javax.inject.Inject;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ public class Pat implements Command {
 
     private WeebAPI requester;
 
+    @Inject
     public Pat(WeebAPI requester) {
         this.requester = requester;
     }
