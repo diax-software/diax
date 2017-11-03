@@ -7,6 +7,8 @@ import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.util.Embed;
 import net.dv8tion.jda.core.entities.Message;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.stream.Collectors;
 
 @CommandDescription(
@@ -23,7 +25,8 @@ public class Help implements Command {
     private CommandHandler handler;
     private String prefix;
 
-    public Help(CommandHandler handler, String prefix) {
+    @Inject
+    public Help(CommandHandler handler, @Named("prefix") String prefix) {
         this.handler = handler;
         this.prefix = prefix;
     }
