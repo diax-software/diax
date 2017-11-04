@@ -1,3 +1,8 @@
 .idea/
 *.iml
 *.json
+build/
+.gradle/
+out/
+target/
+*.log
