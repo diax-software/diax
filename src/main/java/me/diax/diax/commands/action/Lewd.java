@@ -36,7 +36,7 @@ public class Lewd implements Command {
             message.getChannel().sendMessage(Emote.X + " - Something went wrong with fetching the image!").queue();
             return;
         }
-        message.getChannel().sendMessage(Embed.transparent().setDescription("***Too lewd!***").setImage(image).build()).queue();
+        message.getChannel().sendMessage(Embed.themed().setDescription("***Too lewd!***").setImage(image).build()).queue();
 
     }
 }

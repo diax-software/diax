@@ -45,6 +45,6 @@ public class Kiss implements Command {
         }
         String msg = "***";
         msg += StringUtil.stripMarkdown(message.getMember().getEffectiveName()) + " is kissing " + StringUtil.stripMarkdown(message.getMentionedUsers().stream().map(User::getName).collect(Collectors.joining(", "))) + "***";
-        message.getChannel().sendMessage(Embed.transparent().setDescription(msg).setImage(image).build()).queue();
+        message.getChannel().sendMessage(Embed.themed().setDescription(msg).setImage(image).build()).queue();
     }
 }

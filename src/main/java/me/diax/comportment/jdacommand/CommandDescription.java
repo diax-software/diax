@@ -39,6 +39,14 @@ public @interface CommandDescription {
     String name();
 
     /**
+     * This represents the category where the {@link Command} which is annotated with this {@link CommandDescription} is.
+     *
+     * @return The description of the command, default as an empty string.
+     * @since 1.0.7
+     */
+    String category() default "";
+
+    /**
      * This represents the description of the {@link Command} which is annotated with this {@link CommandDescription} has.
      *
      * @return The description of the command, default as an empty string.

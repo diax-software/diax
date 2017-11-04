@@ -18,7 +18,7 @@ public class Credits implements Command {
     @Override
     public void execute(Message message, String s) {
         message.getTextChannel().sendMessage(
-                Embed.transparent()
+                Embed.themed()
                         .addField("comportment#4475", "Owner // Head-Developer", false)
                         .addField("NachtRaben#8307", "Developer // Music", false)
                         .addField("Coolguy3289#2290", "Developer // Website", false)

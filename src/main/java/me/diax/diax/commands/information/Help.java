@@ -33,7 +33,7 @@ public class Help implements Command {
 
     @Override
     public void execute(Message message, String s) {
-        message.getChannel().sendMessage(Embed.transparent()
+        message.getChannel().sendMessage(Embed.themed()
                 .addField(
                         "__**Commands**__",
                         "\nOptional arguments are `{}`\nNeeded arguments are `[]`\n" + handler.getCommands().stream().filter(command -> !command.hasAttribute("hidden")).sorted().map(command -> "`" + prefix + command.getDescription().name() + (command.getDescription().description().isEmpty() ? "" : " | " + command.getDescription().description()) + "`").collect(Collectors.joining("\n")),

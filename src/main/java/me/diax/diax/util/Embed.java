@@ -9,6 +9,10 @@ import java.awt.*;
 
 public class Embed {
 
+    public static EmbedBuilder themed() {
+        return new EmbedBuilder().setColor(BotType.CURRENT_TYPE.getMainColor());
+    }
+
     public static EmbedBuilder transparent() {
         return new EmbedBuilder().setColor(new Color(54, 57, 62));
     }

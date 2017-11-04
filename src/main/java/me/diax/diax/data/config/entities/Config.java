@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class Config {
-    private String prefix;
+    private String prefix, type;
 
     private Tokens tokens = new Tokens();
     private Channels channels = new Channels();

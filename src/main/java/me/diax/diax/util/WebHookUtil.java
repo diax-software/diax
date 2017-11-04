@@ -12,7 +12,7 @@ public class WebHookUtil {
         try {
             jda.getTextChannelById("357109761533149185").getWebhooks().queue(whs -> {
                 WebhookClient wh = whs.get(0).newClient().build();
-                wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(title).setDescription(message).build()).setUsername("Diax Logging").build());
+                wh.send(new WebhookMessageBuilder().addEmbeds(Embed.themed().setTitle(title).setDescription(message).build()).setUsername("Diax Logging").build());
                 wh.close();
             });
         } catch (Exception ignored) {
@@ -29,7 +29,7 @@ public class WebHookUtil {
     public static void announce(JDA jda, String message) {
         jda.getTextChannelById("343552348670656532").getWebhooks().queue(whs -> {
             WebhookClient wh = whs.get(0).newClient().build();
-            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(Emote.SPARKLES + " Diax Announcement").setDescription(message).build()).setUsername("Diax Announcements").build());
+            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.themed().setTitle(Emote.SPARKLES + " Diax Announcement").setDescription(message).build()).setUsername("Diax Announcements").build());
             wh.close();
         });
     }
@@ -37,7 +37,7 @@ public class WebHookUtil {
     public static void report(JDA jda, String message) {
         jda.getTextChannelById("356682048510885889").getWebhooks().queue(whs -> {
             WebhookClient wh = whs.get(0).newClient().build();
-            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(Emote.BUG + " Diax Bug Report").setDescription(message).build()).setUsername("Diax Bug Reports").build());
+            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.themed().setTitle(Emote.BUG + " Diax Bug Report").setDescription(message).build()).setUsername("Diax Bug Reports").build());
             wh.close();
         });
     }
@@ -45,7 +45,7 @@ public class WebHookUtil {
     public static void suggest(JDA jda, String message) {
         jda.getTextChannelById("356564127864586240").getWebhooks().queue(whs -> {
             WebhookClient wh = whs.get(0).newClient().build();
-            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.transparent().setTitle(Emote.SPARKLES + " Diax Suggestion").setDescription(message).build()).setUsername("Diax Suggestions").build());
+            wh.send(new WebhookMessageBuilder().addEmbeds(Embed.themed().setTitle(Emote.SPARKLES + " Diax Suggestion").setDescription(message).build()).setUsername("Diax Suggestions").build());
             wh.close();
         });
     }

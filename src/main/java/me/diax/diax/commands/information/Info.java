@@ -32,7 +32,7 @@ public class Info implements Command {
         JDA jda = message.getJDA();
         Runtime runtime = Runtime.getRuntime();
         String java = System.getProperty("java.runtime.version");
-        message.getChannel().sendMessage(Embed.transparent().setDescription(String.join("\n",
+        message.getChannel().sendMessage(Embed.themed().setDescription(String.join("\n",
                 "```prolog",
                 "----- Library Versions -----",
                 "",

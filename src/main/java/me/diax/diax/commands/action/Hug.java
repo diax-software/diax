@@ -55,6 +55,6 @@ public class Hug implements Command {
         if (message.getMentionedUsers().size() > 1) {
             msg = StringUtil.replaceLast(msg, Pattern.quote(", " + last), " and " + last);
         }
-        message.getChannel().sendMessage(Embed.transparent().setDescription(msg).setImage(image).build()).queue();
+        message.getChannel().sendMessage(Embed.themed().setDescription(msg).setImage(image).build()).queue();
     }
 }

@@ -9,6 +9,7 @@ import me.diax.diax.data.config.ConfigManager;
 import me.diax.diax.injection.DiaxInjections;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
+import me.diax.diax.util.BotType;
 import me.diax.diax.util.Emote;
 import me.diax.diax.util.JDAUtil;
 import me.diax.diax.util.WebHookUtil;
@@ -40,6 +41,8 @@ public class Main {
         }
 
         manager.save();
+
+        BotType.CURRENT_TYPE = BotType.valueOf(manager.get().getType().toUpperCase());
 
         //todo maybe move code to a separated class
 
