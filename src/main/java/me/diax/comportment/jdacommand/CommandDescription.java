@@ -22,8 +22,8 @@ import java.lang.annotation.*;
  * This is for annotating classes which extend {@link Command}
  *
  * @author Comportment
- * @since 1.0.0
  * @see Command
+ * @since 1.0.0
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

@@ -20,6 +20,7 @@ public class DiscordLogBack extends AppenderBase<ILoggingEvent> {
     private static final BlockingQueue<ILoggingEvent> queue = new LinkedBlockingQueue<>();
     private static DiscordLogBack instance;
     private static Thread thread;
+    private PatternLayout layout;
 
     public static void disable() {
         if (thread != null) {
@@ -80,8 +81,6 @@ public class DiscordLogBack extends AppenderBase<ILoggingEvent> {
 
         thread.start();
     }
-
-    private PatternLayout layout;
 
     @Override
     protected void append(ILoggingEvent event) {
