@@ -1,6 +1,6 @@
 <configuration debug="false">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>hbdvbot.log</file>
+        <file>diax.log</file>
         <encoder>
             <pattern>[%d{HH:mm:ss}] [%t/%level] [%logger{0}]: %msg%n</pattern>
         </encoder>
