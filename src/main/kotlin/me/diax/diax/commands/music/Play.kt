@@ -38,9 +38,12 @@ class Play : Command {
             override fun playlistLoaded(playlist: AudioPlaylist) {
                 val scheduler = manager.scheduler
                 when (playlist.isSearchResult) {
-                    true -> if (playlist.tracks.isEmpty()) return else if (playlist.selectedTrack != null) {
-                        this.trackLoaded(playlist.selectedTrack)
-                    } else {
+                    true -> this.trackLoaded(playlist.tracks.first())
+                    false -> {
+                        if (playlist.selectedTrack != null) {
+                            this.trackLoaded(playlist.selectedTrack)
+                            return
+                        }
                         message.textChannel.sendMessage("$MUSICAL_NOTE - Adding `${playlist.tracks.size}` tracks to the queue from the playlist `${StringUtil.stripMarkdown(playlist.name)} `.").queue()
                         playlist.tracks.forEach { track -> scheduler.queue(MusicTrack(track, message.member, message.textChannel), channel) }
                     }

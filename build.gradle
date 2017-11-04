@@ -17,7 +17,7 @@ plugins {
     id 'java'
     //Adds an Executable Manifest
     id 'application'
-    //Creates FatJars (don't bully them they also have feelings)
+    //Creates FatJars (don't bully them, they also have feelings)
     id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
 
@@ -36,7 +36,7 @@ repositories {
     jcenter()
     mavenCentral()
     maven { url 'https://jitpack.io' }
-    maven { url  "https://dl.bintray.com/kodehawa/maven" }
+    maven { url "https://dl.bintray.com/kodehawa/maven" }
     mavenLocal()
 }
 
@@ -77,7 +77,7 @@ task prepareSource(type: Copy) {
     filteringCharset = 'UTF-8'
 
     filter(ReplaceTokens, tokens: [
-        version: ver.toString()
+            version: ver.toString()
     ])
     dependsOn clean
 }

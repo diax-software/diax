@@ -52,30 +52,30 @@ public class Main {
 
             //Welcome to automation
             handler.registerCommands(
-                reflections.getSubTypesOf(Command.class).stream()
-                    .filter(c -> !Modifier.isAbstract(c.getModifiers()) && c.isAnnotationPresent(CommandDescription.class))
-                    .map(injector::getInstance)
-                    .collect(Collectors.toSet())
+                    reflections.getSubTypesOf(Command.class).stream()
+                            .filter(c -> !Modifier.isAbstract(c.getModifiers()) && c.isAnnotationPresent(CommandDescription.class))
+                            .map(injector::getInstance)
+                            .collect(Collectors.toSet())
             );
 
             new JDABuilder(AccountType.BOT)
-                .setToken(data.getToken())
-                .setAudioEnabled(true)
-                .setGame(Game.of("Diax is starting, hold tight!"))
-                .setStatus(OnlineStatus.IDLE)
-                .addEventListener(
-                    new GuildJoinLeaveListener(data.getBotlistToken()),
-                    new MessageListener(handler, data),
-                    new ListenerAdapter() {
-                        @Override
-                        public void onReady(ReadyEvent event) {
-                            JDA jda = event.getJDA();
-                            WebHookUtil.log(jda, Emote.SPARKLES + " Start", jda.getSelfUser().getName() + " has finished starting!");
-                            JDAUtil.startGameChanging(jda, data.getPrefix());
-                            JDAUtil.sendGuilds(event.getJDA(), data.getBotlistToken());
-                        }
-                    }
-                ).buildBlocking();
+                    .setToken(data.getToken())
+                    .setAudioEnabled(true)
+                    .setGame(Game.of("Diax is starting, hold tight!"))
+                    .setStatus(OnlineStatus.IDLE)
+                    .addEventListener(
+                            new GuildJoinLeaveListener(data.getBotlistToken()),
+                            new MessageListener(handler, data),
+                            new ListenerAdapter() {
+                                @Override
+                                public void onReady(ReadyEvent event) {
+                                    JDA jda = event.getJDA();
+                                    WebHookUtil.log(jda, Emote.SPARKLES + " Start", jda.getSelfUser().getName() + " has finished starting!");
+                                    JDAUtil.startGameChanging(jda, data.getPrefix());
+                                    JDAUtil.sendGuilds(event.getJDA(), data.getBotlistToken());
+                                }
+                            }
+                    ).buildBlocking();
         } catch (Exception e) {
             e.printStackTrace();
         }

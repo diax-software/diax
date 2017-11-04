@@ -20,8 +20,8 @@ package me.diax.comportment.jdacommand;
  * This can be used for extra attributes in the {@link CommandDescription} annotation.
  *
  * @author Comportment
- * @since 1.0.0
  * @see CommandDescription
+ * @since 1.0.0
  */
 public @interface CommandAttribute {
 

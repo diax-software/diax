@@ -22,8 +22,8 @@ public class DiaxInjections extends AbstractModule {
     @Override
     protected void configure() {
         bind(String.class)
-            .annotatedWith(Names.named("prefix"))
-            .toInstance(data.getPrefix());
+                .annotatedWith(Names.named("prefix"))
+                .toInstance(data.getPrefix());
 
         bind(Data.class).toInstance(data);
 
