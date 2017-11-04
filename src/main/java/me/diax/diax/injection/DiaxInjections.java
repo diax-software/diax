@@ -5,31 +5,59 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
 import me.diax.comportment.jdacommand.CommandHandler;
-import me.diax.diax.util.Data;
-import me.diax.diax.util.WeebAPI;
+import me.diax.diax.data.config.ConfigManager;
+import me.diax.diax.data.config.entities.Config;
+
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 
 public class DiaxInjections extends AbstractModule {
     private final CommandHandler handler;
-    private final Data data;
-    private final WeebAPI requester;
+    private final ConfigManager manager;
 
-    public DiaxInjections(CommandHandler handler, Data data, WeebAPI requester) {
+    public DiaxInjections(CommandHandler handler, ConfigManager manager) {
         this.handler = handler;
-        this.data = data;
-        this.requester = requester;
+        this.manager = manager;
     }
 
     @Override
     protected void configure() {
+        Config config = manager.getConfig();
+
+        bind(ConfigManager.class)
+            .toInstance(manager);
+
+        bind(Config.class)
+            .toProvider(manager);
+
+        bind(CommandHandler.class)
+            .toInstance(handler);
+
         bind(String.class)
             .annotatedWith(Names.named("prefix"))
-            .toInstance(data.getPrefix());
+            .toInstance(config.getPrefix());
 
-        bind(Data.class).toInstance(data);
+        mapConstants(config.getTokens(), "token");
+        mapConstants(config.getChannels(), "channel");
+    }
 
-        bind(CommandHandler.class).toInstance(handler);
+    @SuppressWarnings("unchecked")
+    private void mapConstants(Object object, String prefix) {
+        try {
+            for (PropertyDescriptor p : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
+                Object result = p.getReadMethod().invoke(object);
 
-        bind(WeebAPI.class).toInstance(requester);
+                if (result == null) continue;
+
+                bind(((Class<Object>) p.getPropertyType()))
+                    .annotatedWith(Names.named(prefix + "." + p.getName()))
+                    .toInstance(result);
+            }
+        } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     public Injector toInjector() {

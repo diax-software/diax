@@ -2,7 +2,7 @@ package me.diax.diax.listeners;
 
 import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandHandler;
-import me.diax.diax.util.Data;
+import me.diax.diax.data.config.entities.Config;
 import me.diax.diax.util.Emote;
 import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.ChannelType;
@@ -15,20 +15,20 @@ import java.util.regex.Pattern;
 public class MessageListener extends ListenerAdapter {
 
     private CommandHandler handler;
-    private Data data;
+    private Config config;
 
-    public MessageListener(CommandHandler handler, Data data) {
+    public MessageListener(CommandHandler handler, Config config) {
         this.handler = handler;
-        this.data = data;
+        this.config = config;
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.getAuthor().isBot() || event.getMessage().isWebhookMessage() || data.getBlacklist().contains(event.getAuthor().getId()))
+        if (event.getAuthor().isBot() || event.getMessage().isWebhookMessage() || config.getBlacklist().contains(event.getAuthor().getId()))
             return;
         String prefix;
-        if (event.getMessage().getRawContent().startsWith(data.getPrefix())) {
-            prefix = data.getPrefix();
+        if (event.getMessage().getRawContent().startsWith(config.getPrefix())) {
+            prefix = config.getPrefix();
         } else if (event.getMessage().getRawContent().startsWith(event.getJDA().getSelfUser().getAsMention())) {
             prefix = event.getJDA().getSelfUser().getAsMention();
         } else if (event.getChannelType().equals(ChannelType.PRIVATE)) {
@@ -41,11 +41,11 @@ public class MessageListener extends ListenerAdapter {
         try {
             Command command = handler.findCommand(first);
             if (command == null) return;
-            if (command.hasAttribute("patreon") && !(data.getDonors().contains(event.getAuthor().getId()) || data.getDevelopers().contains(event.getAuthor().getId()))) {
+            if (command.hasAttribute("patreon") && !(config.getDonors().contains(event.getAuthor().getId()) || config.getDevelopers().contains(event.getAuthor().getId()))) {
                 event.getChannel().sendMessage(Emote.X + " - This is a Patreon-only command.").queue();
                 return;
             }
-            if (command.hasAttribute("developer") && (!data.getDevelopers().contains(event.getAuthor().getId())))
+            if (command.hasAttribute("developer") && (!config.getDevelopers().contains(event.getAuthor().getId())))
                 return;
             if (event.getChannelType().equals(ChannelType.PRIVATE) && command.hasAttribute("private")) {
                 event.getChannel().sendMessage(Emote.X + " - This command does not work in private messages.").queue();

@@ -21,6 +21,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.HashMap;
 
 public class WeebAPI {
@@ -31,7 +33,8 @@ public class WeebAPI {
     private final String AUTH_HEADER;
     private final OkHttpClient httpClient = new OkHttpClient();
 
-    public WeebAPI(String token) {
+    @Inject
+    public WeebAPI(@Named("token.weebSh") String token) {
         AUTH_HEADER = token;
     }
 

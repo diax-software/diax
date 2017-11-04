@@ -3,7 +3,7 @@ package me.diax.diax.commands.developer;
 import me.diax.comportment.jdacommand.Command;
 import me.diax.comportment.jdacommand.CommandAttribute;
 import me.diax.comportment.jdacommand.CommandDescription;
-import me.diax.diax.util.Data;
+import me.diax.diax.data.config.ConfigManager;
 import me.diax.diax.util.Emote;
 import net.dv8tion.jda.core.entities.Message;
 
@@ -18,19 +18,18 @@ import javax.inject.Inject;
         }
 )
 public class Save implements Command {
-
-    private Data data;
+    private final ConfigManager manager;
 
     @Inject
-    public Save(Data data) {
-        this.data = data;
+    public Save(ConfigManager manager) {
+        this.manager = manager;
     }
 
     @Override
     public void execute(Message message, String s) {
         message.getChannel().sendMessage(Emote.SMILE + " - Saving data....").queue();
         try {
-            data.saveData();
+            manager.save();
         } catch (Exception e) {
             message.getChannel().sendMessage(Emote.X + " - Error saving data.").queue();
         }
