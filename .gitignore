@@ -1,8 +1,12 @@
-.idea/
-*.iml
-*.json
-build/
+# Directories
 .gradle/
+.idea/
+build/
 out/
 target/
+
+# Files
+
+*.iml
+*.json
 *.log
