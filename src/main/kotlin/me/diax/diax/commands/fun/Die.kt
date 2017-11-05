@@ -64,7 +64,7 @@ class Die : Command {
      */
     @Throws(Exception::class)
     private fun resultDiceRoll(adb: String): Long {
-        var a: Long = 0
+        var a: Long
         var b: Long = 0
         var result: Long = 0
         if (!adb.contains("d")) {

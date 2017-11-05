@@ -30,7 +30,7 @@ public class DiscordLogBack extends AppenderBase<ILoggingEvent> {
         queue.clear();
     }
 
-    private static void enable(MessageChannel channel) {
+    public static void enable(MessageChannel channel) {
         if (instance == null) {
             //This trace call itself should be enough to boot up Logback
             LoggerFactory.getLogger(DiscordLogBack.class).trace("Logback wasn't initialized; Attempting to boot it...");

@@ -7,14 +7,14 @@ import java.util.List;
 
 @Data
 public class Config {
-    private String prefix, type;
+    public String prefix, type;
 
-    private Tokens tokens = new Tokens();
-    private Channels channels = new Channels();
+    public Tokens tokens = new Tokens();
+    public Channels channels = new Channels();
 
-    private List<String> developers = new LinkedList<>();
-    private List<String> donors = new LinkedList<>();
-    private List<String> blacklist = new LinkedList<>();
+    public List<String> developers = new LinkedList<>();
+    public List<String> donors = new LinkedList<>();
+    public List<String> blacklist = new LinkedList<>();
 
     public void addDeveloper(String id) {
         developers.add(id);

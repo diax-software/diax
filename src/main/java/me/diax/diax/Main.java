@@ -9,10 +9,7 @@ import me.diax.diax.data.config.ConfigManager;
 import me.diax.diax.injection.DiaxInjections;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
-import me.diax.diax.util.BotType;
-import me.diax.diax.util.Emote;
-import me.diax.diax.util.JDAUtil;
-import me.diax.diax.util.WebHookUtil;
+import me.diax.diax.util.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -53,29 +50,30 @@ public class Main {
 
         //Welcome to automation
         handler.registerCommands(
-            reflections.getSubTypesOf(Command.class).stream()
-                .filter(c -> !Modifier.isAbstract(c.getModifiers()) && c.isAnnotationPresent(CommandDescription.class))
-                .map(injector::getInstance)
-                .collect(Collectors.toSet())
+                reflections.getSubTypesOf(Command.class).stream()
+                        .filter(c -> !Modifier.isAbstract(c.getModifiers()) && c.isAnnotationPresent(CommandDescription.class))
+                        .map(injector::getInstance)
+                        .collect(Collectors.toSet())
         );
 
         new JDABuilder(AccountType.BOT)
-            .setToken(manager.get().getTokens().getDiscord())
-            .setAudioEnabled(true)
-            .setGame(Game.of("Diax is starting, hold tight!"))
-            .setStatus(OnlineStatus.IDLE)
-            .addEventListener(
-                new GuildJoinLeaveListener(manager.get().getTokens().getBotlist()),
-                new MessageListener(handler, manager.get()),
-                new ListenerAdapter() {
-                    @Override
-                    public void onReady(ReadyEvent event) {
-                        JDA jda = event.getJDA();
-                        WebHookUtil.log(jda, Emote.SPARKLES + " Start", jda.getSelfUser().getName() + " has finished starting!");
-                        JDAUtil.startGameChanging(jda, manager.get().getPrefix());
-                        JDAUtil.sendGuilds(event.getJDA(), manager.get().getTokens().getBotlist());
-                    }
-                }
-            ).buildBlocking();
+                .setToken(manager.get().getTokens().getDiscord())
+                .setAudioEnabled(true)
+                .setGame(Game.of("Diax is starting, hold tight!"))
+                .setStatus(OnlineStatus.IDLE)
+                .addEventListener(
+                        new GuildJoinLeaveListener(manager.get().getTokens().getBotlist()),
+                        new MessageListener(handler, manager.get()),
+                        new ListenerAdapter() {
+                            @Override
+                            public void onReady(ReadyEvent event) {
+                                DiscordLogBack.enable(event.getJDA().getTextChannelById(manager.get().getChannels().getOutput()));
+                                JDA jda = event.getJDA();
+                                WebHookUtil.log(jda, Emote.SPARKLES + " Start", "Diax has finished starting!");
+                                JDAUtil.startGameChanging(jda, manager.get().getPrefix());
+                                JDAUtil.sendGuilds(event.getJDA(), manager.get().getTokens().getBotlist());
+                            }
+                        }
+                ).buildBlocking();
     }
 }

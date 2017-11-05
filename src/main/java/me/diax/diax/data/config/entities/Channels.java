@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class Channels {
-    private String bugs, logging, suggestions, announcements;
+    private String bugs, logging, suggestions, announcements, output;
 }

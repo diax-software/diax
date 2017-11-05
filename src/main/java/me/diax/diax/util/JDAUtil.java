@@ -39,7 +39,7 @@ public class JDAUtil {
     }
 
     public static void sendGuilds(JDA jda, String token) {
-        if (token.isEmpty()) return;
+        if (token == null || token.isEmpty()) return;
         if (API == null) API = new DiscordBotsAPI(token);
         try {
             API.postStats(1, 0, jda.getGuilds().size());
