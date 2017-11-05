@@ -6,7 +6,8 @@ import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.WebHookUtil
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "announce", triggers = arrayOf("announce"), attributes = arrayOf(CommandAttribute(key = "developer"), CommandAttribute(key = "hidden")))
+@CommandDescription(name = "announce", triggers = arrayOf("announce"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
 class Announce : Command {
 
     override fun execute(message: Message, s: String) {

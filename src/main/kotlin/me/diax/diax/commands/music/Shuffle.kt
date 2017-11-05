@@ -1,13 +1,15 @@
 package me.diax.diax.commands.music
 
 import me.diax.comportment.jdacommand.Command
+import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.music.GuildMusicManager
 import me.diax.diax.util.Emote.MUSICAL_NOTE
 import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "shuffle", triggers = arrayOf("shuffle"))
+@CommandDescription(name = "shuffle", triggers = arrayOf("shuffle"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "music")))
 class Shuffle : Command {
 
     override fun execute(message: Message, s: String) {

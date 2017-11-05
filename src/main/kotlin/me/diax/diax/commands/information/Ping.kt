@@ -8,7 +8,8 @@ import me.diax.diax.util.Emote.*
 import net.dv8tion.jda.core.entities.Message
 import java.util.*
 
-@CommandDescription(name = "ping", triggers = arrayOf("ping", "pang", "peng", "pong", "pung"), attributes = arrayOf(CommandAttribute(key = "private")))
+@CommandDescription(name = "ping", triggers = arrayOf("ping", "pang", "peng", "pong", "pung"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "information")))
 class Ping : Command {
 
     override fun execute(message: Message, s: String) {

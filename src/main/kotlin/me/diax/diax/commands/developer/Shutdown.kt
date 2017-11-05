@@ -9,7 +9,8 @@ import me.diax.diax.util.Emote.ZZZ
 import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
-@CommandDescription(name = "shutdown", triggers = arrayOf("shutdown"), attributes = arrayOf(CommandAttribute(key = "developer"), CommandAttribute(key = "hidden")))
+@CommandDescription(name = "shutdown", triggers = arrayOf("shutdown"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
 class Shutdown @Inject
 constructor(private val configManager: ConfigManager) : Command {
 

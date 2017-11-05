@@ -1,4 +1,4 @@
-package me.diax.diax.commands.action
+package me.diax.diax.commands.image.action
 
 import me.diax.comportment.jdacommand.Command
 import me.diax.comportment.jdacommand.CommandAttribute
@@ -13,7 +13,8 @@ import java.util.regex.Pattern
 import java.util.stream.Collectors
 import javax.inject.Inject
 
-@CommandDescription(name = "pat", triggers = arrayOf("pat"), attributes = arrayOf(CommandAttribute(key = "allowPrivate")))
+@CommandDescription(name = "pat", triggers = arrayOf("pat"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "action")))
 class Pat @Inject
 constructor(private val requester: WeebAPI) : Command {
 

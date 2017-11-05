@@ -1,13 +1,15 @@
 package me.diax.diax.commands.music
 
 import me.diax.comportment.jdacommand.Command
+import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.MUSICAL_NOTE
 import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 import net.dv8tion.jda.core.exceptions.PermissionException
 
-@CommandDescription(name = "join", triggers = arrayOf("join"))
+@CommandDescription(name = "join", triggers = arrayOf("join"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "music")))
 class Join : Command {
 
     override fun execute(message: Message, s: String) {

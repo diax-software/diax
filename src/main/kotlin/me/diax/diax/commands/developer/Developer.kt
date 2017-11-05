@@ -5,7 +5,8 @@ import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "developer", triggers = arrayOf("developer"), attributes = arrayOf(CommandAttribute(key = "developer"), CommandAttribute(key = "hidden")))
+@CommandDescription(name = "developer", triggers = arrayOf("developer"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
 class Developer : Command {
 
     override fun execute(message: Message, s: String) {

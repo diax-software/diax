@@ -7,7 +7,8 @@ import me.diax.diax.util.Emote.BUTTON
 import net.dv8tion.jda.core.entities.Message
 import java.util.*
 
-@CommandDescription(name = "flip", triggers = arrayOf("flip", "coin", "heads", "toss", "tails", "hot"), attributes = arrayOf(CommandAttribute(key = "private")))
+@CommandDescription(name = "flip", triggers = arrayOf("flip", "coin", "heads", "toss", "tails", "hot"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "fun")))
 class Flip : Command {
 
     override fun execute(message: Message, s: String) {

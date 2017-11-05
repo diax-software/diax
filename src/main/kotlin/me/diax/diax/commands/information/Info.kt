@@ -7,7 +7,8 @@ import net.dv8tion.jda.core.JDAInfo
 import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
-@CommandDescription(name = "info", triggers = arrayOf("info", "stats", "status", "statistics", "information"), attributes = arrayOf(CommandAttribute(key = "private")))
+@CommandDescription(name = "info", triggers = arrayOf("info", "stats", "status", "statistics", "information"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "information")))
 class Info @Inject
 constructor(private val handler: CommandHandler) : Command {
 

@@ -7,7 +7,8 @@ import me.diax.diax.util.Emote
 import net.dv8tion.jda.core.entities.Message
 import java.util.*
 
-@CommandDescription(name = "die", triggers = arrayOf("die", "dice", "roll"), description = "{number/dice notation}", attributes = arrayOf(CommandAttribute(key = "private")))
+@CommandDescription(name = "die", triggers = arrayOf("die", "dice", "roll"), description = "{number/dice notation}",
+        attributes = arrayOf(CommandAttribute(key = "category", value = "fun")))
 class Die : Command {
 
     private val random: Random = Random()

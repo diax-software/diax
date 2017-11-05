@@ -10,17 +10,16 @@ import java.util.stream.Collectors
 import javax.inject.Inject
 import javax.inject.Named
 
-@CommandDescription(name = "help", triggers = arrayOf("help", "commands"), attributes = arrayOf(CommandAttribute(key = "private")))
+@CommandDescription(name = "help", triggers = arrayOf("help", "commands"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "information")))
 class Help @Inject
 constructor(private val handler: CommandHandler, @param:Named("prefix") private val prefix: String) : Command {
 
     override fun execute(message: Message, s: String) {
-        message.channel.sendMessage(Embed.transparent()
+        message.channel.sendMessage(Embed.themed()
                 .addField("__**Commands**__",
                         arrayOf(
-                                "Optional arguments are `{}`",
-                                "Needed arguments are `[]`",
-                                handler.commands.stream().filter { cmd -> !cmd.hasAttribute("hidden") }.sorted().map { cmd -> "`$prefix${cmd.description.name} ${if (cmd.description.description.isBlank()) "" else "| ${cmd.description.description}"}`" }.collect(Collectors.joining("\n"))
+                                handler.commands.stream().filter { cmd -> !cmd.hasAttribute("hidden") }.sorted().map { cmd -> "`${cmd.description.name}`" }.collect(Collectors.joining(", "))
                         ).joinToString("\n"),
                         false)
                 .addField("__**Links**__", arrayOf(

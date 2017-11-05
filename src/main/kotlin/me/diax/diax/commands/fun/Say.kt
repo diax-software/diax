@@ -6,7 +6,8 @@ import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "say", triggers = arrayOf("say"), description = "[message]", attributes = arrayOf(CommandAttribute(key = "private")))
+@CommandDescription(name = "say", triggers = arrayOf("say"), description = "[message]",
+        attributes = arrayOf(CommandAttribute(key = "category", value = "fun")))
 class Say : Command {
 
     override fun execute(message: Message, s: String) {

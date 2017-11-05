@@ -5,7 +5,8 @@ import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "csgo", triggers = arrayOf("csgo"), attributes = arrayOf(CommandAttribute(key = "private"), CommandAttribute(key = "hidden")))
+@CommandDescription(name = "csgo", triggers = arrayOf("csgo"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "fun")))
 class CSGO : Command {
 
     override fun execute(message: Message, s: String) {

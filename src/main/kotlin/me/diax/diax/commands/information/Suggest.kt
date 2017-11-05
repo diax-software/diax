@@ -9,7 +9,8 @@ import me.diax.diax.util.StringUtil
 import me.diax.diax.util.WebHookUtil
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "suggest", description = "[description]", triggers = arrayOf("suggest"), attributes = arrayOf(CommandAttribute(key = "private")))
+@CommandDescription(name = "suggest", description = "[description]", triggers = arrayOf("suggest"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "information")))
 class Suggest : Command {
 
     override fun execute(message: Message, s: String) {

@@ -1,6 +1,7 @@
-package me.diax.diax.commands.action
+package me.diax.diax.commands.image
 
 import me.diax.comportment.jdacommand.Command
+import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Embed
 import me.diax.diax.util.Emote.X
@@ -9,7 +10,8 @@ import me.diax.diax.util.WeebAPI
 import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
-@CommandDescription(name = "lewd", triggers = arrayOf("lewd"))
+@CommandDescription(name = "lewd", triggers = arrayOf("lewd"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "lewd")))
 class Lewd @Inject
 constructor(private val requester: WeebAPI) : Command {
 

@@ -5,7 +5,8 @@ import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "links", triggers = arrayOf("links"), attributes = arrayOf(CommandAttribute(key = "private")))
+@CommandDescription(name = "links", triggers = arrayOf("links"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "information")))
 class Links : Command {
 
     override fun execute(trigger: Message, args: String) {

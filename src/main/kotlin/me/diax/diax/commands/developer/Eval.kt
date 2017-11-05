@@ -9,7 +9,8 @@ import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
 
 
-@CommandDescription(name = "eval", triggers = arrayOf("eval", "hack"), attributes = arrayOf(CommandAttribute(key = "developer"), CommandAttribute(key = "hidden")))
+@CommandDescription(name = "eval", triggers = arrayOf("eval", "hack"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
 class Eval : Command {
 
     override fun execute(trigger: Message, truncated: String) {
@@ -30,7 +31,7 @@ class Eval : Command {
         engine.put("event", trigger)
         engine.put("guild", trigger.guild)
         engine.put("channel", trigger.channel)
-        engine.put("embed", net.dv8tion.jda.core.EmbedBuilder())
+        engine.put("embed", Embed())
         return engine
     }
 }

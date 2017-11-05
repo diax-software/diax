@@ -10,7 +10,8 @@ import net.dv8tion.jda.core.entities.Message
 
 import javax.inject.Inject
 
-@CommandDescription(name = "blacklist", triggers = arrayOf("blacklist"), attributes = arrayOf(CommandAttribute(key = "developer"), CommandAttribute(key = "hidden")))
+@CommandDescription(name = "blacklist", triggers = arrayOf("blacklist"),
+        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
 class Blacklist @Inject
 constructor(private val config: Config) : Command {
 
