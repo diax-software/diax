@@ -41,12 +41,17 @@ public class MessageListener extends ListenerAdapter {
         try {
             Command command = handler.findCommand(first);
             if (command == null) return;
+            if (command.hasAttribute("developer") && (!config.getDevelopers().contains(event.getAuthor().getId())))
+                return;
+            if (command.hasAttribute("fun") || command.hasAttribute("image") || command.hasAttribute("information")) {
+            }
+            if ((command.hasAttribute("action") || command.hasAttribute("music")) && !event.getChannelType().equals(ChannelType.TEXT)) {
+                return; // ERROR: ONLY GUILD
+            }
             if (command.hasAttribute("patreon") && !(config.getDonors().contains(event.getAuthor().getId()) || config.getDevelopers().contains(event.getAuthor().getId()))) {
                 event.getChannel().sendMessage(Emote.X + " - This is a Patreon-only command.").queue();
                 return;
             }
-            if (command.hasAttribute("developer") && (!config.getDevelopers().contains(event.getAuthor().getId())))
-                return;
             if (event.getChannelType().equals(ChannelType.PRIVATE) && command.hasAttribute("private")) {
                 event.getChannel().sendMessage(Emote.X + " - This command does not work in private messages.").queue();
                 return;
