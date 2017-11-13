@@ -6,7 +6,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Embed {
 
@@ -15,7 +15,7 @@ public class Embed {
     }
 
     public static EmbedBuilder transparent() {
-        return new EmbedBuilder().setColor(new Color(54, 57, 62));
+        return new EmbedBuilder().setColor(Colors.DARK);
     }
 
     public static String music(MusicTrack track) {

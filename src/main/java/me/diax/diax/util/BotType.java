@@ -5,11 +5,11 @@ import lombok.Getter;
 import java.awt.Color;
 
 public enum BotType {
-    STABLE(new Color(0x7289DA)),
+    STABLE(Colors.BURPLE),
 
-    PATREON(new Color(0xF5B249)),
+    PATREON(Colors.CANARY),
 
-    DEV(new Color(0x23272A));
+    DEV(Colors.GREY);
 
     public static BotType CURRENT_TYPE = STABLE;
 

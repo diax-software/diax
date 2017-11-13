@@ -1,33 +1,69 @@
 package me.diax.diax.commands.information
 
+import com.google.common.collect.MultimapBuilder
+import com.google.common.collect.SetMultimap
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.comportment.jdacommand.CommandHandler
 import me.diax.diax.util.Embed
 import net.dv8tion.jda.core.entities.Message
 import java.util.stream.Collectors
 import javax.inject.Inject
-import javax.inject.Named
 
-@CommandDescription(name = "help", triggers = arrayOf("help", "commands"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "information")))
+@CommandDescription(
+    name = "help",
+    triggers = arrayOf("help", "commands")
+)
 class Help @Inject
-constructor(private val handler: CommandHandler, @param:Named("prefix") private val prefix: String) : Command {
+constructor(
+    private val handler: CommandHandler
+) : Command {
+    val categories: Boolean = true
 
     override fun execute(message: Message, s: String) {
+        if (categories) {
+            val map: SetMultimap<String, String> = MultimapBuilder.linkedHashKeys().linkedHashSetValues().build()
+
+            handler.commands.stream()
+                .filter { !it.hasAttribute("hidden") }
+                .sorted()
+                .forEach { map.put(it.category?.value, it.description.name) }
+
+            val embed = Embed.themed().setAuthor("Diax - Help", null, null)
+
+            for (entry in map.asMap().entries) {
+                embed.addField("${entry.key} - Commands:", "`${arrayOf(entry.value).joinToString("` `")}`", false)
+            }
+
+            message.channel.sendMessage(embed.build()).queue()
+        } else {
+            message.channel.sendMessage(
+                Embed.themed().setAuthor("Diax - Help", null, null)
+                    .setDescription(
+                        handler.commands.stream()
+                            .filter { !it.hasAttribute("hidden") }
+                            .sorted()
+                            .map { it.description.name }
+                            .collect(Collectors.joining("` `", "`", "`"))
+                    ).build()
+            ).queue()
+
+        }
+
+
+
         message.channel.sendMessage(Embed.themed()
-                .addField("__**Commands**__",
-                        arrayOf(
-                                handler.commands.stream().filter { cmd -> !cmd.hasAttribute("hidden") }.sorted().map { cmd -> "`${cmd.description.name}`" }.collect(Collectors.joining(", "))
-                        ).joinToString("\n"),
-                        false)
-                .addField("__**Links**__", arrayOf(
-                        "[Invite](https://discordapp.com/oauth2/authorize?scope=bot&client_id=295500621862404097&permissions=3198016) Invite me!",
-                        "[Patreon](https://patreon.com/comportment) - Donate here to help support us!",
-                        "[Discord](https://discord.gg/5sJZa2y) - Come here to chat or for help!",
-                        "[Website](http://diax.me) - Check out our website!",
-                        "[Upvote](https://discordbots.org/bot/295500621862404097) - Upvote me on DiscordBots!").joinToString("\n"), false
-                ).build()).queue()
+            .addField("__**Commands**__",
+                arrayOf(
+                    handler.commands.stream().filter { cmd -> !cmd.hasAttribute("hidden") }.sorted().map { cmd -> "`${cmd.description.name}`" }.collect(Collectors.joining(", "))
+                ).joinToString("\n"),
+                false)
+            .addField("__**Links**__", arrayOf(
+                "[Invite](https://discordapp.com/oauth2/authorize?scope=bot&client_id=295500621862404097&permissions=3198016) Invite me!",
+                "[Patreon](https://patreon.com/comportment) - Donate here to help support us!",
+                "[Discord](https://discord.gg/5sJZa2y) - Come here to chat or for help!",
+                "[Website](http://diax.me) - Check out our website!",
+                "[Upvote](https://discordbots.org/bot/295500621862404097) - Upvote me on DiscordBots!").joinToString("\n"), false
+            ).build()).queue()
     }
 }
