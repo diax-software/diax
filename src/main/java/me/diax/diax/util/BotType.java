@@ -9,7 +9,7 @@ public enum BotType {
 
     PATREON(Colors.CANARY),
 
-    DEV(Colors.GREY);
+    DEV(Colors.DARK);
 
     public static BotType CURRENT_TYPE = STABLE;
 

@@ -14,15 +14,15 @@ import javax.inject.Inject
     name = "help",
     triggers = arrayOf("help", "commands")
 )
-class Help @Inject
-constructor(
+class Help
+@Inject constructor(
     private val handler: CommandHandler
 ) : Command {
     val categories: Boolean = true
 
     override fun execute(message: Message, s: String) {
         if (categories) {
-            val map: SetMultimap<String, String> = MultimapBuilder.linkedHashKeys().linkedHashSetValues().build()
+            val map: SetMultimap<String, String> = MultimapBuilder.treeKeys(nullsFirst(Comparator.naturalOrder<String>())).linkedHashSetValues().build()
 
             handler.commands.stream()
                 .filter { !it.hasAttribute("hidden") }
@@ -32,7 +32,7 @@ constructor(
             val embed = Embed.themed().setAuthor("Diax - Help", null, null)
 
             for (entry in map.asMap().entries) {
-                embed.addField("${entry.key} - Commands:", "`${arrayOf(entry.value).joinToString("` `")}`", false)
+                embed.addField("${if (entry.key != null) "${entry.key} " else ""}Commands:", "`${entry.value.toTypedArray().joinToString("` `")}`", false)
             }
 
             message.channel.sendMessage(embed.build()).queue()
@@ -51,19 +51,18 @@ constructor(
         }
 
 
-
-        message.channel.sendMessage(Embed.themed()
-            .addField("__**Commands**__",
-                arrayOf(
-                    handler.commands.stream().filter { cmd -> !cmd.hasAttribute("hidden") }.sorted().map { cmd -> "`${cmd.description.name}`" }.collect(Collectors.joining(", "))
-                ).joinToString("\n"),
-                false)
-            .addField("__**Links**__", arrayOf(
-                "[Invite](https://discordapp.com/oauth2/authorize?scope=bot&client_id=295500621862404097&permissions=3198016) Invite me!",
-                "[Patreon](https://patreon.com/comportment) - Donate here to help support us!",
-                "[Discord](https://discord.gg/5sJZa2y) - Come here to chat or for help!",
-                "[Website](http://diax.me) - Check out our website!",
-                "[Upvote](https://discordbots.org/bot/295500621862404097) - Upvote me on DiscordBots!").joinToString("\n"), false
-            ).build()).queue()
+//        message.channel.sendMessage(Embed.themed()
+//            .addField("__**Commands**__",
+//                arrayOf(
+//                    handler.commands.stream().filter { cmd -> !cmd.hasAttribute("hidden") }.sorted().map { cmd -> "`${cmd.description.name}`" }.collect(Collectors.joining(", "))
+//                ).joinToString("\n"),
+//                false)
+//            .addField("__**Links**__", arrayOf(
+//                "[Invite](https://discordapp.com/oauth2/authorize?scope=bot&client_id=295500621862404097&permissions=3198016) Invite me!",
+//                "[Patreon](https://patreon.com/comportment) - Donate here to help support us!",
+//                "[Discord](https://discord.gg/5sJZa2y) - Come here to chat or for help!",
+//                "[Website](http://diax.me) - Check out our website!",
+//                "[Upvote](https://discordbots.org/bot/295500621862404097) - Upvote me on DiscordBots!").joinToString("\n"), false
+//            ).build()).queue()
     }
 }
