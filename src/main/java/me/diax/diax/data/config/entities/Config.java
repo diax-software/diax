@@ -11,6 +11,7 @@ public class Config {
 
     public Tokens tokens = new Tokens();
     public Channels channels = new Channels();
+    public DbConfig database = new DbConfig();
 
     public List<String> developers = new LinkedList<>();
     public List<String> donors = new LinkedList<>();

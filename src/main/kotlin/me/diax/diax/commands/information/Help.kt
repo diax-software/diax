@@ -5,6 +5,7 @@ import com.google.common.collect.SetMultimap
 import me.diax.comportment.jdacommand.Command
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.comportment.jdacommand.CommandHandler
+import me.diax.diax.data.ManagedDatabase
 import me.diax.diax.util.Embed
 import net.dv8tion.jda.core.entities.Message
 import java.util.stream.Collectors
@@ -16,12 +17,14 @@ import javax.inject.Inject
 )
 class Help
 @Inject constructor(
-    private val handler: CommandHandler
+    private val handler: CommandHandler,
+    private val db: ManagedDatabase
 ) : Command {
-    val categories: Boolean = true
 
     override fun execute(message: Message, s: String) {
-        if (categories) {
+        val guild = db.get(message.guild)
+
+        if (guild.settings.categories) {
             val map: SetMultimap<String, String> = MultimapBuilder.treeKeys(nullsFirst(Comparator.naturalOrder<String>())).linkedHashSetValues().build()
 
             handler.commands.stream()

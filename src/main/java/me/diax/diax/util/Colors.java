@@ -12,7 +12,7 @@ public class Colors {
     public static final Color
         BURPLE = new Color(0x7289da),
         WHITE = new Color(0xffffff),
-        GREYPLE = new Color(0x99AAB5),
+        GREYPLE = new Color(0x99aab5),
         DARK = new Color(0x23272a),
         BLACKY = new Color(0x36393e);
 
@@ -20,7 +20,7 @@ public class Colors {
      * Other colors also used by Discord
      */
     public static final Color
-        CANARY = new Color(0xFAA61A),
+        CANARY = new Color(0xfaa61a),
         RED = new Color(0xf04747),
-        GREEN = new Color(0x43B581);
+        GREEN = new Color(0x43b581);
 }

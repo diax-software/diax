@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
+import com.rethinkdb.pool.ConnectionPool;
 import me.diax.comportment.jdacommand.CommandHandler;
 import me.diax.diax.data.config.ConfigManager;
 import me.diax.diax.data.config.entities.Config;
@@ -12,6 +13,8 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+
+import static com.rethinkdb.RethinkDB.r;
 
 public class DiaxInjections extends AbstractModule {
     private final CommandHandler handler;
@@ -28,6 +31,9 @@ public class DiaxInjections extends AbstractModule {
 
         bind(ConfigManager.class)
             .toInstance(manager);
+
+        bind(ConnectionPool.class)
+            .toInstance(r.connectionPool(config.getDatabase().configure()));
 
         bind(Config.class)
             .toProvider(manager);
