@@ -27,4 +27,9 @@ public class Emote {
     public static String GAME_DIE = "\uD83C\uDFB2";
     public static String BUST = "\uD83D\uDC64";
     public static String BUTTON = "\uD83D\uDD18";
+    public static String CAT2 = "\uD83D\uDC08";
+    public static String HEART = "❤";
+    public static String DRAGON_FACE = "\uD83D\uDC32";
+    public static String STAR = ":star:";
+    public static String RAGE = "\uD83D\uDE21";
 }
