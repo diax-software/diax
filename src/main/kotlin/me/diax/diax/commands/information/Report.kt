@@ -14,14 +14,8 @@ import net.dv8tion.jda.core.entities.Message
 class Report : Command {
 
     override fun execute(message: Message, s: String) {
-        var error = ""
-        if (s.length < 20) {
-            error = "Please provide more information."
-        } else if (s.length > 500) {
-            error = "Please try and keep your report to the point."
-        }
-        if (error.isNotBlank()) {
-            message.channel.sendMessage("$X - $error").queue()
+        if (s.isBlank()) {
+            message.channel.sendMessage(Embed.error("Please describe your error report!")).queue()
             return
         }
         WebHookUtil.report(message.jda, "```${StringUtil.stripMarkdown(s)}```\nReporter: *${message.author.name}#${message.author.discriminator}*")
