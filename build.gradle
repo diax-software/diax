@@ -80,15 +80,15 @@ task prepareSource(type: Copy) {
     filter(ReplaceTokens, tokens: [
             version: ver.toString()
     ])
-    dependsOn clean
+    //dependsOn clean
 }
-prepareSource.dependsOn clean
+//prepareSource.dependsOn clean
 
 compileJava {
-    source = prepareSource.destinationDir
+    //source = prepareSource.destinationDir
     classpath = sourceSets.main.compileClasspath
     options.encoding = 'UTF-8'
-    dependsOn prepareSource
+    //dependsOn prepareSource
 }
 
 tasks.withType(JavaCompile) {
