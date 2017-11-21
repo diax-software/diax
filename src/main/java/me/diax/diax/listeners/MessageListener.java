@@ -36,6 +36,7 @@ public class MessageListener extends ListenerAdapter {
         } else {
             return;
         }
+
         String content = event.getMessage().getRawContent().replaceFirst(Pattern.quote(prefix), "").trim();
         String first = content.split("\\s+")[0].trim();
         try {

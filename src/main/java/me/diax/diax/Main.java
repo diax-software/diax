@@ -9,6 +9,7 @@ import me.diax.diax.data.config.ConfigManager;
 import me.diax.diax.injection.DiaxInjections;
 import me.diax.diax.listeners.GuildJoinLeaveListener;
 import me.diax.diax.listeners.MessageListener;
+import me.diax.diax.logging.TerminalConsoleAdaptor;
 import me.diax.diax.util.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class Main {
     public static void main(String[] args) throws Exception {
+        TerminalConsoleAdaptor.initializeTerminal();
         ConfigManager manager = new ConfigManager();
         Runtime.getRuntime().addShutdownHook(new Thread(manager::save));
 
