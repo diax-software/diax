@@ -15,7 +15,7 @@ import net.dv8tion.jda.core.entities.Message
 class Suggest : Command {
 
     override fun execute(message: Message, s: String) {
-        if (s.isNotBlank()) {
+        if (s.isBlank()) {
             message.channel.sendMessage(Embed().error("Please describe your suggestion!")).queue()
             return
         }
