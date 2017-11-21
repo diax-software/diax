@@ -33,7 +33,8 @@ class Help
                 .forEach { map.put(it.category?.value, it.description.name) }
             
             for (entry in map.asMap().entries) {
-                embed.addField("${if (entry.key != null) "${entry.key} " else "Commands:", "`${entry.value.toTypedArray().joinToString("` `")}`", false)
+                embed.addField("${if (entry.key != null) "${entry.key} " else ""}Commands:", "`${entry.value.toTypedArray().joinToString("` `")}`", false)
+                //embed.addField("${if (entry.key != null) "${entry.key} " else "Commands:", "`${entry.value.toTypedArray().joinToString("` `")}`", false)
             }
         } else {
             embed
