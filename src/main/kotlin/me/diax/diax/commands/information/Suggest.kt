@@ -16,7 +16,7 @@ class Suggest : Command {
 
     override fun execute(message: Message, s: String) {
         if (s.isBlank()) {
-            message.channel.sendMessage(Embed().error("Please describe your suggestion!")).queue()
+            message.channel.sendMessage(Embed.error("Please describe your suggestion!")).queue()
             return
         }
         WebHookUtil.suggest(message.jda, "```${StringUtil.stripMarkdown(s)}```\n*Suggested by ${StringUtil.stripMarkdown(message.author.name)}#${message.author.discriminator}*")
