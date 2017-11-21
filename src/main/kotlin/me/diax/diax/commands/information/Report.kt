@@ -5,6 +5,7 @@ import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.SMILE
 import me.diax.diax.util.Emote.X
+import me.diax.diax.util.Embed
 import me.diax.diax.util.StringUtil
 import me.diax.diax.util.WebHookUtil
 import net.dv8tion.jda.core.entities.Message
