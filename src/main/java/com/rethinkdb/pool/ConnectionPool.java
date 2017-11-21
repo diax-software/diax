@@ -59,33 +59,36 @@ public class ConnectionPool {
     }
 
     public void run(Consumer<Connection> consumer, Consumer<Exception> onFailure) {
-        Connection c = retrieve();
+        Connection c = null;
         try {
+            c = retrieve();
             consumer.accept(c);
         } finally {
-            requeue(c);
+            if (c != null) requeue(c);
         }
     }
 
     public <T> T run(ReqlAst ast, Function<Exception, T> onFailure) {
-        Connection c = retrieve();
+        Connection c = null;
         try {
+            c = retrieve();
             return ast.run(c);
         } catch (Exception e) {
             return onFailure.apply(e);
         } finally {
-            requeue(c);
+            if (c != null) requeue(c);
         }
     }
 
     public <T> T run(ReqlAst ast, Class<?> c, Function<Exception, T> onFailure) {
-        Connection conn = retrieve();
+        Connection conn = null;
         try {
+            conn = retrieve();
             return ast.run(conn, c);
         } catch (Exception e) {
             return onFailure.apply(e);
         } finally {
-            requeue(conn);
+            if (conn != null) requeue(conn);
         }
     }
 
@@ -94,13 +97,14 @@ public class ConnectionPool {
     }
 
     public <T> T runAndReturn(Function<Connection, T> consumer, Function<Exception, T> onFailure) {
-        Connection c = retrieve();
+        Connection c = null;
         try {
+            c = retrieve();
             return consumer.apply(c);
         } catch (Exception e) {
             return onFailure.apply(e);
         } finally {
-            requeue(c);
+            if (c != null) requeue(c);
         }
     }
 
@@ -109,13 +113,14 @@ public class ConnectionPool {
     }
 
     public <A> void runWithArgs(A a, BiConsumer<Connection, A> consumer, Consumer<Exception> onFailure) {
-        Connection c = retrieve();
+        Connection c = null;
         try {
+            c = retrieve();
             consumer.accept(c, a);
         } catch (Exception e) {
             onFailure.accept(e);
         } finally {
-            requeue(c);
+            if (c != null) requeue(c);
         }
     }
 
@@ -130,7 +135,7 @@ public class ConnectionPool {
         } catch (Exception e) {
             return onFailure.apply(e);
         } finally {
-            requeue(c);
+            if (c != null) requeue(c);
         }
     }
 }
