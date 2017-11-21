@@ -34,12 +34,12 @@ public class ManagedDatabase {
     }
 
     public GuildData getGuild(String id, boolean create) {
-        GuildData guild = pool.run(r.table("users").get(id), UserData.class);
+        GuildData guild = pool.run(r.table("users").get(id), UserData.class, e -> null);
         return guild == null && create ? new GuildData() : guild;
     }
 
     public UserData getUser(String id, boolean create) {
-        UserData user = pool.run(r.table("users").get(id), UserData.class);
+        UserData user = pool.run(r.table("users").get(id), UserData.class, e -> null);
         return user == null && create ? new UserData() : user;
     }
 }
