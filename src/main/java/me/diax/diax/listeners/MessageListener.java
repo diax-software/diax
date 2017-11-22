@@ -6,10 +6,13 @@ import me.diax.diax.data.config.entities.Config;
 import me.diax.diax.util.Emote;
 import me.diax.diax.util.WebHookUtil;
 import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class MessageListener extends ListenerAdapter {
@@ -28,13 +31,22 @@ public class MessageListener extends ListenerAdapter {
             return;
         String prefix;
 
-        // Meme mention prefix
-        if (!event.getMessage().getMentionedUsers().isEmpty() && event.getMessage().getMentionedUsers().get(0).equals(event.getJDA().getSelfUser()) && event.getMessage().getRawContent().startsWith(event.getMessage().getMentionedUsers().get(0).getAsMention())) {
-            prefix = event.getMessage().getMentionedUsers().get(0).getAsMention() + " ";
+        List<User> mentions = event.getMessage().getMentionedUsers();
+        if (!mentions.isEmpty() && mentions.get(0).equals(event.getJDA().getSelfUser())) {
+            if (event.getMessage().getRawContent().startsWith(mentions.get(0).getAsMention())) {
+                prefix = mentions.get(0).getAsMention() + " ";
+            } else if (event.isFromType(ChannelType.TEXT)) {
+                Member botMember = event.getGuild().getMember(event.getJDA().getSelfUser());
+                if (event.getMessage().getRawContent().startsWith(botMember.getAsMention())) {
+                    prefix = botMember.getAsMention() + " ";
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
         } else if (event.getMessage().getRawContent().startsWith(config.getPrefix())) {
             prefix = config.getPrefix();
-        } else if (event.getMessage().getRawContent().startsWith(event.getJDA().getSelfUser().getAsMention())) {
-            prefix = event.getJDA().getSelfUser().getAsMention();
         } else if (event.getChannelType().equals(ChannelType.PRIVATE)) {
             prefix = "";
         } else {
