@@ -27,7 +27,11 @@ public class MessageListener extends ListenerAdapter {
         if (event.getAuthor().isBot() || event.getMessage().isWebhookMessage() || config.getBlacklist().contains(event.getAuthor().getId()))
             return;
         String prefix;
-        if (event.getMessage().getRawContent().startsWith(config.getPrefix())) {
+
+        // Meme mention prefix
+        if (!event.getMessage().getMentionedUsers().isEmpty() && event.getMessage().getMentionedUsers().get(0).equals(event.getJDA().getSelfUser()) && event.getMessage().getRawContent().startsWith(event.getMessage().getMentionedUsers().get(0).getAsMention())) {
+            prefix = event.getMessage().getMentionedUsers().get(0).getAsMention() + " ";
+        } else if (event.getMessage().getRawContent().startsWith(config.getPrefix())) {
             prefix = config.getPrefix();
         } else if (event.getMessage().getRawContent().startsWith(event.getJDA().getSelfUser().getAsMention())) {
             prefix = event.getJDA().getSelfUser().getAsMention();
