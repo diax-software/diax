@@ -22,7 +22,7 @@ class Eval : Command {
             output = exception.localizedMessage
         }
 
-        trigger.channel.sendMessage(Embed.transparent().setDescription(String.format("```js\n%s ```", output)).build()).queue()
+        trigger.channel.sendMessage(Embed.themed().setDescription(String.format("```js\n%s ```", output)).build()).queue()
     }
 
     private fun addMethods(engine: ScriptEngine, trigger: Message): ScriptEngine {
