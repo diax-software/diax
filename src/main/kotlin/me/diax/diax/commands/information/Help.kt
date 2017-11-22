@@ -41,7 +41,7 @@ class Help
                     .setDescription(
                         handler.commands.stream()
                             .filter { !it.hasAttribute("hidden") }
-                            .filter { !it.category?.value == "Developer" }
+                            .filter { it.category?.value != "Developer" }
                             .sorted()
                             .map { it.description.name }
                             .collect(Collectors.joining("` `", "`", "`"))
