@@ -31,7 +31,7 @@ public class Util {
 
         if (value instanceof Map) return (T) toPojo(pojoClass.get(), (Map) value);
 
-        if (value instanceof List) return (T) ((List) value).stream()
+        if (value instanceof List) return (T) ((List<Object>) value).stream()
             .map(o -> convertToPojo(o, pojoClass)).collect(Collectors.toList());
 
         return (T) value;

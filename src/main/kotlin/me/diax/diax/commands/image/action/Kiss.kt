@@ -13,10 +13,15 @@ import net.dv8tion.jda.core.entities.Message
 import java.util.stream.Collectors
 import javax.inject.Inject
 
-@CommandDescription(name = "kiss", triggers = arrayOf("kiss"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "action")))
-class Kiss @Inject
-constructor(private val requester: WeebAPI) : Command {
+@CommandDescription(
+    name = "kiss",
+    triggers = ["kiss"],
+    attributes = [
+        CommandAttribute(key = "category", value = "action")
+    ]
+)
+class Kiss
+@Inject constructor(private val requester: WeebAPI) : Command {
 
     override fun execute(message: Message, s: String) {
         var image: String

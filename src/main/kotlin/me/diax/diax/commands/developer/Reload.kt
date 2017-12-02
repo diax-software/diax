@@ -9,10 +9,15 @@ import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
-@CommandDescription(name = "reload", triggers = arrayOf("reload"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
-class Reload @Inject
-constructor(private val configManager: ConfigManager) : Command {
+@CommandDescription(
+    name = "reload",
+    triggers = ["reload"],
+    attributes = [
+        CommandAttribute(key = "category", value = "developer")
+    ]
+)
+class Reload
+@Inject constructor(private val configManager: ConfigManager) : Command {
 
     override fun execute(message: Message, s: String) {
         message.channel.sendMessage("$SMILE - Reloading data...").queue()

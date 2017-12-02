@@ -8,8 +8,13 @@ import me.diax.diax.util.Embed
 import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "nowplaying", triggers = arrayOf("song", "current", "nowplaying", "np"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "music")))
+@CommandDescription(
+    name = "nowplaying",
+    triggers = ["song", "current", "nowplaying", "np"],
+    attributes = [
+        CommandAttribute(key = "category", value = "music")
+    ]
+)
 class NowPlaying : Command {
 
     override fun execute(message: Message, s: String) {

@@ -9,7 +9,10 @@ import net.dv8tion.jda.core.entities.Message
 import java.util.*
 import java.util.stream.Collectors
 
-@CommandDescription(name = "queue", triggers = arrayOf("queue"))
+@CommandDescription(
+    name = "queue",
+    triggers = ["queue"]
+)
 class Queue : Command {
 
     override fun execute(message: Message, s: String) {

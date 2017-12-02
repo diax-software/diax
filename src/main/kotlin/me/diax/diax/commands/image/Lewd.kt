@@ -10,10 +10,15 @@ import me.diax.diax.util.WeebAPI
 import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
-@CommandDescription(name = "lewd", triggers = arrayOf("lewd"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "lewd")))
-class Lewd @Inject
-constructor(private val requester: WeebAPI) : Command {
+@CommandDescription(
+    name = "lewd",
+    triggers = ["lewd"],
+    attributes = [
+        CommandAttribute(key = "category", value = "lewd")
+    ]
+)
+class Lewd
+@Inject constructor(private val requester: WeebAPI) : Command {
 
     override fun execute(message: Message, s: String) {
         var image: String

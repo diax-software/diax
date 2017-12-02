@@ -8,8 +8,14 @@ import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 import java.util.*
 
-@CommandDescription(name = "8ball", triggers = arrayOf("8ball", "eightball", "8-ball"), description = "[question]",
-        attributes = arrayOf(CommandAttribute(key = "category", value = "fun")))
+@CommandDescription(
+    name = "8ball",
+    triggers = ["8ball", "eightball", "8-ball"],
+    description = "[question]",
+    attributes = [
+        CommandAttribute(key = "category", value = "fun")
+    ]
+)
 class EightBall : Command {
 
     override fun execute(message: Message, s: String) {

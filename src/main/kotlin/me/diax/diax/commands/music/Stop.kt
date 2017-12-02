@@ -7,8 +7,13 @@ import me.diax.diax.music.GuildMusicManager
 import me.diax.diax.util.Emote.MUSICAL_NOTE
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "stop", triggers = arrayOf("stop"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "music")))
+@CommandDescription(
+    name = "stop",
+    triggers = ["stop"],
+    attributes = [
+        CommandAttribute(key = "category", value = "music")
+    ]
+)
 class Stop : Command {
 
     override fun execute(message: Message, s: String) {

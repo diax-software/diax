@@ -7,8 +7,13 @@ import me.diax.diax.music.GuildMusicManager
 import me.diax.diax.util.Emote
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "skip", triggers = arrayOf("skip"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "music")))
+@CommandDescription(
+    name = "skip",
+    triggers = ["skip"],
+    attributes = [
+        CommandAttribute(key = "category", value = "music")
+    ]
+)
 class Skip : Command {
 
     override fun execute(message: Message, s: String) {

@@ -32,4 +32,6 @@ public class Emote {
     public static String DRAGON_FACE = "\uD83D\uDC32";
     public static String STAR = ":star:";
     public static String RAGE = "\uD83D\uDE21";
+    public static String DIAXCOIN_HEADS = "<:diaxcoinHeads:380367645729619968>";
+    public static String DIAXCOIN_TAILS = "<:diaxcoinTails:380367657381396480>";
 }

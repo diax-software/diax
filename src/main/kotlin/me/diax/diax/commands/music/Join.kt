@@ -8,8 +8,13 @@ import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 import net.dv8tion.jda.core.exceptions.PermissionException
 
-@CommandDescription(name = "join", triggers = arrayOf("join"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "music")))
+@CommandDescription(
+    name = "join",
+    triggers = ["join"],
+    attributes = [
+        CommandAttribute(key = "category", value = "music")
+    ]
+)
 class Join : Command {
 
     override fun execute(message: Message, s: String) {

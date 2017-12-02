@@ -9,10 +9,15 @@ import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
-@CommandDescription(name = "save", triggers = arrayOf("save"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
-class Save @Inject
-constructor(private val configManager: ConfigManager) : Command {
+@CommandDescription(
+    name = "save",
+    triggers = ["save"],
+    attributes = [
+        CommandAttribute(key = "category", value = "developer")
+    ]
+)
+class Save
+@Inject constructor(private val configManager: ConfigManager) : Command {
 
     override fun execute(message: Message, s: String) {
         message.channel.sendMessage("$SMILE - Saving data....").queue()

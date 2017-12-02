@@ -8,8 +8,13 @@ import me.diax.diax.util.Emote.*
 import net.dv8tion.jda.core.entities.Message
 import java.util.*
 
-@CommandDescription(name = "ping", triggers = arrayOf("ping", "pang", "peng", "pong", "pung"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "information")))
+@CommandDescription(
+    name = "ping",
+    triggers = ["ping", "pang", "peng", "pong", "pung"],
+    attributes = [
+        CommandAttribute(key = "category", value = "information")
+    ]
+)
 class Ping : Command {
 
     override fun execute(message: Message, s: String) {
@@ -21,18 +26,28 @@ class Ping : Command {
     }
 
     private fun pingToEmote(ping: Long): String {
-        if (ping == 69L) return EGGPLANT
-        if (ping <= 0) return UPSIDE_DOWN
-        if (ping <= 10) return SMILE
-        if (ping <= 100) return SMILEY
-        if (ping <= 200) return SLIGHT_SMILE
-        if (ping <= 300) return NEUTRAL_FACE
-        if (ping <= 400) return CONFUSED
-        if (ping <= 500) return SLIGHT_FROWN
-        if (ping <= 600) return FROWNING2
-        if (ping <= 700) return WORRIED
-        if (ping <= 800) return DISAPPOINTED
-        if (ping <= 900) return SOB
-        return FIRE + if (ping <= 1600) "" else FIRE + if (ping <= 10000) "" else FIRE
+        return when {
+            ping == 69L -> EGGPLANT
+            ping <= 0 -> UPSIDE_DOWN
+            ping <= 10 -> SMILE
+            ping <= 100 -> SMILEY
+            ping <= 200 -> SLIGHT_SMILE
+            ping <= 300 -> NEUTRAL_FACE
+            ping <= 400 -> CONFUSED
+            ping <= 500 -> SLIGHT_FROWN
+            ping <= 600 -> FROWNING2
+            ping <= 700 -> WORRIED
+            ping <= 800 -> DISAPPOINTED
+            ping <= 900 -> SOB
+            ping <= 1600 -> FIRE
+            ping <= 10000 -> FIRE * 2
+            else -> FIRE * 3
+        }
     }
+}
+
+private operator fun String.times(i: Int): String {
+    val b = StringBuilder()
+    for (any in 0..i) b.append(this)
+    return b.toString()
 }

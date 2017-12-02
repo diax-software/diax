@@ -7,8 +7,14 @@ import me.diax.diax.util.Emote
 import net.dv8tion.jda.core.entities.Message
 import java.util.*
 
-@CommandDescription(name = "die", triggers = arrayOf("die", "dice", "roll"), description = "{number/dice notation}",
-        attributes = arrayOf(CommandAttribute(key = "category", value = "fun")))
+@CommandDescription(
+    name = "die",
+    triggers = ["die", "dice", "roll"],
+    description = "{number/dice notation}",
+    attributes = [
+        CommandAttribute(key = "category", value = "fun")
+    ]
+)
 class Die : Command {
 
     private val random: Random = Random()
@@ -22,11 +28,11 @@ class Die : Command {
                 result = parseDiceRoll(s)
             } catch (e: Exception) {
                 message.channel.sendMessage(Emote.X + " - Invalid dice roll!\nExamples: \n```" +
-                        "Examples:\n" +
-                        "<>roll 1\n" +
-                        "<>roll 2d10\n" +
-                        "<>roll 1d4+20\n" +
-                        "<>roll 1d5-2```"
+                    "Examples:\n" +
+                    "<>roll 1\n" +
+                    "<>roll 2d10\n" +
+                    "<>roll 1d4+20\n" +
+                    "<>roll 1d5-2```"
                 ).queue()
                 return
             }

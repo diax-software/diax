@@ -8,8 +8,15 @@ import me.diax.diax.util.Emote.MUSICAL_NOTE
 import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "volume", triggers = arrayOf("volume", "vol"),
-        attributes = arrayOf(CommandAttribute(key = "patreon"), CommandAttribute(key = "category", value = "music")), description = "{0-150}")
+@CommandDescription(
+    name = "volume",
+    triggers = ["volume", "vol"],
+    description = "{0-150}",
+    attributes = [
+        CommandAttribute(key = "patreon"),
+        CommandAttribute(key = "category", value = "music")
+    ]
+)
 class Volume : Command {
 
     override fun execute(trigger: Message, truncated: String) {

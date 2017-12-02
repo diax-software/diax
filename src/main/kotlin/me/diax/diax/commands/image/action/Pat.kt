@@ -13,10 +13,15 @@ import java.util.regex.Pattern
 import java.util.stream.Collectors
 import javax.inject.Inject
 
-@CommandDescription(name = "pat", triggers = arrayOf("pat"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "action")))
-class Pat @Inject
-constructor(private val requester: WeebAPI) : Command {
+@CommandDescription(
+    name = "pat",
+    triggers = ["pat"],
+    attributes = [
+        CommandAttribute(key = "category", value = "action")
+    ]
+)
+class Pat
+@Inject constructor(private val requester: WeebAPI) : Command {
 
     override fun execute(message: Message, s: String) {
         var image: String

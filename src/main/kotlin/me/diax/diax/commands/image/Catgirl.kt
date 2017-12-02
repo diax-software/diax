@@ -11,8 +11,13 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 
-@CommandDescription(name = "catgirl", triggers = arrayOf("catgirl", "neko", "nya"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "image")))
+@CommandDescription(
+    name = "catgirl",
+    triggers = ["catgirl", "neko", "nya"],
+    attributes = [
+        CommandAttribute(key = "category", value = "image")
+    ]
+)
 class Catgirl : Command {
 
     override fun execute(message: Message, s: String) {

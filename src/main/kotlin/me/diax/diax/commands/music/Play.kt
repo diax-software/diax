@@ -15,8 +15,14 @@ import me.diax.diax.util.Emote.X
 import me.diax.diax.util.StringUtil
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "play", triggers = arrayOf("play"), description = "{url/query}",
-        attributes = arrayOf(CommandAttribute(key = "category", value = "music")))
+@CommandDescription(
+    name = "play",
+    triggers = ["play"],
+    description = "{url/query}",
+    attributes = [
+        CommandAttribute(key = "category", value = "music")
+    ]
+)
 class Play : Command {
 
     override fun execute(message: Message, args: String) {

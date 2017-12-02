@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @CommandDescription(
     name = "help",
-    triggers = arrayOf("help", "commands")
+    triggers = ["help", "commands"]
 )
 class Help
 @Inject constructor(

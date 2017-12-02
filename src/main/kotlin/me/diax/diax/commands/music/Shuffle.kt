@@ -8,8 +8,13 @@ import me.diax.diax.util.Emote.MUSICAL_NOTE
 import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "shuffle", triggers = arrayOf("shuffle"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "music")))
+@CommandDescription(
+    name = "shuffle",
+    triggers = ["shuffle"],
+    attributes = [
+        CommandAttribute(key = "category", value = "music")
+    ]
+)
 class Shuffle : Command {
 
     override fun execute(message: Message, s: String) {

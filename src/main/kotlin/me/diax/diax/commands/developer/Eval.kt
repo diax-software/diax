@@ -9,8 +9,13 @@ import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
 
 
-@CommandDescription(name = "eval", triggers = arrayOf("eval", "hack"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
+@CommandDescription(
+    name = "eval",
+    triggers = ["eval", "hack"],
+    attributes = [
+        CommandAttribute(key = "category", value = "developer")
+    ]
+)
 class Eval : Command {
 
     override fun execute(trigger: Message, truncated: String) {

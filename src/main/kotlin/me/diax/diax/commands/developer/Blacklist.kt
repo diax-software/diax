@@ -10,10 +10,15 @@ import net.dv8tion.jda.core.entities.Message
 
 import javax.inject.Inject
 
-@CommandDescription(name = "blacklist", triggers = arrayOf("blacklist"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
-class Blacklist @Inject
-constructor(private val config: Config) : Command {
+@CommandDescription(
+    name = "blacklist",
+    triggers = ["blacklist"],
+    attributes = [
+        CommandAttribute(key = "category", value = "developer")
+    ]
+)
+class Blacklist
+@Inject constructor(private val config: Config) : Command {
 
     override fun execute(message: Message, s: String) {
         if (message.mentionedUsers.isEmpty()) {

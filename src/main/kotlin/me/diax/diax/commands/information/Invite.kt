@@ -5,8 +5,13 @@ import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import net.dv8tion.jda.core.entities.Message
 
-@CommandDescription(name = "invite", triggers = arrayOf("invite"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "information")))
+@CommandDescription(
+    name = "invite",
+    triggers = ["invite"],
+    attributes = [
+        CommandAttribute(key = "category", value = "information")
+    ]
+)
 class Invite : Command {
 
     override fun execute(trigger: Message, args: String) {

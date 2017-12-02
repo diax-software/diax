@@ -9,10 +9,15 @@ import me.diax.diax.util.Emote.ZZZ
 import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
-@CommandDescription(name = "shutdown", triggers = arrayOf("shutdown"),
-        attributes = arrayOf(CommandAttribute(key = "category", value = "developer")))
-class Shutdown @Inject
-constructor(private val configManager: ConfigManager) : Command {
+@CommandDescription(
+    name = "shutdown",
+    triggers = ["shutdown"],
+    attributes = [
+        CommandAttribute(key = "category", value = "developer")
+    ]
+)
+class Shutdown
+@Inject constructor(private val configManager: ConfigManager) : Command {
 
     override fun execute(message: Message, s: String) {
         message.channel.sendMessage("$ZZZ - Shutting down...").queue()
