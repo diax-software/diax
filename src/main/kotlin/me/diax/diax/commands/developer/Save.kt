@@ -13,7 +13,8 @@ import javax.inject.Inject
     name = "save",
     triggers = ["save"],
     attributes = [
-        CommandAttribute(key = "category", value = "developer")
+        CommandAttribute(key = "category", value = "developer"),
+        CommandAttribute(key = "developer")
     ]
 )
 class Save

@@ -13,7 +13,8 @@ import javax.inject.Inject
     name = "reload",
     triggers = ["reload"],
     attributes = [
-        CommandAttribute(key = "category", value = "developer")
+        CommandAttribute(key = "category", value = "developer"),
+        CommandAttribute(key = "developer")
     ]
 )
 class Reload

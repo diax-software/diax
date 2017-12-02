@@ -10,7 +10,8 @@ import net.dv8tion.jda.core.entities.Message
     name = "announce",
     triggers = ["announce"],
     attributes = [
-        CommandAttribute(key = "category", value = "developer")
+        CommandAttribute(key = "category", value = "developer"),
+        CommandAttribute(key = "developer")
     ]
 )
 class Announce : Command {

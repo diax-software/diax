@@ -14,7 +14,8 @@ import javax.inject.Inject
     name = "blacklist",
     triggers = ["blacklist"],
     attributes = [
-        CommandAttribute(key = "category", value = "developer")
+        CommandAttribute(key = "category", value = "developer"),
+        CommandAttribute(key = "developer")
     ]
 )
 class Blacklist
