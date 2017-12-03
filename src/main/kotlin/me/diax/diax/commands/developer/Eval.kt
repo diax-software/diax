@@ -32,12 +32,17 @@ class Eval : Command {
     }
 
     private fun addMethods(engine: ScriptEngine, trigger: Message): ScriptEngine {
-        engine.put("jda", trigger.jda)
-        engine.put("message", trigger)
-        engine.put("event", trigger)
-        engine.put("guild", trigger.guild)
-        engine.put("channel", trigger.channel)
-        engine.put("embed", Embed())
+        engine["jda"] = trigger.jda
+        engine["message"] = trigger
+        engine["event"] = trigger
+        engine["guild"] = trigger.guild
+        engine["channel"] = trigger.channel
+        engine["embed"] = Embed
         return engine
     }
+
+    private operator fun ScriptEngine.set(key: String?, value: Any?) {
+        put(key, value)
+    }
 }
+

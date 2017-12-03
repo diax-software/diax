@@ -23,7 +23,7 @@ class Lewd
     override fun execute(message: Message, s: String) {
         var image: String
         try {
-            image = requester.getRandomImageByType("lewd", WeebAPI.NSFW.FALSE)
+            image = requester.getRandomImageByType("lewd", WeebAPI.NSFW.FALSE)!!
         } catch (e: Exception) {
             image = ""
             WebHookUtil.err(message.jda, "Error retrieving weeb.sh image!")

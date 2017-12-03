@@ -22,9 +22,9 @@ class Help
 ) : Command {
 
     override fun execute(message: Message, s: String) {
-        val guild = db.get(message.guild)
+        val guild = db[message.guild]
 
-        if (guild.settings.categories) {
+        if (guild.settings.isCategories) {
             val map: SetMultimap<String, String> = MultimapBuilder.treeKeys(nullsFirst(Comparator.naturalOrder<String>())).linkedHashSetValues().build()
 
             handler.commands.stream()

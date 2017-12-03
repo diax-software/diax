@@ -19,6 +19,6 @@ class NowPlaying : Command {
 
     override fun execute(message: Message, s: String) {
         val scheduler = GuildMusicManager.getManagerFor(message.guild).scheduler
-        message.channel.sendMessage(if (!scheduler.isPlaying) "$X - There is no track playing!" else Embed.music(scheduler.currentTrack)).queue()
+        message.channel.sendMessage(if (!scheduler.isPlaying) "$X - There is no track playing!" else Embed.music(scheduler.currentTrack!!)).queue()
     }
 }

@@ -36,7 +36,7 @@ class Play : Command {
 
     private fun query(manager: GuildMusicManager, message: Message, query: String) {
         val channel = message.textChannel
-        manager.playerManager.loadItem(query, object : AudioLoadResultHandler {
+        manager.playerManager!!.loadItem(query, object : AudioLoadResultHandler {
 
             override fun trackLoaded(track: AudioTrack) {
                 message.textChannel.sendMessage("$MUSICAL_NOTE - Queuing `${StringUtil.stripMarkdown(track.info.title)} ` by `${StringUtil.stripMarkdown(track.info.author)} `.").queue()

@@ -26,7 +26,7 @@ class Pat
     override fun execute(message: Message, s: String) {
         var image: String
         try {
-            image = requester.getRandomImageByType("pat", WeebAPI.NSFW.FALSE, "gif")
+            image = requester.getRandomImageByType("pat", WeebAPI.NSFW.FALSE, "gif")!!
         } catch (e: Exception) {
             image = ""
             WebHookUtil.err(message.jda, "Error retrieving weeb.sh image!")

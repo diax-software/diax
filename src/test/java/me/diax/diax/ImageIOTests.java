@@ -30,8 +30,8 @@ public class ImageIOTests {
     }
 
     public static void main(String[] args) throws IOException {
-        Color header = Colors.BURPLE;
-        Color bg = Colors.BLACKY;
+        Color header = Colors.INSTANCE.getBURPLE();
+        Color bg = Colors.INSTANCE.getBLACKY();
 
         //        BufferedImage ctx = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         BufferedImage ctx = ImageIO.read(new File("tests.png"));
@@ -67,7 +67,7 @@ public class ImageIOTests {
             int sH = 50 + 8;
             int step = 30 / 2;
             int size = 8 / 2;
-            img.setColor(Colors.WHITE);
+            img.setColor(Colors.INSTANCE.getWHITE());
             for (int i1 = 0; i1 < 3; i1++) {
                 for (int i2 = 0; i2 <= i1; i2++) {
                     int x = sW + (step * i1) + 1;
@@ -82,9 +82,9 @@ public class ImageIOTests {
         }
 
         //Thumbnail place
-        img.setColor(Colors.WHITE);
+        img.setColor(Colors.INSTANCE.getWHITE());
         img.fillRect(60, 60, 80, 80);
-        img.setColor(Colors.BLACKY);
+        img.setColor(Colors.INSTANCE.getBLACKY());
         img.fillRect(65, 65, 70, 70);
 
         img.setColor(bg);
@@ -94,7 +94,7 @@ public class ImageIOTests {
     private static void drawProfileName(BufferedImage ctx, Graphics2D img, String text) {
         Font font = WHITNEY;
 
-        img.setColor(Colors.WHITE);
+        img.setColor(Colors.INSTANCE.getWHITE());
         img.setFont(font);
 
         Rectangle2D rec = font.getStringBounds(text, img.getFontRenderContext());

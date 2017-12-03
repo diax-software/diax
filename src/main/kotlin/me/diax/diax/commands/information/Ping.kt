@@ -3,7 +3,21 @@ package me.diax.diax.commands.information
 import me.diax.comportment.jdacommand.Command
 import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
-import me.diax.diax.util.Emote.*
+import me.diax.diax.util.Emote.BOOKS
+import me.diax.diax.util.Emote.CONFUSED
+import me.diax.diax.util.Emote.DISAPPOINTED
+import me.diax.diax.util.Emote.EGGPLANT
+import me.diax.diax.util.Emote.FIRE
+import me.diax.diax.util.Emote.FROWNING2
+import me.diax.diax.util.Emote.NEUTRAL_FACE
+import me.diax.diax.util.Emote.PING_PONG
+import me.diax.diax.util.Emote.SLIGHT_FROWN
+import me.diax.diax.util.Emote.SLIGHT_SMILE
+import me.diax.diax.util.Emote.SMILE
+import me.diax.diax.util.Emote.SMILEY
+import me.diax.diax.util.Emote.SOB
+import me.diax.diax.util.Emote.UPSIDE_DOWN
+import me.diax.diax.util.Emote.WORRIED
 import me.diax.diax.util.style.Embed
 import net.dv8tion.jda.core.entities.Message
 import java.util.*
@@ -44,10 +58,10 @@ class Ping : Command {
             else -> FIRE * 3
         }
     }
-}
 
-private operator fun String.times(i: Int): String {
-    val b = StringBuilder()
-    for (any in 0..i) b.append(this)
-    return b.toString()
+    private operator fun String.times(i: Int): String {
+        val b = StringBuilder()
+        for (any in 0..i) b.append(this)
+        return b.toString()
+    }
 }

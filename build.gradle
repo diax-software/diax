@@ -42,6 +42,9 @@ repositories {
 }
 
 dependencies {
+    //Source of memes
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
     // Main APIs
     compile 'net.dv8tion:JDA:3.3.1_300'
     compile 'com.sedmelluq:lavaplayer:1.2.44'
@@ -63,8 +66,6 @@ dependencies {
     compile('com.rethinkdb:rethinkdb-driver:2.3.3') {
         exclude group: 'junit', module: 'junit'
     }
-    compileOnly "org.projectlombok:lombok:1.16.16"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
 
 task wrapper(type: Wrapper) {
