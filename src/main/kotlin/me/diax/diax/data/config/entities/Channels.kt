@@ -7,5 +7,6 @@ class Channels {
     var announcements: String? = null
     var output: String? = null
 
-    override fun toString(): String = "Channels(bugs=$bugs, logging=$logging, suggestions=$suggestions, announcements=$announcements, output=$output)"
+    override fun toString(): String =
+        "Channels(bugs=$bugs, logging=$logging, suggestions=$suggestions, announcements=$announcements, output=$output)"
 }

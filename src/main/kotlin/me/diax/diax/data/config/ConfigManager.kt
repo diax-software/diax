@@ -9,25 +9,23 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 class ConfigManager : Provider<Config> {
-    var config: Config? = null
+    var config: Config = load()
 
-    override fun get(): Config {
-        if (config == null) return load()
-
-        return config as Config
-    }
+    override fun get(): Config = config
 
     fun load(): Config {
         val contents = readFile(path)
 
         config = ObjectMappers.DEFAULT.readValue(contents, Config::class.java)
 
-        return config as Config
+        return config
+    }
+
+    fun reset() {
+        config = Config()
     }
 
     fun save() {
-        if (config == null) config = Config()
-
         val contents = ObjectMappers.DEFAULT.writerWithDefaultPrettyPrinter()
             .writeValueAsString(config)
         writeFile(path, contents)

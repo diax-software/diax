@@ -9,23 +9,23 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter
 
 class DisconnectListener : ListenerAdapter() {
 
-    override fun onGuildLeave(event: GuildLeaveEvent?) {
-        close(event!!.guild)
+    override fun onGuildLeave(event: GuildLeaveEvent) {
+        close(event.guild)
     }
 
-    override fun onGuildUnavailable(event: GuildUnavailableEvent?) {
-        close(event!!.guild)
+    override fun onGuildUnavailable(event: GuildUnavailableEvent) {
+        close(event.guild)
     }
 
-    override fun onGuildVoiceMove(event: GuildVoiceMoveEvent?) {
-        if (event!!.channelLeft.members.contains(event.guild.selfMember) && event.channelLeft.members.size < 2 || event.channelJoined.members.contains(event.guild.selfMember) && event.channelJoined.members.size < 2) {
+    override fun onGuildVoiceMove(event: GuildVoiceMoveEvent) {
+        if (event.channelLeft.members.contains(event.guild.selfMember) && event.channelLeft.members.size < 2 || event.channelJoined.members.contains(event.guild.selfMember) && event.channelJoined.members.size < 2) {
             return
         }
         close(event.guild)
     }
 
-    override fun onGuildVoiceLeave(event: GuildVoiceLeaveEvent?) {
-        if (event!!.channelLeft.members.contains(event.guild.selfMember) && event.channelLeft.members.size < 2) {
+    override fun onGuildVoiceLeave(event: GuildVoiceLeaveEvent) {
+        if (event.channelLeft.members.contains(event.guild.selfMember) && event.channelLeft.members.size < 2) {
             close(event.guild)
         }
     }

@@ -46,7 +46,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     // Main APIs
-    compile 'net.dv8tion:JDA:3.3.1_300'
+    compile 'net.dv8tion:JDA:3.3.1_308'
     compile 'com.sedmelluq:lavaplayer:1.2.44'
 
     //Helping stuff
@@ -66,6 +66,10 @@ dependencies {
     compile('com.rethinkdb:rethinkdb-driver:2.3.3') {
         exclude group: 'junit', module: 'junit'
     }
+
+    //Advanced source of memes
+    compile 'io.github.microutils:kotlin-logging:1.4.6'
+    compile 'com.github.JDA-Applications:Kotlin-JDA:master-SNAPSHOT'
 }
 
 task wrapper(type: Wrapper) {

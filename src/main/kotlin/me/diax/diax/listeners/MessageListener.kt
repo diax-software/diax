@@ -13,7 +13,7 @@ import java.util.regex.Pattern
 class MessageListener(private val handler: CommandHandler, private val config: Config) : ListenerAdapter() {
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        if (event!!.author.isBot || event.message.isWebhookMessage || config.blacklist.contains(event.author.id))
+        if (event.author.isBot || event.message.isWebhookMessage || config.blacklist.contains(event.author.id))
             return
         val prefix: String?
         if (event.message.rawContent.startsWith(config.prefix!!)) {

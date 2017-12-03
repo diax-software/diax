@@ -26,7 +26,7 @@ object JDAUtil {
             while (status == jda.presence.game.name) {
                 status = JDAUtil.getStatus(jda)
             }
-            jda.presence.game = Game.of(prefix + status)
+            jda.presence.game = Game.playing(prefix + status)
             jda.presence.status = OnlineStatus.ONLINE
         }
         executor.scheduleAtFixedRate(periodicTask, 0, 20, TimeUnit.SECONDS)

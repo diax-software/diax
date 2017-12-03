@@ -19,6 +19,5 @@ class DbConfig {
         return b
     }
 
-    override fun toString(): String =
-        "DbConfig(hostname=$hostname, dbname=$dbname, port=$port, user=$user, password=$password)"
+    override fun toString(): String = "DbConfig(hostname=$hostname, dbname=$dbname, port=$port, user=$user, password=$password)"
 }

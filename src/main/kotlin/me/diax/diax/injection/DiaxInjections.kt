@@ -13,7 +13,10 @@ import java.beans.IntrospectionException
 import java.beans.Introspector
 import java.lang.reflect.InvocationTargetException
 
-class DiaxInjections(private val handler: CommandHandler, private val manager: ConfigManager) : AbstractModule() {
+class DiaxInjections(
+    private val handler: CommandHandler,
+    private val manager: ConfigManager
+) : AbstractModule() {
 
     override fun configure() {
         val config = manager.config
@@ -22,7 +25,7 @@ class DiaxInjections(private val handler: CommandHandler, private val manager: C
             .toInstance(manager)
 
         bind(ConnectionPool::class.java)
-            .toInstance(r.connectionPool(config!!.database!!.configure()))
+            .toInstance(r.connectionPool(config.database.configure()))
 
         bind(Config::class.java)
             .toProvider(manager)
@@ -43,6 +46,7 @@ class DiaxInjections(private val handler: CommandHandler, private val manager: C
             for (p in Introspector.getBeanInfo(`object`!!.javaClass).propertyDescriptors) {
                 val result = p.readMethod.invoke(`object`) ?: continue
 
+                @Suppress("UNCHECKED_CAST")
                 bind(p.propertyType as Class<Any>)
                     .annotatedWith(Names.named(prefix + "." + p.name))
                     .toInstance(result)
@@ -57,7 +61,5 @@ class DiaxInjections(private val handler: CommandHandler, private val manager: C
 
     }
 
-    fun toInjector(): Injector {
-        return Guice.createInjector(this)
-    }
+    fun toInjector(): Injector = Guice.createInjector(this)
 }

@@ -10,17 +10,17 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter
 
 class GuildJoinLeaveListener(private val auth: String) : ListenerAdapter() {
 
-    override fun onGuildJoin(event: GuildJoinEvent?) {
+    override fun onGuildJoin(event: GuildJoinEvent) {
         this.onLeaveOrJoin(event)
-        WebHookUtil.log(event!!.jda, "Joined Guild:", "```" + StringUtil.stripMarkdown(event.guild.toString() + " | +" + event.guild.members.size + " members. | Guilds: " + event.jda.guilds.size) + "```")
+        WebHookUtil.log(event.jda, "Joined Guild:", "```" + StringUtil.stripMarkdown(event.guild.toString() + " | +" + event.guild.members.size + " members. | Guilds: " + event.jda.guilds.size) + "```")
     }
 
-    override fun onGuildLeave(event: GuildLeaveEvent?) {
+    override fun onGuildLeave(event: GuildLeaveEvent) {
         this.onLeaveOrJoin(event)
-        WebHookUtil.log(event!!.jda, "Left Guild:", "```" + StringUtil.stripMarkdown(event.guild.toString() + " | -" + event.guild.members.size + " members. | Guilds: " + event.jda.guilds.size) + "```")
+        WebHookUtil.log(event.jda, "Left Guild:", "```" + StringUtil.stripMarkdown(event.guild.toString() + " | -" + event.guild.members.size + " members. | Guilds: " + event.jda.guilds.size) + "```")
     }
 
-    private fun onLeaveOrJoin(event: GenericGuildEvent?) {
-        JDAUtil.sendGuilds(event!!.jda, auth)
+    private fun onLeaveOrJoin(event: GenericGuildEvent) {
+        JDAUtil.sendGuilds(event.jda, auth)
     }
 }
