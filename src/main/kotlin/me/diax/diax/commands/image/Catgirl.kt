@@ -3,9 +3,9 @@ package me.diax.diax.commands.image
 import me.diax.comportment.jdacommand.Command
 import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
-import me.diax.diax.util.Embed
 import me.diax.diax.util.Emote.CAT2
 import me.diax.diax.util.Emote.X
+import me.diax.diax.util.style.Embed
 import net.dv8tion.jda.core.entities.Message
 import okhttp3.OkHttpClient
 import okhttp3.Request

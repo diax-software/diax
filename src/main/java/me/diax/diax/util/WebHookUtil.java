@@ -1,6 +1,7 @@
 package me.diax.diax.util;
 
 import lombok.extern.slf4j.Slf4j;
+import me.diax.diax.util.style.Embed;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.webhook.WebhookClient;
 import net.dv8tion.jda.webhook.WebhookMessageBuilder;

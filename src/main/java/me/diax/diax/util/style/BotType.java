@@ -1,4 +1,4 @@
-package me.diax.diax.util;
+package me.diax.diax.util.style;
 
 import lombok.Getter;
 

@@ -3,8 +3,8 @@ package me.diax.diax.commands.information
 import me.diax.comportment.jdacommand.Command
 import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
-import me.diax.diax.util.Embed
 import me.diax.diax.util.Emote.*
+import me.diax.diax.util.style.Embed
 import net.dv8tion.jda.core.entities.Message
 import java.util.*
 

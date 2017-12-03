@@ -1,7 +1,8 @@
-package me.diax.diax.util;
+package me.diax.diax.util.style;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import me.diax.diax.music.MusicTrack;
+import me.diax.diax.util.Emote;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.MessageEmbed;

@@ -2,7 +2,7 @@ package me.diax.diax.commands.information
 
 import com.sedmelluq.discord.lavaplayer.tools.PlayerLibrary
 import me.diax.comportment.jdacommand.*
-import me.diax.diax.util.Embed
+import me.diax.diax.util.style.Embed
 import net.dv8tion.jda.core.JDAInfo
 import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject

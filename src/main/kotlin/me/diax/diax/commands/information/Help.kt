@@ -6,7 +6,7 @@ import me.diax.comportment.jdacommand.Command
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.comportment.jdacommand.CommandHandler
 import me.diax.diax.data.ManagedDatabase
-import me.diax.diax.util.Embed
+import me.diax.diax.util.style.Embed
 import net.dv8tion.jda.core.entities.Message
 import java.util.stream.Collectors
 import javax.inject.Inject
