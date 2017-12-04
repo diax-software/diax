@@ -1,28 +1,33 @@
 package me.diax.diax.listeners
 
 import br.com.brjdevs.java.utils.texts.StringUtils
+import me.diax.comportment.jdacommand.Command
 import me.diax.comportment.jdacommand.CommandHandler
+import me.diax.diax.commands.CommandPermission
 import me.diax.diax.data.ManagedDatabase
 import me.diax.diax.data.config.entities.Config
 import me.diax.diax.shards.DiaxShard
 import me.diax.diax.util.Emote
+import me.diax.diax.util.Emote.STOP
 import me.diax.diax.util.WebHookUtil
+import mu.KLogging
 import net.dv8tion.jda.core.entities.ChannelType
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.exceptions.PermissionException
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
-class MessageListener(
-    private val shard: DiaxShard,
-    private val db: ManagedDatabase,
-    private val handler: CommandHandler,
-    private val config: Config
+class CommandListener(
+    val shard: DiaxShard,
+    val db: ManagedDatabase,
+    val handler: CommandHandler,
+    val config: Config
 ) : ListenerAdapter() {
+    companion object : KLogging()
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
         if (event.author.isBot) return
         if (event.message.isWebhookMessage) return
         if (config.blacklist.contains(event.author.id)) return
+        if (event.guild != null && !event.textChannel.canTalk()) return
 
         shard.commandPool.submit { onCommand(event) }
     }
@@ -57,33 +62,47 @@ class MessageListener(
         val cmd = split[0]
         val args = split[1]
 
+        val command = handler.findCommand(cmd) ?: return
+
+        if (command.hasAttribute("permission")) {
+            val permission = CommandPermission.valueOf(command.getAttributeValueFromKey("permission").toUpperCase())
+
+            if (!if (event.member == null) permission.test(this, event.author) else permission.test(this, event.author)) {
+                event.channel.sendMessage("${STOP} You have no permissions to trigger this command :(").queue()
+                return
+            }
+        }
+
+        if (command.hasAttribute("channel")) {
+            val channelType = ChannelType.valueOf(command.getAttributeValueFromKey("channel").toUpperCase())
+
+            if (event.channel.type != channelType) {
+                event.channel.sendMessage("${Emote.X} This command only works in ${channelType.name.toLowerCase()} channels.").queue()
+                //Error?
+                return
+            }
+        }
+
+        if (command.hasAttribute("patreon") && !(config.donors.contains(event.author.id) || config.developers.contains(event.author.id))) {
+            event.channel.sendMessage("${Emote.X} This is a Patreon-only command.").queue()
+            return
+        }
+
+        runCommand(command, event, args)
+    }
+
+    private fun runCommand(command: Command, event: MessageReceivedEvent, args: String) {
         try {
-            val command = handler.findCommand(cmd) ?: return
-            if (command.hasAttribute("developer") && !config.developers.contains(event.author.id))
-                return
-            if (command.hasAttribute("fun") || command.hasAttribute("image") || command.hasAttribute("information")) {
-            }
-            if ((command.hasAttribute("action") || command.hasAttribute("music")) && event.channelType != ChannelType.TEXT) {
-                return  // ERROR: ONLY GUILD
-            }
-            if (command.hasAttribute("patreon") && !(config.donors.contains(event.author.id) || config.developers.contains(event.author.id))) {
-                event.channel.sendMessage(Emote.X + " - This is a Patreon-only command.").queue()
-                return
-            }
-            if (event.channelType == ChannelType.PRIVATE && command.hasAttribute("private")) {
-                event.channel.sendMessage(Emote.X + " - This command does not work in private messages.").queue()
-                return
-            }
-            handler.execute(command, event.message, args)
-        } catch (ignored: PermissionException) {
+            command.execute(event.message, args)
         } catch (e: Exception) {
             try {
                 event.channel.sendMessage(Emote.X + " - Something went wrong that we didn't know about ;-;\nJoin here for help: https://discord.gg/PedN8U").queue()
-            } catch (ignored: Exception) {
+            } catch (_: Exception) {
             }
 
             e.printStackTrace()
-            WebHookUtil.log(event.jda, Emote.X + " An exception occurred.", "An uncaught exception occurred when trying to run: ```" + (handler.findCommand(cmd).description.name + " | " + event.guild + " | " + event.channel).replace("`", "\\`") + "```")
+            WebHookUtil.log(event.jda, Emote.X + " An exception occurred.", "An uncaught exception occurred when trying to run: ```" + (command.description.name + " | " + event.guild + " | " + event.channel).replace("`", "\\`") + "```")
         }
+
     }
 }

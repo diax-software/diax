@@ -14,7 +14,7 @@ import javax.inject.Inject
     triggers = ["shutdown"],
     attributes = [
         CommandAttribute(key = "category", value = "developer"),
-        CommandAttribute(key = "developer")
+        CommandAttribute(key = "permission", value = "developer")
     ]
 )
 class Shutdown

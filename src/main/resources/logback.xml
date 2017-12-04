@@ -38,8 +38,8 @@
     <appender name="DISCORD" class="me.diax.diax.util.DiscordLogBack"/>
 
     <root level="INFO">
-         <appender-ref ref="Console"/>
-         <appender-ref ref="File"/>
+        <appender-ref ref="Console"/>
+        <appender-ref ref="File"/>
         <appender-ref ref="DISCORD"/>
     </root>
 </configuration>

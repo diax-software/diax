@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.entities.Message
     triggers = ["developer"],
     attributes = [
         CommandAttribute(key = "category", value = "developer"),
-        CommandAttribute(key = "developer")
+        CommandAttribute(key = "permission", value = "developer")
     ]
 )
 class Developer : Command {

@@ -12,22 +12,28 @@ import java.io.IOException;
 
 public class TerminalConsoleAdaptor extends ConsoleAppender<ILoggingEvent> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TerminalConsoleAdaptor.class);
-
-    public static final String JLINE_OVERRIDE_PROPERTY = "terminal.jline";
     public static final String ANSI_OVERRIDE_PROPERTY = "terminal.ansi";
     public static final Boolean ANSI_OVERRIDE = Boolean.getBoolean(ANSI_OVERRIDE_PROPERTY);
+    public static final String JLINE_OVERRIDE_PROPERTY = "terminal.jline";
     public static final Boolean JLINE_OVERRIDE = Boolean.getBoolean(JLINE_OVERRIDE_PROPERTY);
-
-    private static TerminalConsoleAdaptor instance;
+    private static final Logger LOGGER = LoggerFactory.getLogger(TerminalConsoleAdaptor.class);
     private static boolean initialized = false;
-    private static Terminal terminal;
+    private static TerminalConsoleAdaptor instance;
     private static LineReader reader;
+    private static Terminal terminal;
 
-    public TerminalConsoleAdaptor() {
-        if (instance != null)
-            throw new IllegalStateException("Terminal appender is already instantiated.");
-        instance = this;
+    public static LineReader getReader() {
+        return reader;
+    }
+
+    public static void setReader(LineReader reader) {
+        if (reader != null && reader.getTerminal() != TerminalConsoleAdaptor.terminal)
+            throw new IllegalArgumentException("A reader can only be initialized with TerminalConsoleAdaptor.getTerminal()");
+        TerminalConsoleAdaptor.reader = reader;
+    }
+
+    public static Terminal getTerminal() {
+        return terminal;
     }
 
     public static void initializeTerminal() {
@@ -58,18 +64,10 @@ public class TerminalConsoleAdaptor extends ConsoleAppender<ILoggingEvent> {
         return ANSI_OVERRIDE || terminal != null;
     }
 
-    public static Terminal getTerminal() {
-        return terminal;
-    }
-
-    public static LineReader getReader() {
-        return reader;
-    }
-
-    public static void setReader(LineReader reader) {
-        if (reader != null && reader.getTerminal() != TerminalConsoleAdaptor.terminal)
-            throw new IllegalArgumentException("A reader can only be initialized with TerminalConsoleAdaptor.getTerminal()");
-        TerminalConsoleAdaptor.reader = reader;
+    public TerminalConsoleAdaptor() {
+        if (instance != null)
+            throw new IllegalStateException("Terminal appender is already instantiated.");
+        instance = this;
     }
 
     @Override

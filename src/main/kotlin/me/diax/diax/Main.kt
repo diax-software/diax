@@ -7,8 +7,9 @@ import me.diax.comportment.jdacommand.CommandHandler
 import me.diax.diax.data.ManagedDatabase
 import me.diax.diax.data.config.ConfigManager
 import me.diax.diax.injection.DiaxInjections
+import me.diax.diax.listeners.CommandListener
 import me.diax.diax.listeners.GuildJoinLeaveListener
-import me.diax.diax.listeners.MessageListener
+import me.diax.diax.logging.TerminalConsoleAdaptor
 import me.diax.diax.shards.DiaxShard
 import me.diax.diax.util.DiscordLogBack
 import me.diax.diax.util.Emote
@@ -28,6 +29,8 @@ private object Main : KLogging()
 val log = Main.logger
 
 fun main(args: Array<String>) {
+    TerminalConsoleAdaptor.initializeTerminal()
+
     log.info("Starting Diax...")
 
     val manager = ConfigManager()
@@ -67,7 +70,7 @@ fun main(args: Array<String>) {
         .setStatus(OnlineStatus.IDLE)
         .addEventListener(
             GuildJoinLeaveListener(manager.get().tokens.botlist),
-            MessageListener(
+            CommandListener(
                 DiaxShard(0, 0),
                 injector[ManagedDatabase::class.java],
                 handler,

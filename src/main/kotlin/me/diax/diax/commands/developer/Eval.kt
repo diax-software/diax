@@ -14,7 +14,7 @@ import javax.script.ScriptEngineManager
     triggers = ["eval", "hack"],
     attributes = [
         CommandAttribute(key = "category", value = "developer"),
-        CommandAttribute(key = "developer")
+        CommandAttribute(key = "permission", value = "developer")
     ]
 )
 class Eval : Command {
