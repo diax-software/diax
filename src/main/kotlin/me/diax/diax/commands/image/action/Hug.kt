@@ -1,7 +1,6 @@
 package me.diax.diax.commands.image.action
 
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.SMILE
 import me.diax.diax.util.Emote.X
@@ -16,10 +15,7 @@ import javax.inject.Inject
 
 @CommandDescription(
     name = "hug",
-    triggers = ["hug"],
-    attributes = [
-        CommandAttribute(key = "category", value = "action")
-    ]
+    triggers = ["hug"]
 )
 class Hug
 @Inject constructor(private val requester: WeebAPI) : Command {

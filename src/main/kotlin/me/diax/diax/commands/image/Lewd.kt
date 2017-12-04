@@ -1,7 +1,6 @@
 package me.diax.diax.commands.image
 
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.X
 import me.diax.diax.util.WebHookUtil
@@ -12,10 +11,7 @@ import javax.inject.Inject
 
 @CommandDescription(
     name = "lewd",
-    triggers = ["lewd"],
-    attributes = [
-        CommandAttribute(key = "category", value = "lewd")
-    ]
+    triggers = ["lewd"]
 )
 class Lewd
 @Inject constructor(private val requester: WeebAPI) : Command {

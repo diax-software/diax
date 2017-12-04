@@ -1,7 +1,6 @@
 package me.diax.diax.commands.image
 
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.CAT2
 import me.diax.diax.util.Emote.X
@@ -13,10 +12,7 @@ import org.json.JSONObject
 
 @CommandDescription(
     name = "catgirl",
-    triggers = ["catgirl", "neko", "nya"],
-    attributes = [
-        CommandAttribute(key = "category", value = "image")
-    ]
+    triggers = ["catgirl", "neko", "nya"]
 )
 class Catgirl : Command {
 

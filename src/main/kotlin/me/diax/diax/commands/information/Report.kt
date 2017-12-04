@@ -1,7 +1,6 @@
 package me.diax.diax.commands.information
 
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.SMILE
 import me.diax.diax.util.StringUtil
@@ -12,10 +11,7 @@ import net.dv8tion.jda.core.entities.Message
 @CommandDescription(
     name = "report",
     description = "[description]",
-    triggers = ["report"],
-    attributes = [
-        CommandAttribute(key = "category", value = "information")
-    ]
+    triggers = ["report"]
 )
 class Report : Command {
 

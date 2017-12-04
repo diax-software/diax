@@ -1,7 +1,6 @@
 package me.diax.diax.commands.information
 
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.BOOKS
 import me.diax.diax.util.Emote.CONFUSED
@@ -24,10 +23,7 @@ import java.util.*
 
 @CommandDescription(
     name = "ping",
-    triggers = ["ping", "pang", "peng", "pong", "pung"],
-    attributes = [
-        CommandAttribute(key = "category", value = "information")
-    ]
+    triggers = ["ping", "pang", "peng", "pong", "pung"]
 )
 class Ping : Command {
 

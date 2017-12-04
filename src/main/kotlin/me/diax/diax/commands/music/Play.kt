@@ -5,7 +5,6 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.music.GuildMusicManager
 import me.diax.diax.music.MusicTrack
@@ -18,10 +17,7 @@ import net.dv8tion.jda.core.entities.Message
 @CommandDescription(
     name = "play",
     triggers = ["play"],
-    description = "{url/query}",
-    attributes = [
-        CommandAttribute(key = "category", value = "music")
-    ]
+    description = "{url/query}"
 )
 class Play : Command {
 

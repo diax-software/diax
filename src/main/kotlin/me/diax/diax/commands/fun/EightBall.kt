@@ -1,7 +1,6 @@
 package me.diax.diax.commands.`fun`
 
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.EIGHT_BALL
 import me.diax.diax.util.Emote.X
@@ -11,10 +10,7 @@ import java.util.*
 @CommandDescription(
     name = "8ball",
     triggers = ["8ball", "eightball", "8-ball"],
-    description = "[question]",
-    attributes = [
-        CommandAttribute(key = "category", value = "fun")
-    ]
+    description = "[question]"
 )
 class EightBall : Command {
 

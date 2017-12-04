@@ -1,7 +1,10 @@
 package me.diax.diax.commands.information
 
 import com.sedmelluq.discord.lavaplayer.tools.PlayerLibrary
-import me.diax.comportment.jdacommand.*
+import me.diax.comportment.jdacommand.Command
+import me.diax.comportment.jdacommand.CommandDescription
+import me.diax.comportment.jdacommand.CommandHandler
+import me.diax.comportment.jdacommand.JDACommandInfo
 import me.diax.diax.util.style.Embed
 import net.dv8tion.jda.core.JDAInfo
 import net.dv8tion.jda.core.entities.Message
@@ -9,10 +12,7 @@ import javax.inject.Inject
 
 @CommandDescription(
     name = "info",
-    triggers = ["info", "stats", "status", "statistics", "information"],
-    attributes = [
-        CommandAttribute(key = "category", value = "information")
-    ]
+    triggers = ["info", "stats", "status", "statistics", "information"]
 )
 class Info
 @Inject constructor(private val handler: CommandHandler) : Command {

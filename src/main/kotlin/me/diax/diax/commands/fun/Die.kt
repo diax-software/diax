@@ -1,7 +1,6 @@
 package me.diax.diax.commands.`fun`
 
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote
 import net.dv8tion.jda.core.entities.Message
@@ -10,10 +9,7 @@ import java.util.*
 @CommandDescription(
     name = "die",
     triggers = ["die", "dice", "roll"],
-    description = "{number/dice notation}",
-    attributes = [
-        CommandAttribute(key = "category", value = "fun")
-    ]
+    description = "{number/dice notation}"
 )
 class Die : Command {
 

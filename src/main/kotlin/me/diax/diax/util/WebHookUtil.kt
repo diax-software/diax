@@ -1,14 +1,14 @@
 package me.diax.diax.util
 
 import me.diax.diax.util.style.Embed
+import mu.KLogging
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.webhook.WebhookMessageBuilder
 
-object WebHookUtil {
-    private val log = org.slf4j.LoggerFactory.getLogger(WebHookUtil::class.java)
+object WebHookUtil : KLogging() {
 
     fun log(jda: JDA, title: String, message: String) {
-        log.info(message)
+        logger.info(message)
         try {
             jda.getTextChannelById("357109761533149185").webhooks.queue { whs ->
                 val wh = whs[0].newClient().build()

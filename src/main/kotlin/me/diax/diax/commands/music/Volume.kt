@@ -13,8 +13,7 @@ import net.dv8tion.jda.core.entities.Message
     triggers = ["volume", "vol"],
     description = "{0-150}",
     attributes = [
-        CommandAttribute(key = "patreon"),
-        CommandAttribute(key = "category", value = "music")
+        CommandAttribute(key = "patreon")
     ]
 )
 class Volume : Command {

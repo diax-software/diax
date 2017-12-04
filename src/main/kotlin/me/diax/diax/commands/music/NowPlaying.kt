@@ -1,7 +1,6 @@
 package me.diax.diax.commands.music
 
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.music.GuildMusicManager
 import me.diax.diax.util.Emote.X
@@ -10,10 +9,7 @@ import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
     name = "nowplaying",
-    triggers = ["song", "current", "nowplaying", "np"],
-    attributes = [
-        CommandAttribute(key = "category", value = "music")
-    ]
+    triggers = ["song", "current", "nowplaying", "np"]
 )
 class NowPlaying : Command {
 

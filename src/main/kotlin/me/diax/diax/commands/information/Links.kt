@@ -1,16 +1,12 @@
 package me.diax.diax.commands.information
 
 import me.diax.comportment.jdacommand.Command
-import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
     name = "links",
-    triggers = ["links"],
-    attributes = [
-        CommandAttribute(key = "category", value = "information")
-    ]
+    triggers = ["links"]
 )
 class Links : Command {
 

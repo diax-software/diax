@@ -14,7 +14,6 @@ import javax.inject.Inject
     name = "blacklist",
     triggers = ["blacklist"],
     attributes = [
-        CommandAttribute(key = "category", value = "developer"),
         CommandAttribute(key = "permission", value = "developer")
     ]
 )
@@ -23,13 +22,13 @@ class Blacklist
 
     override fun execute(message: Message, s: String) {
         if (message.mentionedUsers.isEmpty()) {
-            message.channel.sendMessage(Emote.X + " - Mention a user to (un)blacklist.").queue()
+            message.channel.sendMessage("${Emote.X} - Mention a user to (un)blacklist.").queue()
         }
         val id = message.mentionedUsers[0].id
         when (config.blacklist.contains(id)) {
             true -> config.blacklist.remove(id)
             false -> config.blacklist.add(id)
         }
-        message.channel.sendMessage(Emote.SMILE + " - " + message.mentionedUsers[0].name + " has been " + (if (config.blacklist.contains(id)) "added to" else "removed from") + " the blacklist.").queue()
+        message.channel.sendMessage("${Emote.SMILE} - ${message.mentionedUsers[0].name} has been ${if (config.blacklist.contains(id)) "added to" else "removed from"} the blacklist.").queue()
     }
 }
