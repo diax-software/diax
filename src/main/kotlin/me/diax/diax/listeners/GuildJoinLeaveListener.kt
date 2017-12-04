@@ -8,7 +8,7 @@ import net.dv8tion.jda.core.events.guild.GuildJoinEvent
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
-class GuildJoinLeaveListener(private val auth: String) : ListenerAdapter() {
+class GuildJoinLeaveListener(private val botlistToken: String?) : ListenerAdapter() {
 
     override fun onGuildJoin(event: GuildJoinEvent) {
         this.onLeaveOrJoin(event)
@@ -21,6 +21,6 @@ class GuildJoinLeaveListener(private val auth: String) : ListenerAdapter() {
     }
 
     private fun onLeaveOrJoin(event: GenericGuildEvent) {
-        JDAUtil.sendGuilds(event.jda, auth)
+        JDAUtil.sendGuilds(event.jda, botlistToken)
     }
 }

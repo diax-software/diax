@@ -32,9 +32,9 @@ object JDAUtil {
         executor.scheduleAtFixedRate(periodicTask, 0, 20, TimeUnit.SECONDS)
     }
 
-    fun sendGuilds(jda: JDA, token: String?) {
-        if (token == null || token.isEmpty()) return
-        if (API == null) API = DiscordBotsAPI(token)
+    fun sendGuilds(jda: JDA, botToken: String?) {
+        if (botToken == null || botToken.isEmpty()) return
+        if (API == null) API = DiscordBotsAPI(botToken)
         try {
             API!!.postStats(1, 0, jda.guilds.size)
         } catch (e: Exception) {

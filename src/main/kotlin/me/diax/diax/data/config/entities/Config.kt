@@ -3,13 +3,13 @@ package me.diax.diax.data.config.entities
 import java.util.*
 
 class Config {
-    var prefix: String? = null
     var type: String? = null
 
     var tokens: Tokens = Tokens()
     var channels: Channels = Channels()
     var database: DbConfig = DbConfig()
 
+    var prefixes: MutableList<String> = LinkedList()
     var developers: MutableList<String> = LinkedList()
     var donors: MutableList<String> = LinkedList()
     var blacklist: MutableList<String> = LinkedList()
@@ -39,5 +39,5 @@ class Config {
     }
 
     override fun toString(): String =
-        "Config(prefix=$prefix, type=$type, tokens=$tokens, channels=$channels, database=$database, developers=$developers, donors=$donors, blacklist=$blacklist)"
+        "Config(prefixes=$prefixes, type=$type, tokens=$tokens, channels=$channels, database=$database, developers=$developers, donors=$donors, blacklist=$blacklist)"
 }

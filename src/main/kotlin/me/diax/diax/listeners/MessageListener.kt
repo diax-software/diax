@@ -1,34 +1,64 @@
 package me.diax.diax.listeners
 
+import br.com.brjdevs.java.utils.texts.StringUtils
 import me.diax.comportment.jdacommand.CommandHandler
+import me.diax.diax.data.ManagedDatabase
 import me.diax.diax.data.config.entities.Config
+import me.diax.diax.shards.DiaxShard
 import me.diax.diax.util.Emote
 import me.diax.diax.util.WebHookUtil
 import net.dv8tion.jda.core.entities.ChannelType
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.exceptions.PermissionException
 import net.dv8tion.jda.core.hooks.ListenerAdapter
-import java.util.regex.Pattern
 
-class MessageListener(private val handler: CommandHandler, private val config: Config) : ListenerAdapter() {
+class MessageListener(
+    private val shard: DiaxShard,
+    private val db: ManagedDatabase,
+    private val handler: CommandHandler,
+    private val config: Config
+) : ListenerAdapter() {
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        if (event.author.isBot || event.message.isWebhookMessage || config.blacklist.contains(event.author.id))
-            return
-        val prefix: String?
-        if (event.message.rawContent.startsWith(config.prefix!!)) {
-            prefix = config.prefix
-        } else if (event.message.rawContent.startsWith(event.jda.selfUser.asMention)) {
-            prefix = event.jda.selfUser.asMention
-        } else if (event.channelType == ChannelType.PRIVATE) {
-            prefix = ""
-        } else {
+        if (event.author.isBot) return
+        if (event.message.isWebhookMessage) return
+        if (config.blacklist.contains(event.author.id)) return
+
+        shard.commandPool.submit { onCommand(event) }
+    }
+
+    private fun onCommand(event: MessageReceivedEvent) {
+        val raw = event.message.rawContent
+
+        for (prefix in config.prefixes) {
+            if (raw.startsWith(prefix)) {
+                process(event, raw.substring(prefix.length))
+                return
+            }
+        }
+
+        val mentions = listOf("<@${event.author.id}> ", "<@!${event.author.id}> ")
+        for (mention in mentions) {
+            if (raw.startsWith(mention)) {
+                process(event, raw.substring(mention.length))
+                return
+            }
+        }
+
+        val guildPrefix = db[event.guild].settings.prefix
+        if (guildPrefix != null && raw.startsWith(guildPrefix)) {
+            process(event, raw.substring(guildPrefix.length))
             return
         }
-        val content = event.message.rawContent.replaceFirst(Pattern.quote(prefix!!).toRegex(), "").trim { it <= ' ' }
-        val first = content.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0].trim { it <= ' ' }
+    }
+
+    private fun process(event: MessageReceivedEvent, content: String) {
+        val split = StringUtils.efficientSplitArgs(content, 2)
+        val cmd = split[0]
+        val args = split[1]
+
         try {
-            val command = handler.findCommand(first) ?: return
+            val command = handler.findCommand(cmd) ?: return
             if (command.hasAttribute("developer") && !config.developers.contains(event.author.id))
                 return
             if (command.hasAttribute("fun") || command.hasAttribute("image") || command.hasAttribute("information")) {
@@ -44,7 +74,7 @@ class MessageListener(private val handler: CommandHandler, private val config: C
                 event.channel.sendMessage(Emote.X + " - This command does not work in private messages.").queue()
                 return
             }
-            handler.execute(command, event.message, content.replaceFirst(Pattern.quote(first).toRegex(), ""))
+            handler.execute(command, event.message, args)
         } catch (ignored: PermissionException) {
         } catch (e: Exception) {
             try {
@@ -53,8 +83,7 @@ class MessageListener(private val handler: CommandHandler, private val config: C
             }
 
             e.printStackTrace()
-            WebHookUtil.log(event.jda, Emote.X + " An exception occurred.", "An uncaught exception occurred when trying to run: ```" + (handler.findCommand(first).description.name + " | " + event.guild + " | " + event.channel).replace("`", "\\`") + "```")
+            WebHookUtil.log(event.jda, Emote.X + " An exception occurred.", "An uncaught exception occurred when trying to run: ```" + (handler.findCommand(cmd).description.name + " | " + event.guild + " | " + event.channel).replace("`", "\\`") + "```")
         }
-
     }
 }

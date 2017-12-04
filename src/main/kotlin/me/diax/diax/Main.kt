@@ -1,30 +1,34 @@
 package me.diax.diax
 
+import com.google.inject.Injector
 import me.diax.comportment.jdacommand.Command
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.comportment.jdacommand.CommandHandler
+import me.diax.diax.data.ManagedDatabase
 import me.diax.diax.data.config.ConfigManager
 import me.diax.diax.injection.DiaxInjections
 import me.diax.diax.listeners.GuildJoinLeaveListener
 import me.diax.diax.listeners.MessageListener
+import me.diax.diax.shards.DiaxShard
 import me.diax.diax.util.DiscordLogBack
 import me.diax.diax.util.Emote
 import me.diax.diax.util.JDAUtil
 import me.diax.diax.util.WebHookUtil
 import me.diax.diax.util.style.BotType
+import mu.KLogging
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDABuilder
 import net.dv8tion.jda.core.OnlineStatus
 import net.dv8tion.jda.core.entities.Game
-import net.dv8tion.jda.core.events.ReadyEvent
-import net.dv8tion.jda.core.hooks.ListenerAdapter
 import org.reflections.Reflections
-import org.slf4j.LoggerFactory
 import java.lang.reflect.Modifier
 
+private object Main : KLogging()
+
+val log = Main.logger
 
 fun main(args: Array<String>) {
-    val log = LoggerFactory.getLogger("me.diax.diax.Main")
+    log.info("Starting Diax...")
 
     val manager = ConfigManager()
     Runtime.getRuntime().addShutdownHook(Thread(Runnable { manager.save() }))
@@ -46,34 +50,39 @@ fun main(args: Array<String>) {
 
     val reflections = Reflections("me.diax.diax")
     val handler = CommandHandler()
-
     val injector = DiaxInjections(handler, manager).toInjector()
 
-
-    val commands: Set<Command> = reflections.getSubTypesOf(Command::class.java)
-        .filter { c -> !Modifier.isAbstract(c.modifiers) && c.isAnnotationPresent(CommandDescription::class.java) }
-        .map { injector.getInstance(it) }
-        .toSet()
-
     //Welcome to automation
-    handler.registerCommands(commands)
+    handler.registerCommands(
+        reflections.getSubTypesOf(Command::class.java)
+            .filter { !Modifier.isAbstract(it.modifiers) && it.isAnnotationPresent(CommandDescription::class.java) }
+            .map { injector[it] }
+            .toSet()
+    )
 
-    JDABuilder(AccountType.BOT)
-        .setToken(manager.get().tokens.discord)
+    val jda = JDABuilder(AccountType.BOT)
+        .setToken(manager.get().tokens.discord!!)
         .setAudioEnabled(true)
-        .setGame(Game.of("Diax is starting, hold tight!"))
+        .setGame(Game.playing("Diax is starting, hold tight!"))
         .setStatus(OnlineStatus.IDLE)
         .addEventListener(
-            GuildJoinLeaveListener(manager.get().tokens.botlist!!),
-            MessageListener(handler, manager.get()),
-            object : ListenerAdapter() {
-                override fun onReady(event: ReadyEvent?) {
-                    DiscordLogBack.enable(event!!.jda.getTextChannelById(manager.get().channels.output))
-                    val jda = event.jda
-                    WebHookUtil.log(jda, Emote.SPARKLES + " Start", "Diax has finished starting!")
-                    JDAUtil.startGameChanging(jda, manager.get().prefix!!)
-                    JDAUtil.sendGuilds(event.jda, manager.get().tokens.botlist)
-                }
-            }
+            GuildJoinLeaveListener(manager.get().tokens.botlist),
+            MessageListener(
+                DiaxShard(0, 0),
+                injector[ManagedDatabase::class.java],
+                handler,
+                manager.get()
+            )
         ).buildBlocking()
+
+    DiscordLogBack.enable(jda.getTextChannelById(manager.get().channels.output))
+
+    WebHookUtil.log(jda, Emote.SPARKLES + " Start", "Diax has finished starting!")
+
+    JDAUtil.startGameChanging(jda, manager.get().prefixes[0])
+    JDAUtil.sendGuilds(jda, manager.get().tokens.botlist)
+}
+
+operator fun <T> Injector.get(clazz: Class<T>): T {
+    return getInstance(clazz)
 }

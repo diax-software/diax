@@ -33,18 +33,14 @@ class DiaxInjections(
         bind(CommandHandler::class.java)
             .toInstance(handler)
 
-        bind(String::class.java)
-            .annotatedWith(Names.named("prefix"))
-            .toInstance(config.prefix)
-
         mapConstants(config.tokens, "token")
         mapConstants(config.channels, "channel")
     }
 
-    private fun mapConstants(`object`: Any?, prefix: String) {
+    private fun mapConstants(obj: Any?, prefix: String) {
         try {
-            for (p in Introspector.getBeanInfo(`object`!!.javaClass).propertyDescriptors) {
-                val result = p.readMethod.invoke(`object`) ?: continue
+            for (p in Introspector.getBeanInfo(obj!!.javaClass).propertyDescriptors) {
+                val result = p.readMethod.invoke(obj) ?: continue
 
                 @Suppress("UNCHECKED_CAST")
                 bind(p.propertyType as Class<Any>)
