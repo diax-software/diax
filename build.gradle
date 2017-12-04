@@ -51,7 +51,8 @@ dependencies {
 
     //Helping stuff
     compile 'com.github.comportment:JDA-Command:master-SNAPSHOT'
-    compile 'ch.qos.logback:logback-classic:0.9.26'
+//    compile 'ch.qos.logback:logback-classic:0.9.26'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
     compile group: 'com.github.natanbc', name: 'discordbots-api', version: '1.2'
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.0'
     compile group: 'org.json', name: 'json', version: '20160810'
@@ -71,6 +72,11 @@ dependencies {
     //Advanced source of memes
     compile 'io.github.microutils:kotlin-logging:1.4.6'
     compile 'com.github.JDA-Applications:Kotlin-JDA:master-SNAPSHOT'
+
+    //Logging
+    compile 'org.jline:jline:3.5.1'
+    compile 'net.java.dev.jna:jna:4.5.0'
+    compile 'org.fusesource.jansi:jansi:1.16'
 }
 
 task wrapper(type: Wrapper) {

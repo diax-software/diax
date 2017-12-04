@@ -21,7 +21,7 @@ class Info
         val jda = message.jda
         val runtime = Runtime.getRuntime()
         val java = System.getProperty("java.runtime.version")
-        message.channel.sendMessage(Embed.transparent().setDescription(arrayOf(
+        message.channel.sendMessage(Embed.themed().setDescription(arrayOf(
             "```prolog",
             "----- Library Versions -----",
             "",

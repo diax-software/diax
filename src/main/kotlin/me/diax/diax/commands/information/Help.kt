@@ -23,7 +23,7 @@ class Help
 
     override fun execute(message: Message, s: String) {
         val guild = db[message.guild]
-
+        val embed = Embed.themed().setAuthor("Diax - Help", null, null)
         if (guild.settings.isCategories) {
             val map: SetMultimap<String, String> = MultimapBuilder.treeKeys(nullsFirst(Comparator.naturalOrder<String>())).linkedHashSetValues().build()
 
@@ -32,26 +32,22 @@ class Help
                 .sorted()
                 .forEach { map.put(it.category?.value, it.description.name) }
 
-            val embed = Embed.themed().setAuthor("Diax - Help", null, null)
-
             for (entry in map.asMap().entries) {
                 embed.addField("${if (entry.key != null) "${entry.key} " else ""}Commands:", "`${entry.value.toTypedArray().joinToString("` `")}`", false)
+                //embed.addField("${if (entry.key != null) "${entry.key} " else "Commands:", "`${entry.value.toTypedArray().joinToString("` `")}`", false)
             }
-
-            message.channel.sendMessage(embed.build()).queue()
         } else {
-            message.channel.sendMessage(
-                Embed.themed().setAuthor("Diax - Help", null, null)
+            embed
                     .setDescription(
                         handler.commands.stream()
                             .filter { !it.hasAttribute("hidden") }
+                            .filter { it.category?.value != "Developer" }
                             .sorted()
                             .map { it.description.name }
                             .collect(Collectors.joining("` `", "`", "`"))
-                    ).build()
-            ).queue()
-
+                    )
         }
+        message.channel.sendMessage(embed.build()).queue()
 
 
 //        message.channel.sendMessage(Embed.themed()

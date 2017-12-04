@@ -5,6 +5,7 @@ import me.diax.comportment.jdacommand.CommandAttribute
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.diax.util.Emote.SMILE
 import me.diax.diax.util.Emote.X
+import me.diax.diax.util.Embed
 import me.diax.diax.util.StringUtil
 import me.diax.diax.util.WebHookUtil
 import net.dv8tion.jda.core.entities.Message
@@ -20,14 +21,8 @@ import net.dv8tion.jda.core.entities.Message
 class Suggest : Command {
 
     override fun execute(message: Message, s: String) {
-        var error = ""
-        if (s.length < 20) {
-            error = "Please provide more information."
-        } else if (s.length > 500) {
-            error = "Please try and keep your suggestion to the point."
-        }
-        if (error.isNotBlank()) {
-            message.channel.sendMessage("$X - $error").queue()
+        if (s.isBlank()) {
+            message.channel.sendMessage(Embed.error("Please describe your suggestion!")).queue()
             return
         }
         WebHookUtil.suggest(message.jda, "```${StringUtil.stripMarkdown(s)}```\n*Suggested by ${StringUtil.stripMarkdown(message.author.name)}#${message.author.discriminator}*")
