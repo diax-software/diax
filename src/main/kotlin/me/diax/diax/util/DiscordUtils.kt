@@ -14,7 +14,6 @@ val Channel.mention: String
             ChannelType.TEXT -> (this as TextChannel).asMention
             ChannelType.PRIVATE -> (this as PrivateChannel).user.asMention + "'s DM"
             ChannelType.GROUP -> this.name
-            ChannelType.VOICE, ChannelType.UNKNOWN -> throw IllegalStateException("[JDA Error] What in the Name of fuck.")
             else -> throw IllegalStateException("[JDA Error] What in the Name of fuck.")
         }
     }
