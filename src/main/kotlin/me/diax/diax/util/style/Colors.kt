@@ -21,4 +21,5 @@ object Colors {
     val CANARY = Color(0xfaa61a)
     val RED = Color(0xf04747)
     val GREEN = Color(0x43b581)
+    val PURPLE = Color(0x593695)
 }
