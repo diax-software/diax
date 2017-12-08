@@ -21,6 +21,7 @@ class CommandListener(
     val handler: CommandHandler,
     val config: Config
 ) : ListenerAdapter() {
+
     companion object : KLogging()
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
@@ -59,10 +60,10 @@ class CommandListener(
 
     private fun process(event: MessageReceivedEvent, content: String) {
         val split = StringUtils.efficientSplitArgs(content, 2)
-        val cmd = split[0]
-        val args = split[1]
+        val cmd = split[0]!!
+        val args = split[1]!!
 
-        val command = handler.findCommand(cmd) ?: return
+        val command = handler.findCommand(cmd) ?: return processCustomCommand(event, cmd, args)
 
         if (command.hasAttribute("permission")) {
             val permission = CommandPermission.valueOf(command.getAttributeValueFromKey("permission").toUpperCase())
@@ -89,6 +90,10 @@ class CommandListener(
         }
 
         runCommand(command, event, args)
+    }
+
+    private fun processCustomCommand(event: MessageReceivedEvent, cmd: String, args: String) {
+
     }
 
     private fun runCommand(command: Command, event: MessageReceivedEvent, args: String) {
