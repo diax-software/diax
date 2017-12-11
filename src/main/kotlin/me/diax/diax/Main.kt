@@ -1,3 +1,4 @@
+@file:JvmName("Main")
 package me.diax.diax
 
 import com.google.inject.Injector

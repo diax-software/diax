@@ -34,7 +34,7 @@ class CommandListener(
     }
 
     private fun onCommand(event: MessageReceivedEvent) {
-        val raw = event.message.rawContent
+        val raw = event.message.contentRaw
 
         for (prefix in config.prefixes) {
             if (raw.startsWith(prefix)) {
@@ -93,7 +93,7 @@ class CommandListener(
     }
 
     private fun processCustomCommand(event: MessageReceivedEvent, cmd: String, args: String) {
-
+        // TODO: Implement
     }
 
     private fun runCommand(command: Command, event: MessageReceivedEvent, args: String) {
