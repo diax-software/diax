@@ -7,8 +7,8 @@ import me.diax.diax.util.Emote
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "skip",
-    triggers = ["skip"]
+        name = "skip",
+        triggers = ["skip"]
 )
 class Skip : Command {
 

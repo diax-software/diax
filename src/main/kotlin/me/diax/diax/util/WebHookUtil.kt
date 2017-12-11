@@ -25,7 +25,6 @@ object WebHookUtil : KLogging() {
             WebHookUtil.log(jda, Emote.X + " - Error!", message)
         } catch (ignored: Exception) {
         }
-
     }
 
     fun announce(jda: JDA, message: String) {

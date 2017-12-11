@@ -14,24 +14,24 @@ import java.beans.Introspector
 import java.lang.reflect.InvocationTargetException
 
 class DiaxInjections(
-    private val handler: CommandHandler,
-    private val manager: ConfigManager
+        private val handler: CommandHandler,
+        private val manager: ConfigManager
 ) : AbstractModule() {
 
     override fun configure() {
         val config = manager.config
 
         bind(ConfigManager::class.java)
-            .toInstance(manager)
+                .toInstance(manager)
 
         bind(ConnectionPool::class.java)
-            .toInstance(r.connectionPool(config.database.configure()))
+                .toInstance(r.connectionPool(config.database.configure()))
 
         bind(Config::class.java)
-            .toProvider(manager)
+                .toProvider(manager)
 
         bind(CommandHandler::class.java)
-            .toInstance(handler)
+                .toInstance(handler)
 
         mapConstants(config.tokens, "token")
         mapConstants(config.channels, "channel")
@@ -44,8 +44,8 @@ class DiaxInjections(
 
                 @Suppress("UNCHECKED_CAST")
                 bind(p.propertyType as Class<Any>)
-                    .annotatedWith(Names.named(prefix + "." + p.name))
-                    .toInstance(result)
+                        .annotatedWith(Names.named(prefix + "." + p.name))
+                        .toInstance(result)
             }
         } catch (e: IntrospectionException) {
             e.printStackTrace()

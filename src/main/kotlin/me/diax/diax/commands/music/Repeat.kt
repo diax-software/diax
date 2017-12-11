@@ -7,8 +7,8 @@ import me.diax.diax.util.Emote.MUSICAL_NOTE
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "repeat",
-    triggers = ["repeat"]
+        name = "repeat",
+        triggers = ["repeat"]
 )
 class Repeat : Command {
 

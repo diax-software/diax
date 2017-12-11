@@ -9,7 +9,7 @@ fun connect(): Connection = ConfigManager().load().database.configure().connect(
 
 fun main(args: Array<String>) {
     val map = mutableMapOf<String, () -> Unit>(
-        "setup" to ::setup
+            "setup" to ::setup
     )
 
     map.put("help") {
@@ -29,6 +29,6 @@ fun setup() {
     }
 
     r.table("commands")
-        .indexCreate("guild_name", { row -> r.array(row["guildId"], row["name"]) })
-        .run<Any>(conn)
+            .indexCreate("guild_name", { row -> r.array(row["guildId"], row["name"]) })
+            .run<Any>(conn)
 }

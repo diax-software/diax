@@ -6,11 +6,11 @@ import me.diax.comportment.jdacommand.CommandDescription
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "developer",
-    triggers = ["developer"],
-    attributes = [
-        CommandAttribute(key = "permission", value = "developer")
-    ]
+        name = "developer",
+        triggers = ["developer"],
+        attributes = [
+            CommandAttribute(key = "permission", value = "developer")
+        ]
 )
 class Developer : Command {
 

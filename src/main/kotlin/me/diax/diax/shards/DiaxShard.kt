@@ -11,15 +11,15 @@ class DiaxShard(shardId: Int, totalShards: Int) {
 
     init {
         threadPool = Executors.newCachedThreadPool(
-            ThreadFactoryBuilder()
-                .setNameFormat("Diax-Executor[$shardId/$totalShards] Thread-%d")
-                .build()
+                ThreadFactoryBuilder()
+                        .setNameFormat("Diax-Executor[$shardId/$totalShards] Thread-%d")
+                        .build()
         )
 
         commandPool = Executors.newCachedThreadPool(
-            ThreadFactoryBuilder()
-                .setNameFormat("Diax-Command[$shardId/$totalShards] Thread-%d")
-                .build()
+                ThreadFactoryBuilder()
+                        .setNameFormat("Diax-Command[$shardId/$totalShards] Thread-%d")
+                        .build()
         )
     }
 }

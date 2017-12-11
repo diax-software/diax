@@ -39,5 +39,5 @@ class Config {
     }
 
     override fun toString(): String =
-        "Config(prefixes=$prefixes, type=$type, tokens=$tokens, channels=$channels, database=$database, developers=$developers, donors=$donors, blacklist=$blacklist)"
+            "Config(prefixes=$prefixes, type=$type, tokens=$tokens, channels=$channels, database=$database, developers=$developers, donors=$donors, blacklist=$blacklist)"
 }

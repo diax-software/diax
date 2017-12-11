@@ -8,8 +8,8 @@ import me.diax.diax.util.style.Embed
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "nowplaying",
-    triggers = ["song", "current", "nowplaying", "np"]
+        name = "nowplaying",
+        triggers = ["song", "current", "nowplaying", "np"]
 )
 class NowPlaying : Command {
 

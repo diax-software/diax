@@ -14,8 +14,8 @@ import java.util.stream.Collectors
 import javax.inject.Inject
 
 @CommandDescription(
-    name = "hug",
-    triggers = ["hug"]
+        name = "hug",
+        triggers = ["hug"]
 )
 class Hug
 @Inject constructor(private val requester: WeebAPI) : Command {

@@ -27,7 +27,7 @@ class ConfigManager : Provider<Config> {
 
     fun save() {
         val contents = ObjectMappers.DEFAULT.writerWithDefaultPrettyPrinter()
-            .writeValueAsString(config)
+                .writeValueAsString(config)
         writeFile(path, contents)
     }
 

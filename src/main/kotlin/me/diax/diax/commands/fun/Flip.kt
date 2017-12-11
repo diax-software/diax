@@ -8,8 +8,8 @@ import net.dv8tion.jda.core.entities.Message
 import java.util.*
 
 @CommandDescription(
-    name = "flip",
-    triggers = ["flip", "coin", "heads", "toss", "tails", "hot"]
+        name = "flip",
+        triggers = ["flip", "coin", "heads", "toss", "tails", "hot"]
 )
 class Flip : Command {
     val results = arrayOf("$DIAXCOIN_HEADS - You flipped a heads.", "$DIAXCOIN_TAILS - You flipped a tails.")

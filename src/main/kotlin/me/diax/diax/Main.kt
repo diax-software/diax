@@ -57,31 +57,30 @@ fun main(args: Array<String>) {
 
     //Welcome to automation
     handler.registerCommands(
-        reflections.getSubTypesOf(Command::class.java)
-            .filter { !Modifier.isAbstract(it.modifiers) && it.isAnnotationPresent(CommandDescription::class.java) }
-            .map { injector[it] }
-            .toSet()
+            reflections.getSubTypesOf(Command::class.java)
+                    .filter { !Modifier.isAbstract(it.modifiers) && it.isAnnotationPresent(CommandDescription::class.java) }
+                    .map { injector[it] }
+                    .toSet()
     )
 
     val jda = JDABuilder(AccountType.BOT)
-        .setToken(manager.get().tokens.discord!!)
-        .setAudioEnabled(true)
-        .setGame(Game.playing("Diax is starting, hold tight!"))
-        .setStatus(OnlineStatus.IDLE)
-        .addEventListener(
-            GuildJoinLeaveListener(manager.get().tokens.botlist),
-            CommandListener(
-                DiaxShard(0, 0),
-                injector[ManagedDatabase::class.java],
-                handler,
-                manager.get()
-            )
-        ).buildBlocking()
+            .setToken(manager.get().tokens.discord!!)
+            .setAudioEnabled(true)
+            .setGame(Game.watching("myself start up!"))
+            .setStatus(OnlineStatus.IDLE)
+            .addEventListener(
+                    GuildJoinLeaveListener(manager.get().tokens.botlist),
+                    CommandListener(
+                            DiaxShard(0, 0),
+                            injector[ManagedDatabase::class.java],
+                            handler,
+                            manager.get()
+                    )
+            ).buildBlocking()
 
     DiscordLogBack.enable(jda.getTextChannelById(manager.get().channels.output))
 
     WebHookUtil.log(jda, Emote.SPARKLES + " Start", "Diax has finished starting!")
-
     JDAUtil.startGameChanging(jda, manager.get().prefixes[0])
     JDAUtil.sendGuilds(jda, manager.get().tokens.botlist)
 }

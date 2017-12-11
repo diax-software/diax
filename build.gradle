@@ -46,8 +46,8 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     // Main APIs
-    compile 'net.dv8tion:JDA:3.3.1_308'
-    compile 'com.sedmelluq:lavaplayer:1.2.44'
+    compile 'net.dv8tion:JDA:3.3.1_309'
+    compile 'com.sedmelluq:lavaplayer:1.2.45'
 
     //Helping stuff
     compile 'com.github.comportment:JDA-Command:master-SNAPSHOT'
@@ -115,7 +115,10 @@ distTar { classifier = "trash" }
 distTar.finalizedBy cleanDistTar
 
 task cleanDistZip(type: Delete) { delete files(distZip) }
-distZip { classifier = "trash" }
+distZip {
+    classifier =
+            "trash"
+}
 distZip.finalizedBy cleanDistZip
 
 task cleanDefJar(type: Delete) { delete files(jar) }

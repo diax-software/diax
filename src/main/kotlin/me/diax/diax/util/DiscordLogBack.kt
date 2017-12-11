@@ -47,7 +47,6 @@ class DiscordLogBack : AppenderBase<ILoggingEvent>() {
                 }
             }
         }
-
         thread!!.start()
     }
 
@@ -60,7 +59,7 @@ class DiscordLogBack : AppenderBase<ILoggingEvent>() {
     }
 
     override fun start() {
-        if (instance != null && instance !== this) {
+        if (instance != null && instance != this) {
             return
         }
 

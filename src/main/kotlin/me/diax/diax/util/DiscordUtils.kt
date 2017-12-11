@@ -20,15 +20,15 @@ val Channel.mention: String
 
 fun String.usersMentioned(jda: JDA): List<User> {
     return CollectionUtils
-        .iterable(userMention, this)
-        .mapNotNull {
-            try {
-                jda.getUserById(it.substring(if (it.startsWith("<@!")) 3 else 2, it.length - 1))
-            } catch (_: Exception) {
-                null
+            .iterable(userMention, this)
+            .mapNotNull {
+                try {
+                    jda.getUserById(it.substring(if (it.startsWith("<@!")) 3 else 2, it.length - 1))
+                } catch (_: Exception) {
+                    null
+                }
             }
-        }
-        .toList()
+            .toList()
 }
 
 fun User.game(): Game? {

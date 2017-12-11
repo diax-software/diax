@@ -7,8 +7,8 @@ import me.diax.diax.util.Emote.MUSICAL_NOTE
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "stop",
-    triggers = ["stop"]
+        name = "stop",
+        triggers = ["stop"]
 )
 class Stop : Command {
 

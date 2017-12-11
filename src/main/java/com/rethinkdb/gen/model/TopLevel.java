@@ -1869,7 +1869,7 @@ public class TopLevel {
 
     public ReqlExpr row(Object... values) {
         throw new ReqlDriverError("r.row is not implemented in the Java driver." +
-            " Use lambda syntax instead");
+                " Use lambda syntax instead");
     }
 
     public Saturday saturday() {

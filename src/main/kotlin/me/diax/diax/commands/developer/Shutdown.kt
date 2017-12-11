@@ -10,12 +10,12 @@ import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
 @CommandDescription(
-    name = "shutdown",
-    triggers = ["shutdown"],
-    attributes = [
+        name = "shutdown",
+        triggers = ["shutdown"],
+        attributes = [
 
-        CommandAttribute(key = "permission", value = "developer")
-    ]
+            CommandAttribute(key = "permission", value = "developer")
+        ]
 )
 class Shutdown
 @Inject constructor(private val configManager: ConfigManager) : Command {

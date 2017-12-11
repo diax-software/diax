@@ -16,10 +16,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
 class CommandListener(
-    val shard: DiaxShard,
-    val db: ManagedDatabase,
-    val handler: CommandHandler,
-    val config: Config
+        val shard: DiaxShard,
+        val db: ManagedDatabase,
+        val handler: CommandHandler,
+        val config: Config
 ) : ListenerAdapter() {
 
     companion object : KLogging()

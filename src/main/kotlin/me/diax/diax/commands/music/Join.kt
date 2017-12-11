@@ -8,8 +8,8 @@ import net.dv8tion.jda.core.entities.Message
 import net.dv8tion.jda.core.exceptions.PermissionException
 
 @CommandDescription(
-    name = "join",
-    triggers = ["join"]
+        name = "join",
+        triggers = ["join"]
 )
 class Join : Command {
 

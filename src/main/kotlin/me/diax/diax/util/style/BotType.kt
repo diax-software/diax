@@ -7,7 +7,6 @@ enum class BotType constructor(val mainColor: Color) {
     PATREON(Colors.CANARY),
     DEV(Colors.DARK);
 
-
     companion object {
         var CURRENT_TYPE = STABLE
     }
