@@ -6,6 +6,7 @@ import me.diax.diax.commands.`fun`.helper.DiceEvaluator
 import me.diax.diax.util.Emote
 import net.dv8tion.jda.core.entities.Message
 import java.util.*
+import kotlin.math.roundToLong
 
 @CommandDescription(
     name = "die",
@@ -22,7 +23,7 @@ class Die : Command {
         }
 
         try {
-            message.channel.sendMessage(Emote.GAME_DIE + " - You rolled a `" + DiceEvaluator(s).parse() + "`").queue()
+            message.channel.sendMessage(Emote.GAME_DIE + " - You rolled a `" + DiceEvaluator(s).parse().toPrettyString() + "`").queue()
         } catch (_: Exception) {
             message.channel.sendMessage(Emote.X + " - Invalid dice roll!\nExamples: \n```" +
                 "Examples:\n" +
@@ -33,4 +34,6 @@ class Die : Command {
             ).queue()
         }
     }
+
+    private fun Double.toPrettyString(): String = if (this % 1 == 0.0) roundToLong().toString() else this.toString()
 }

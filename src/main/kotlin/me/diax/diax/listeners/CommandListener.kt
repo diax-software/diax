@@ -59,7 +59,7 @@ class CommandListener(
     }
 
     private fun process(event: MessageReceivedEvent, content: String) {
-        val split = StringUtils.efficientSplitArgs(content, 2)
+        val split = StringUtils.splitArgs(content, 2)
         val cmd = split[0]!!
         val args = split[1]!!
 

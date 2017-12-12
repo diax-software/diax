@@ -50,7 +50,7 @@ public class DiceEvaluator {
 
         if (DICE.matcher(key).matches()) {
             String[] parts = key.split("d");
-            int amount = Integer.parseInt(parts[0]);
+            int amount = parts[0] == null || parts[0].isEmpty() ? 1 : Integer.parseInt(parts[0]);
             int size = Integer.parseInt(parts[1]);
 
             return IntStream.range(0, amount)
