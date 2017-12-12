@@ -26,11 +26,11 @@ import net.dv8tion.jda.core.entities.Game
 import org.reflections.Reflections
 import java.lang.reflect.Modifier
 
-private class Main : KLogging() {
+private object Main : KLogging() {
 
     val log = this.logger
 
-    fun main(args: Array<String>) {
+    @JvmStatic fun main(args: Array<String>) {
         TerminalConsoleAdaptor.initializeTerminal()
 
         log.info("Starting Diax...")
@@ -86,6 +86,7 @@ private class Main : KLogging() {
         JDAUtil.startGameChanging(jda, manager.get().prefixes[0])
         JDAUtil.sendGuilds(jda, manager.get().tokens.botlist)
     }
+
 
     operator fun <T> Injector.get(clazz: Class<T>): T {
         return getInstance(clazz)
