@@ -97,6 +97,7 @@ class CommandListener(
     }
 
     private fun runCommand(command: Command, event: MessageReceivedEvent, args: String) {
+        WebHookUtil.log(event.jda, Emote.SPARKLES + " - Command Run", "${event.author} - ${event.guild} | ${command.description.name} - $args")
         try {
             command.execute(event.message, args)
         } catch (e: Exception) {
@@ -106,7 +107,7 @@ class CommandListener(
             }
 
             e.printStackTrace()
-            WebHookUtil.log(event.jda, Emote.X + " An exception occurred.", "An uncaught exception occurred when trying to run: ```" + (command.description.name + " | " + event.guild + " | " + event.channel).replace("`", "\\`") + "```")
+            WebHookUtil.err(event.jda, "An uncaught exception occurred when trying to run: ```" + (command.description.name + " | " + event.guild + " | " + event.channel).replace("`", "\\`") + "```")
         }
 
     }
