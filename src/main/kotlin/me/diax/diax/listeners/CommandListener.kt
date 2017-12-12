@@ -97,12 +97,12 @@ class CommandListener(
     }
 
     private fun runCommand(command: Command, event: MessageReceivedEvent, args: String) {
-        WebHookUtil.log(event.jda, Emote.SPARKLES + " - Command Run", "${event.author} - ${event.guild} | ${command.description.name} - $args")
+        WebHookUtil.log(event.jda,  "${Emote.SPARKLES} - Command Run", "${event.author} - ${event.guild} | ${command.description.name} - $args")
         try {
             command.execute(event.message, args)
         } catch (e: Exception) {
             try {
-                event.channel.sendMessage(Emote.X + " - Something went wrong that we didn't know about ;-;\nJoin here for help: https://discord.gg/PedN8U").queue()
+                event.channel.sendMessage("${Emote.X} - Something went wrong that we didn't know about ;-;\nJoin here for help: https://discord.gg/PedN8U").queue()
             } catch (_: Exception) {
             }
 
