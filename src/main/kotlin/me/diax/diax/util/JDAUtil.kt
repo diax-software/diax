@@ -43,7 +43,7 @@ object JDAUtil {
         if (botToken == null || botToken.isEmpty()) return
         if (API == null) API = DiscordBotsAPI(botToken)
         try {
-            API!!.postStats(1, 0, jda.guilds.size)
+            API!!.postStats(0, 1, jda.guilds.size)
         } catch (e: Exception) {
             WebHookUtil.err(jda, "Couldn't update bot list stats.")
             e.printStackTrace()
