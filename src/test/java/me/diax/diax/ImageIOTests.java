@@ -3,10 +3,7 @@ package me.diax.diax;
 import me.diax.diax.util.style.Colors;
 
 import javax.imageio.ImageIO;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,8 +18,8 @@ public class ImageIOTests {
     static {
         try {
             WHITNEY = Font.createFont(
-                Font.TRUETYPE_FONT,
-                ImageIOTests.class.getClassLoader().getResourceAsStream("whitney.ttf")
+                    Font.TRUETYPE_FONT,
+                    ImageIOTests.class.getClassLoader().getResourceAsStream("whitney.ttf")
             ).deriveFont(Font.PLAIN, 32);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
@@ -57,9 +54,9 @@ public class ImageIOTests {
 
         img.setColor(header);
         img.fillPolygon(
-            new int[]{100, 50, 50, lW, lW},
-            new int[]{50, 100, 150, 150, 50},
-            5
+                new int[]{100, 50, 50, lW, lW},
+                new int[]{50, 100, 150, 150, 50},
+                5
         );
 
         if (decorate) {
@@ -73,9 +70,9 @@ public class ImageIOTests {
                     int x = sW + (step * i1) + 1;
                     int y = sH + (step * i2) + 1;
                     img.fillPolygon(
-                        new int[]{x, x + size, x},
-                        new int[]{y, y + size, y + size},
-                        3
+                            new int[]{x, x + size, x},
+                            new int[]{y, y + size, y + size},
+                            3
                     );
                 }
             }

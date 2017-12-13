@@ -10,7 +10,7 @@ fun connect(): Connection = ConfigManager().load().database.configure().connect(
 fun main(args: Array<String>) {
     //Holds possible Migration tools
     val map = mutableMapOf<String, () -> Unit>(
-        "setup" to ::setup
+            "setup" to ::setup
     )
 
     map.put("help") {
@@ -30,10 +30,10 @@ fun setup() {
     }
 
     r.table("commands")
-        .indexCreate("guildId")
+            .indexCreate("guildId")
         .run<Any>(conn)
 
     r.table("commands")
         .indexCreate("guild_name") { row -> r.array(row["guildId"], row["name"]) }
-        .run<Any>(conn)
+            .run<Any>(conn)
 }

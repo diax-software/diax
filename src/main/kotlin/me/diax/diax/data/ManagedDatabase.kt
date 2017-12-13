@@ -59,10 +59,13 @@ class ManagedDatabase
     fun getCustomCommand(id: String): CustomCommand? = r.table("commands").get(id).run(pool, CustomCommand::class.java, Function { null })
 
     fun getCustomCommand(guildId: String, name: String): CustomCommand? {
-        val cursor: Cursor<CustomCommand>? = r.table("commands")
-            .getAll(r.array(guildId, name))
-            .onIndex("guild_name")
-            .run(pool, CustomCommand::class.java, Function { null })
+        val cursor :Cursor<CustomCommand>? =
+            r.table("commands")
+                .getAll(r.array(guildId, name))
+                .onIndex("guild_name")
+            .run(pool,CustomCommand::class.java,
+           Function { null }
+        )
 
         return cursor?.use {
             if (cursor.hasNext()) null else cursor.next()

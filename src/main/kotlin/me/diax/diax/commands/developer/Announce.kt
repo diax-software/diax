@@ -7,11 +7,11 @@ import me.diax.diax.util.WebHookUtil
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "announce",
-    triggers = ["announce"],
-    attributes = [
-        CommandAttribute(key = "permission", value = "developer")
-    ]
+        name = "announce",
+        triggers = ["announce"],
+        attributes = [
+            CommandAttribute(key = "permission", value = "developer")
+        ]
 )
 class Announce : Command {
     override fun execute(message: Message, s: String) {

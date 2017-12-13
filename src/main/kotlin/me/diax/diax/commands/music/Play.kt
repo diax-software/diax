@@ -15,9 +15,9 @@ import me.diax.diax.util.StringUtil
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "play",
-    triggers = ["play"],
-    description = "{url/query}"
+        name = "play",
+        triggers = ["play"],
+        description = "{url/query}"
 )
 class Play : Command {
 

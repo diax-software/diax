@@ -10,11 +10,11 @@ import javax.script.ScriptEngineManager
 
 
 @CommandDescription(
-    name = "eval",
-    triggers = ["eval", "hack"],
-    attributes = [
-        CommandAttribute(key = "permission", value = "developer")
-    ]
+        name = "eval",
+        triggers = ["eval", "hack"],
+        attributes = [
+            CommandAttribute(key = "permission", value = "developer")
+        ]
 )
 class Eval : Command {
 

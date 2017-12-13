@@ -8,5 +8,5 @@ class Channels {
     var output: String? = null
 
     override fun toString(): String =
-        "Channels(bugs=$bugs, logging=$logging, suggestions=$suggestions, announcements=$announcements, output=$output)"
+            "Channels(bugs=$bugs, logging=$logging, suggestions=$suggestions, announcements=$announcements, output=$output)"
 }

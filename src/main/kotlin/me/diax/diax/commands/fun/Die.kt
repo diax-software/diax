@@ -9,9 +9,9 @@ import java.util.*
 import kotlin.math.roundToLong
 
 @CommandDescription(
-    name = "die",
-    triggers = ["die", "dice", "roll"],
-    description = "{number/dice notation}"
+        name = "die",
+        triggers = ["die", "dice", "roll"],
+        description = "{number/dice notation}"
 )
 class Die : Command {
     private val random: Random = Random()
@@ -26,11 +26,11 @@ class Die : Command {
             message.channel.sendMessage(Emote.GAME_DIE + " - You rolled a `" + DiceEvaluator(s).parse().toPrettyString() + "`").queue()
         } catch (_: Exception) {
             message.channel.sendMessage(Emote.X + " - Invalid dice roll!\nExamples: \n```" +
-                "Examples:\n" +
-                "<>roll 1\n" +
-                "<>roll 2d10\n" +
-                "<>roll 1d4+20\n" +
-                "<>roll 1d5-2```"
+                    "Examples:\n" +
+                    "<>roll 1\n" +
+                    "<>roll 2d10\n" +
+                    "<>roll 1d4+20\n" +
+                    "<>roll 1d5-2```"
             ).queue()
         }
     }

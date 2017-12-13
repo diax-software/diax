@@ -16,10 +16,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
 class CommandListener(
-    val shard: DiaxShard,
-    val db: ManagedDatabase,
-    val handler: CommandHandler,
-    val config: Config
+        val shard: DiaxShard,
+        val db: ManagedDatabase,
+        val handler: CommandHandler,
+        val config: Config
 ) : ListenerAdapter() {
 
     companion object : KLogging()
@@ -34,7 +34,7 @@ class CommandListener(
     }
 
     private fun onCommand(event: MessageReceivedEvent) {
-        val raw = event.message.rawContent
+        val raw = event.message.contentRaw
 
         for (prefix in config.prefixes) {
             if (raw.startsWith(prefix)) {
@@ -93,20 +93,21 @@ class CommandListener(
     }
 
     private fun processCustomCommand(event: MessageReceivedEvent, cmd: String, args: String) {
-
+        // TODO: Implement
     }
 
     private fun runCommand(command: Command, event: MessageReceivedEvent, args: String) {
+        WebHookUtil.log(event.jda,  "${Emote.SPARKLES} - Command Run", "${event.author} - ${event.guild} | ${command.description.name} - $args")
         try {
             command.execute(event.message, args)
         } catch (e: Exception) {
             try {
-                event.channel.sendMessage(Emote.X + " - Something went wrong that we didn't know about ;-;\nJoin here for help: https://discord.gg/PedN8U").queue()
+                event.channel.sendMessage("${Emote.X} - Something went wrong that we didn't know about ;-;\nJoin here for help: https://discord.gg/PedN8U").queue()
             } catch (_: Exception) {
             }
 
             e.printStackTrace()
-            WebHookUtil.log(event.jda, Emote.X + " An exception occurred.", "An uncaught exception occurred when trying to run: ```" + (command.description.name + " | " + event.guild + " | " + event.channel).replace("`", "\\`") + "```")
+            WebHookUtil.err(event.jda, "An uncaught exception occurred when trying to run: ```" + (command.description.name + " | " + event.guild + " | " + event.channel).replace("`", "\\`") + "```")
         }
 
     }

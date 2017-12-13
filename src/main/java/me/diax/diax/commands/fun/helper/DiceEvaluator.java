@@ -54,8 +54,8 @@ public class DiceEvaluator {
             int size = Integer.parseInt(parts[1]);
 
             return IntStream.range(0, amount)
-                .mapToLong(operand -> random.nextInt(size) + 1)
-                .sum();
+                    .mapToLong(operand -> random.nextInt(size) + 1)
+                    .sum();
         }
 
         throw new RuntimeException("Unknown constant: " + key);

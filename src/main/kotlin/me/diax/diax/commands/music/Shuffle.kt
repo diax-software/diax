@@ -8,8 +8,8 @@ import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "shuffle",
-    triggers = ["shuffle"]
+        name = "shuffle",
+        triggers = ["shuffle"]
 )
 class Shuffle : Command {
 

@@ -20,8 +20,8 @@ object StringUtil {
                 sb.append("&")
             }
             sb.append(String.format("%s=%s",
-                urlEncodeUTF8(key.toString()),
-                urlEncodeUTF8(value.toString())
+                    urlEncodeUTF8(key.toString()),
+                    urlEncodeUTF8(value.toString())
             ))
         }
         return sb.toString()

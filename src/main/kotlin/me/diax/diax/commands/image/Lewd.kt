@@ -10,8 +10,8 @@ import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
 @CommandDescription(
-    name = "lewd",
-    triggers = ["lewd"]
+        name = "lewd",
+        triggers = ["lewd"]
 )
 class Lewd
 @Inject constructor(private val requester: WeebAPI) : Command {

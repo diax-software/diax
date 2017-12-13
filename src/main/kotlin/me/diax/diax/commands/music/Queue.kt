@@ -10,8 +10,8 @@ import java.util.*
 import java.util.stream.Collectors
 
 @CommandDescription(
-    name = "queue",
-    triggers = ["queue"]
+        name = "queue",
+        triggers = ["queue"]
 )
 class Queue : Command {
 

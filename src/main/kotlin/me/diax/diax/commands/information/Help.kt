@@ -12,13 +12,13 @@ import java.util.stream.Collectors
 import javax.inject.Inject
 
 @CommandDescription(
-    name = "help",
-    triggers = ["help", "commands"]
+        name = "help",
+        triggers = ["help", "commands"]
 )
 class Help
 @Inject constructor(
-    private val handler: CommandHandler,
-    private val db: ManagedDatabase
+        private val handler: CommandHandler,
+        private val db: ManagedDatabase
 ) : Command {
 
     override fun execute(message: Message, s: String) {
@@ -28,9 +28,9 @@ class Help
             val map: SetMultimap<String, String> = MultimapBuilder.treeKeys(nullsFirst(Comparator.naturalOrder<String>())).linkedHashSetValues().build()
 
             handler.commands.stream()
-                .filter { !it.hasAttribute("hidden") }
-                .sorted()
-                .forEach { map.put(it.category?.value, it.description.name) }
+                    .filter { !it.hasAttribute("hidden") }
+                    .sorted()
+                    .forEach { map.put(it.category?.value, it.description.name) }
 
             for (entry in map.asMap().entries) {
                 embed.addField("${if (entry.key != null) "${entry.key} " else ""}Commands:", "`${entry.value.toTypedArray().joinToString("` `")}`", false)
@@ -39,12 +39,12 @@ class Help
         } else {
             embed
                     .setDescription(
-                        handler.commands.stream()
-                            .filter { !it.hasAttribute("hidden") }
-                            .filter { it.category?.value != "Developer" }
-                            .sorted()
-                            .map { it.description.name }
-                            .collect(Collectors.joining("` `", "`", "`"))
+                            handler.commands.stream()
+                                    .filter { !it.hasAttribute("hidden") }
+                                    .filter { it.category?.value != "Developer" }
+                                    .sorted()
+                                    .map { it.description.name }
+                                    .collect(Collectors.joining("` `", "`", "`"))
                     )
         }
         message.channel.sendMessage(embed.build()).queue()
