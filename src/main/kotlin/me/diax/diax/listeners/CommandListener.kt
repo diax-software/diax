@@ -60,7 +60,7 @@ class CommandListener(
 
     private fun process(event: MessageReceivedEvent, content: String) {
         val split = StringUtils.splitArgs(content, 2)
-        val cmd = split[0]!!
+        val cmd = split[0]!!.toLowerCase()
         val args = split[1]!!
 
         val command = handler.findCommand(cmd) ?: return processCustomCommand(event, cmd, args)
