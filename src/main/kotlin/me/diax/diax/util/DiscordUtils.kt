@@ -9,13 +9,11 @@ import java.util.regex.Pattern
 private val userMention = Pattern.compile("<@!?\\d+>")
 
 val Channel.mention: String
-    get() {
-        return when (this.type) {
-            ChannelType.TEXT -> (this as TextChannel).asMention
-            ChannelType.PRIVATE -> (this as PrivateChannel).user.asMention + "'s DM"
-            ChannelType.GROUP -> this.name
-            else -> throw IllegalStateException("[JDA Error] What in the Name of fuck.")
-        }
+    get() = when (this.type) {
+        ChannelType.TEXT -> (this as TextChannel).asMention
+        ChannelType.PRIVATE -> (this as PrivateChannel).user.asMention + "'s DM"
+        ChannelType.GROUP -> this.name
+        else -> throw IllegalStateException("[JDA Error] What in the Name of fuck.")
     }
 
 fun String.usersMentioned(jda: JDA): List<User> {

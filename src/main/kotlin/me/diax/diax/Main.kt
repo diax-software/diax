@@ -3,6 +3,7 @@
 package me.diax.diax
 
 import com.google.inject.Injector
+import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory
 import me.diax.comportment.jdacommand.Command
 import me.diax.comportment.jdacommand.CommandDescription
 import me.diax.comportment.jdacommand.CommandHandler
@@ -30,7 +31,8 @@ private object Main : KLogging() {
 
     val log = this.logger
 
-    @JvmStatic fun main(args: Array<String>) {
+    @JvmStatic
+    fun main(args: Array<String>) {
         TerminalConsoleAdaptor.initializeTerminal()
 
         log.info("Starting Diax...")
@@ -59,26 +61,27 @@ private object Main : KLogging() {
 
         //Welcome to automation
         handler.registerCommands(
-                reflections.getSubTypesOf(Command::class.java)
-                        .filter { !Modifier.isAbstract(it.modifiers) && it.isAnnotationPresent(CommandDescription::class.java) }
-                        .map { injector[it] }
-                        .toSet()
+            reflections.getSubTypesOf(Command::class.java)
+                .filter { !Modifier.isAbstract(it.modifiers) && it.isAnnotationPresent(CommandDescription::class.java) }
+                .map { injector[it] }
+                .toSet()
         )
 
         val jda = JDABuilder(AccountType.BOT)
-                .setToken(manager.get().tokens.discord!!)
-                .setAudioEnabled(true)
-                .setGame(Game.watching("myself start up!"))
-                .setStatus(OnlineStatus.IDLE)
-                .addEventListener(
-                        GuildJoinLeaveListener(manager.get().tokens.botlist),
-                        CommandListener(
-                                DiaxShard(0, 0),
-                                injector[ManagedDatabase::class.java],
-                                handler,
-                                manager.get()
-                        )
-                ).buildBlocking()
+            .setToken(manager.get().tokens.discord!!)
+            .setAudioEnabled(true)
+            .setAudioSendFactory(NativeAudioSendFactory())
+            .setGame(Game.watching("myself start up!"))
+            .setStatus(OnlineStatus.IDLE)
+            .addEventListener(
+                GuildJoinLeaveListener(manager.get().tokens.botlist),
+                CommandListener(
+                    DiaxShard(0, 0),
+                    injector[ManagedDatabase::class.java],
+                    handler,
+                    manager.get()
+                )
+            ).buildBlocking()
 
         DiscordLogBack.enable(jda.getTextChannelById(manager.get().channels.output))
 
@@ -86,7 +89,6 @@ private object Main : KLogging() {
         JDAUtil.startGameChanging(jda, manager.get().prefixes[0])
         JDAUtil.sendGuilds(jda, manager.get().tokens.botlist)
     }
-
 
     operator fun <T> Injector.get(clazz: Class<T>): T {
         return getInstance(clazz)
