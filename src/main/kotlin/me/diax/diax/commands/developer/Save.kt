@@ -10,12 +10,12 @@ import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
 @CommandDescription(
-    name = "save",
-    triggers = ["save"],
-    attributes = [
+        name = "save",
+        triggers = ["save"],
+        attributes = [
 
-        CommandAttribute(key = "permission", value = "developer")
-    ]
+            CommandAttribute(key = "permission", value = "developer")
+        ]
 )
 class Save
 @Inject constructor(private val configManager: ConfigManager) : Command {

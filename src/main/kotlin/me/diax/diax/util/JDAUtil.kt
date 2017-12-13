@@ -13,10 +13,17 @@ object JDAUtil {
     private var API: DiscordBotsAPI? = null
 
     private fun getStatus(jda: JDA): String {
-        val status = arrayOf("Guilds: (guilds) | Users: (users)", "Invite: https://discord.gg/5sJZa2y", "Donate: https://patreon.com/comportment")
+        val status = arrayOf(
+                "with (users) friends!",
+                "in (guilds) servers!",
+                "with fire!",
+                "Merry Christmas!",
+                "https://diax.me",
+                "https://discord.gg/5sJZa2y",
+                "https://patreon.com/comportment")
         return "help | " + status[Random().nextInt(status.size)]
-            .replace("\\(guilds\\)".toRegex(), jda.guilds.size.toString() + "")
-            .replace("\\(users\\)".toRegex(), jda.users.size.toString() + "")
+                .replace("\\(guilds\\)".toRegex(), jda.guilds.size.toString() + "")
+                .replace("\\(users\\)".toRegex(), jda.users.size.toString() + "")
     }
 
     fun startGameChanging(jda: JDA, prefix: String) {
@@ -36,10 +43,10 @@ object JDAUtil {
         if (botToken == null || botToken.isEmpty()) return
         if (API == null) API = DiscordBotsAPI(botToken)
         try {
-            API!!.postStats(1, 0, jda.guilds.size)
+            API!!.postStats(0, 1, jda.guilds.size)
         } catch (e: Exception) {
             WebHookUtil.err(jda, "Couldn't update bot list stats.")
+            e.printStackTrace()
         }
-
     }
 }

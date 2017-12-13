@@ -9,12 +9,12 @@ import me.diax.diax.util.Emote.X
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "volume",
-    triggers = ["volume", "vol"],
-    description = "{0-150}",
-    attributes = [
-        CommandAttribute(key = "patreon")
-    ]
+        name = "volume",
+        triggers = ["volume", "vol"],
+        description = "{0-150}",
+        attributes = [
+            CommandAttribute(key = "patreon")
+        ]
 )
 class Volume : Command {
 

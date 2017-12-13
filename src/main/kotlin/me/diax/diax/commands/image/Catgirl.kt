@@ -11,8 +11,8 @@ import okhttp3.Request
 import org.json.JSONObject
 
 @CommandDescription(
-    name = "catgirl",
-    triggers = ["catgirl", "neko", "nya"]
+        name = "catgirl",
+        triggers = ["catgirl", "neko", "nya"]
 )
 class Catgirl : Command {
 

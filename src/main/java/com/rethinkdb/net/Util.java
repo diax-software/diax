@@ -32,7 +32,7 @@ public class Util {
         if (value instanceof Map) return (T) toPojo(pojoClass.get(), (Map) value);
 
         if (value instanceof List) return (T) ((List<Object>) value).stream()
-            .map(o -> convertToPojo(o, pojoClass)).collect(Collectors.toList());
+                .map(o -> convertToPojo(o, pojoClass)).collect(Collectors.toList());
 
         return (T) value;
     }
@@ -51,7 +51,7 @@ public class Util {
         // it easier to turn into a string later.
         byte[] underlying = new byte[capacity];
         return ByteBuffer.wrap(underlying)
-            .order(ByteOrder.LITTLE_ENDIAN);
+                .order(ByteOrder.LITTLE_ENDIAN);
     }
 
     public static JSONObject toJSON(String str) {
@@ -60,7 +60,7 @@ public class Util {
 
     public static JSONObject toJSON(ByteBuffer buf) {
         InputStreamReader codepointReader =
-            new InputStreamReader(new ByteArrayInputStream(buf.array()));
+                new InputStreamReader(new ByteArrayInputStream(buf.array()));
         return (JSONObject) JSONValue.parse(codepointReader);
     }
 

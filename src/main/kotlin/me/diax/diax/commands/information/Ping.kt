@@ -22,8 +22,8 @@ import net.dv8tion.jda.core.entities.Message
 import java.util.*
 
 @CommandDescription(
-    name = "ping",
-    triggers = ["ping", "pang", "peng", "pong", "pung"]
+        name = "ping",
+        triggers = ["ping", "pang", "peng", "pong", "pung"]
 )
 class Ping : Command {
 

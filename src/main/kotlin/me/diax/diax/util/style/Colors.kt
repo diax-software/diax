@@ -22,4 +22,9 @@ object Colors {
     val RED = Color(0xf04747)
     val GREEN = Color(0x43b581)
     val PURPLE = Color(0x593695)
+
+    /**
+     * Developer colors
+     */
+    val COMP = Color(0x00ffee)
 }

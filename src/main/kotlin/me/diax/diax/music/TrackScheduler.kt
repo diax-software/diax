@@ -18,8 +18,8 @@ import java.util.concurrent.BlockingDeque
 import java.util.concurrent.LinkedBlockingDeque
 
 class TrackScheduler(// The manager associated with this Scheduler
-    private val manager: GuildMusicManager, // Last channel used.
-    private var channel: TextChannel?) : AudioEventAdapter() {
+        private val manager: GuildMusicManager, // Last channel used.
+        private var channel: TextChannel?) : AudioEventAdapter() {
 
     // The queue
     val queue: BlockingDeque<MusicTrack>

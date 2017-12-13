@@ -13,8 +13,8 @@ import java.util.stream.Collectors
 import javax.inject.Inject
 
 @CommandDescription(
-    name = "kiss",
-    triggers = ["kiss"]
+        name = "kiss",
+        triggers = ["kiss"]
 )
 class Kiss
 @Inject constructor(private val requester: WeebAPI) : Command {

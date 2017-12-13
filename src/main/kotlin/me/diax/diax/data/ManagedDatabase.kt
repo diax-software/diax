@@ -52,11 +52,11 @@ class ManagedDatabase
 
     fun getCustomCommand(guildId: String, name: String): CustomCommand? {
         val cursor = pool.run<Cursor<CustomCommand>>(
-            r.table("commands")
-                .getAll(r.array(guildId, name))
-                .index("guild_name"),
-            CustomCommand::class.java,
-            { null }
+                r.table("commands")
+                        .getAll(r.array(guildId, name))
+                        .index("guild_name"),
+                CustomCommand::class.java,
+                { null }
         )
 
         return cursor.use {

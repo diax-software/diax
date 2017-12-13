@@ -10,11 +10,11 @@ import net.dv8tion.jda.core.entities.Message
 import javax.inject.Inject
 
 @CommandDescription(
-    name = "reload",
-    triggers = ["reload"],
-    attributes = [
-        CommandAttribute(key = "permission", value = "developer")
-    ]
+        name = "reload",
+        triggers = ["reload"],
+        attributes = [
+            CommandAttribute(key = "permission", value = "developer")
+        ]
 )
 class Reload
 @Inject constructor(private val configManager: ConfigManager) : Command {

@@ -9,9 +9,9 @@ import me.diax.diax.util.style.Embed
 import net.dv8tion.jda.core.entities.Message
 
 @CommandDescription(
-    name = "report",
-    description = "[description]",
-    triggers = ["report"]
+        name = "report",
+        description = "[description]",
+        triggers = ["report"]
 )
 class Report : Command {
 

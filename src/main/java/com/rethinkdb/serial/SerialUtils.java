@@ -20,8 +20,8 @@ public class SerialUtils {
     public synchronized static ObjectMapper getMapper() {
         if (mapper == null) {
             SimpleModule m = new SimpleModule(
-                "RethinkDB ObjectMapper Module",
-                new Version(1, 0, 0, null, null, null)
+                    "RethinkDB ObjectMapper Module",
+                    new Version(1, 0, 0, null, null, null)
             );
 
             final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
