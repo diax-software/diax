@@ -69,7 +69,7 @@ class CommandListener(
             val permission = CommandPermission.valueOf(command.getAttributeValueFromKey("permission").toUpperCase())
 
             if (!if (event.member == null) permission.test(this, event.author) else permission.test(this, event.author)) {
-                event.channel.sendMessage("${STOP} You have no permissions to trigger this command :(").queue()
+                event.channel.sendMessage("$STOP You have no permissions to trigger this command :(").queue()
                 return
             }
         }
